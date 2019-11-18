@@ -1,0 +1,671 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 1:12:25 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYEMACKES2816"
+  DTS:CreatorName="AVONNA\MackeS"
+  DTS:Description="AvonPub - Prepare Line Number Table For Loading"
+  DTS:DTSID="{D9598BA1-8A8F-4A05-9B7E-5662107C04B0}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="LineUpdPrep"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{844EBD07-52B4-4DC8-8467-2114441A11F2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-LineUpdPrep-{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADTAhJb/AMRWFDyMR06I1+yAAAAAASAAACgAAAAEAAAAEWbD/OkBlELXxTvd4aVlAMQAAAAFToSsZLPKssNC1toxaQSvBQAAACoqmwCtAg6xliPa9p1ru8gZ3TmkA</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_LINEUPDPREP_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{C89692D4-E545-44B0-A155-86BEFC2BF362}"
+      DTS:ObjectName="SSIS_LINEUPDPREP_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLScripts] + "SSIS_LINEUPDPREP_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_LINEUPDPREP_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_LINEUPDPREP_Log.xml"
+      DTS:CreationName="DTS.LogProviderXMLFile.3"
+      DTS:Description="Writes log entries for events to an XML file"
+      DTS:DTSID="{799F9B1C-B538-4BA8-B4C7-40599B739281}"
+      DTS:ObjectName="SSIS log provider for XML files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables />
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">4,7,OnError,19,OnExecStatusChanged,10,OnProgress,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{799F9B1C-B538-4BA8-B4C7-40599B739281}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Drop Line Number Table Indexes"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Line Number Table Indexes"
+      DTS:DTSID="{87997F29-9133-4EBB-AA3D-2D5D9E4CA29D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Line Number Table Indexes"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="if exists (select * from dbo.sysindexes where name = 'PK_LINE_NUMBER' and id = object_id(N'[dbo].[LINE_NUMBER]') )&#xA;   ALTER TABLE LINE_NUMBER&#xA;     DROP CONSTRAINT PK_LINE_NUMBER&#xA;&#xA;if exists (select * from dbo.sysindexes where name = 'ICAMP_LINE' and id = object_id(N'[dbo].[LINE_NUMBER]') )&#xA;   DROP INDEX LINE_NUMBER.ICAMP_LINE&#xA;&#xA;if exists (select * from dbo.sysindexes where name = 'ILINE_NUM' and id = object_id(N'[dbo].[LINE_NUMBER]') )&#xA;   DROP INDEX LINE_NUMBER.ILINE_NUM&#xA;&#xA;if exists (select * from dbo.sysindexes where name = 'IFSC' and id = object_id(N'[dbo].[LINE_NUMBER]') )&#xA;   DROP INDEX LINE_NUMBER.IFSC" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Line Number Table Indexes Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Line Number Table Indexes Failure"
+      DTS:DTSID="{EEEA139B-1C74-4023-A44A-F235D1F0429E}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Line Number Table Indexes Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','The Drop Line Number Table Indexes Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Line Number Table Indexes Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Line Number Table Indexes Success"
+      DTS:DTSID="{451097DF-7E5E-471B-8740-FBB7120EEC9F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Line Number Table Indexes Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','The Drop Line Number Table Indexes Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LineUpdPrep Process Finished"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Finish To Console"
+      DTS:DTSID="{67601F26-E87E-466F-99C4-6E178D835249}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LineUpdPrep Process Finished"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','** PACKAGE COMPLETED **')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line Number2 Table Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate Line Number2 Table Failure"
+      DTS:DTSID="{8DDEA8F9-814D-47F9-A641-3C73281797B8}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line Number2 Table Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','The Truncate Line_Number2 Table Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line Number2 Table Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate Line Number2 Table Success"
+      DTS:DTSID="{1BD4ADFE-D77B-4E89-8BA4-9B0FC20F74D2}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line Number2 Table Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','The Truncate Line_Number2 Table Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line_Number2 Table"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate Line_Number2 Table "
+      DTS:DTSID="{7DBA85D2-B1BB-445E-B063-3139CFAAE3CC}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line_Number2 Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="Truncate Table Line_Number2" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Start To Console Log"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Start To Console Log"
+      DTS:DTSID="{C40DBCD4-24BD-4B67-911E-A6DB201B8A5D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Start To Console Log"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{845B05B1-B155-4DCD-A6B7-E8490A7DF0FA}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LineUpdPrep','** PACKAGE START **')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{0EBFF127-7BE1-4FB2-B0EB-B435D8ECFED9\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{0EBFF127-7BE1-4FB2-B0EB-B435D8ECFED9}"
+      DTS:From="Package\Truncate Line_Number2 Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{0EBFF127-7BE1-4FB2-B0EB-B435D8ECFED9}"
+      DTS:To="Package\Truncate Line Number2 Table Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{1892D4C3-AB0C-4FC1-8CD0-F64A9A29C13F\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{1892D4C3-AB0C-4FC1-8CD0-F64A9A29C13F}"
+      DTS:From="Package\Drop Line Number Table Indexes Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{1892D4C3-AB0C-4FC1-8CD0-F64A9A29C13F}"
+      DTS:To="Package\Truncate Line_Number2 Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{720D9E88-613D-4905-8475-93E397612994\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{720D9E88-613D-4905-8475-93E397612994}"
+      DTS:From="Package\Truncate Line_Number2 Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{720D9E88-613D-4905-8475-93E397612994}"
+      DTS:To="Package\Truncate Line Number2 Table Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{AFFD5B5C-F88A-491A-9F4E-E901848988DF\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{AFFD5B5C-F88A-491A-9F4E-E901848988DF}"
+      DTS:From="Package\Truncate Line Number2 Table Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{AFFD5B5C-F88A-491A-9F4E-E901848988DF}"
+      DTS:To="Package\LineUpdPrep Process Finished"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{C3A17F63-1E52-4ABC-98FC-7E8DD39142F9\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{C3A17F63-1E52-4ABC-98FC-7E8DD39142F9}"
+      DTS:From="Package\Drop Line Number Table Indexes"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{C3A17F63-1E52-4ABC-98FC-7E8DD39142F9}"
+      DTS:To="Package\Drop Line Number Table Indexes Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{E5392198-9DF4-42CD-9361-3BB1A007D6AD\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{E5392198-9DF4-42CD-9361-3BB1A007D6AD}"
+      DTS:From="Package\Drop Line Number Table Indexes"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{E5392198-9DF4-42CD-9361-3BB1A007D6AD}"
+      DTS:To="Package\Drop Line Number Table Indexes Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{FA65DDA6-6AA7-4242-BAEA-28F8C6BC90EA\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{FA65DDA6-6AA7-4242-BAEA-28F8C6BC90EA}"
+      DTS:From="Package\Write Start To Console Log"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{FA65DDA6-6AA7-4242-BAEA-28F8C6BC90EA}"
+      DTS:To="Package\Drop Line Number Table Indexes"
+      DTS:Value="2" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Drop Line Number Table Indexes"
+          TopLeft="322.432710893109,247.277777777778" />
+        <NodeLayout
+          Size="271.2,41.6"
+          Id="Package\Drop Line Number Table Indexes Failure"
+          TopLeft="122.972222222222,338.722222222222" />
+        <NodeLayout
+          Size="276.8,41.6"
+          Id="Package\Drop Line Number Table Indexes Success"
+          TopLeft="478,338.722222222222" />
+        <NodeLayout
+          Size="220.8,41.6"
+          Id="Package\LineUpdPrep Process Finished"
+          TopLeft="330.432710893109,723.888888888889" />
+        <NodeLayout
+          Size="256,41.6"
+          Id="Package\Truncate Line Number2 Table Failure"
+          TopLeft="130.472222222222,603.347222222222" />
+        <NodeLayout
+          Size="260.8,41.6"
+          Id="Package\Truncate Line Number2 Table Success"
+          TopLeft="486,603.347222222222" />
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Truncate Line_Number2 Table"
+          TopLeft="329.432710893109,451.277777777778" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Write Start To Console Log"
+          TopLeft="336.932710893109,145.277777777778" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{1892D4C3-AB0C-4FC1-8CD0-F64A9A29C13F\}]"
+          TopLeft="616.5,380.722222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-175.567289106891,70.555555555556"
+              Start="0,0"
+              End="-175.567289106891,63.055555555556">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.277777777778" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.277777777778"
+                    Point2="0,35.277777777778"
+                    Point3="-4,35.277777777778" />
+                  <mssgle:LineSegment
+                    End="-171.567289106891,35.277777777778" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-171.567289106891,35.277777777778"
+                    Point2="-175.567289106891,35.277777777778"
+                    Point3="-175.567289106891,39.277777777778" />
+                  <mssgle:LineSegment
+                    End="-175.567289106891,63.055555555556" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.088097678446,40.277777777778,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{720D9E88-613D-4905-8475-93E397612994\}]"
+          TopLeft="476.766044226442,493.277777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="139.733955773558,110.069444444444"
+              Start="0,0"
+              End="139.733955773558,102.569444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.4982437914315" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40.4982437914315"
+                    Point2="0,44.4982437914315"
+                    Point3="4,44.4982437914315" />
+                  <mssgle:LineSegment
+                    End="135.733955773558,44.4982437914315" />
+                  <mssgle:CubicBezierSegment
+                    Point1="135.733955773558,44.4982437914315"
+                    Point2="139.733955773558,44.4982437914315"
+                    Point3="139.733955773558,48.4982437914315" />
+                  <mssgle:LineSegment
+                    End="139.733955773558,102.569444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{0EBFF127-7BE1-4FB2-B0EB-B435D8ECFED9\}]"
+          TopLeft="405.099377559776,493.277777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-146.627155337554,110.069444444444"
+              Start="0,0"
+              End="-146.627155337554,102.569444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.4982437914315" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40.4982437914315"
+                    Point2="0,44.4982437914315"
+                    Point3="-4,44.4982437914315" />
+                  <mssgle:LineSegment
+                    End="-142.627155337554,44.4982437914315" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-142.627155337554,44.4982437914315"
+                    Point2="-146.627155337554,44.4982437914315"
+                    Point3="-146.627155337554,48.4982437914315" />
+                  <mssgle:LineSegment
+                    End="-146.627155337554,102.569444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-88.5549253250268,49.4982437914315,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{C3A17F63-1E52-4ABC-98FC-7E8DD39142F9\}]"
+          TopLeft="402.766044226442,289.277777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-144.29382200422,49.444444444444"
+              Start="0,0"
+              End="-144.29382200422,41.944444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.9767160286857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.9767160286857"
+                    Point2="0,19.9767160286857"
+                    Point3="-4,19.9767160286857" />
+                  <mssgle:LineSegment
+                    End="-140.29382200422,19.9767160286857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-140.29382200422,19.9767160286857"
+                    Point2="-144.29382200422,19.9767160286857"
+                    Point3="-144.29382200422,23.9767160286857" />
+                  <mssgle:LineSegment
+                    End="-144.29382200422,41.944444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-87.3882586583602,24.9767160286857,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{FA65DDA6-6AA7-4242-BAEA-28F8C6BC90EA\}]"
+          TopLeft="440.932710893109,187.277777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.304453125,20.4453125,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{E5392198-9DF4-42CD-9361-3BB1A007D6AD\}]"
+          TopLeft="479.099377559776,289.277777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="137.400622440224,49.444444444444"
+              Start="0,0"
+              End="137.400622440224,41.944444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.9767160286857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.9767160286857"
+                    Point2="0,19.9767160286857"
+                    Point3="4,19.9767160286857" />
+                  <mssgle:LineSegment
+                    End="133.400622440224,19.9767160286857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="133.400622440224,19.9767160286857"
+                    Point2="137.400622440224,19.9767160286857"
+                    Point3="137.400622440224,23.9767160286857" />
+                  <mssgle:LineSegment
+                    End="137.400622440224,41.944444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{AFFD5B5C-F88A-491A-9F4E-E901848988DF\}]"
+          TopLeft="616.5,645.347222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-175.567289106891,78.5416666666671"
+              Start="0,0"
+              End="-175.567289106891,71.0416666666671">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.2708333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.2708333333335"
+                    Point2="0,39.2708333333335"
+                    Point3="-4,39.2708333333335" />
+                  <mssgle:LineSegment
+                    End="-171.567289106891,39.2708333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-171.567289106891,39.2708333333335"
+                    Point2="-175.567289106891,39.2708333333335"
+                    Point3="-175.567289106891,43.2708333333335" />
+                  <mssgle:LineSegment
+                    End="-175.567289106891,71.0416666666671" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.088097678446,44.2708333333335,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Line Update Prep"
+          ParentId="Package"
+          Size="185.6,47.2"
+          Id="8f213fea-e37d-4a90-aea0-cf541a81ff03"
+          TopLeft="347.932710893109,27.6341441465321">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="This package drops all indexes in line number table and truncates table line_number2"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="480.8,41.6"
+          Id="82d613e5-a057-4667-8678-0fba7d652787"
+          TopLeft="227.786455453463,71.895318931881" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

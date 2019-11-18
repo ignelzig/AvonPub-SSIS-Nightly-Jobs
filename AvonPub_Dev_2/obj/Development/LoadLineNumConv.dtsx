@@ -1,0 +1,2501 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 1:20:08 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYEMACKES2816"
+  DTS:CreatorName="AVONNA\MackeS"
+  DTS:Description="AvonPub - Load Line_Number_Conv Table"
+  DTS:DTSID="{11543E75-FA7C-45A1-A9D0-417B7408CBDD}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="LoadLineNumConv"
+  DTS:VersionBuild="52"
+  DTS:VersionGUID="{3EF3213B-69D2-4260-AB3B-B33FA7F92EA4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-LoadItemKeyword-{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAA5+JDGQvoC5rD7Bf8QWpEcAAAAAASAAACgAAAAEAAAANXoehkbXqAirhGx5kav5l4QAAAAtKah8YM9/4MpWqYXelRVMBQAAABbXvMckHqYy1vpkHcrkQQf45ZXWw</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[lineconv.fmt]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{DA4E8DA3-E1CF-4760-89CE-2CB6C9D9ADF7}"
+      DTS:ObjectName="lineconv.fmt">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+ @[User::LineConvFmtFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\lineconv.fmt" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLFTP_PD04Atl.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{2FA075E9-B68B-4A66-8972-AE53FCF74D5C}"
+      DTS:ObjectName="SQLFTP_PD04Atl.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLFTP]+  @[User::PD04AtlFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\pd04alnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLFTP_PD04Mtg.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{FBA46205-1E53-4573-B0DE-77468A9592C2}"
+      DTS:ObjectName="SQLFTP_PD04Mtg.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLFTP]+  @[User::PD04MtgFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\pd04mlnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLFTP_PD04Nwk.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{FC6CCEF6-D6C7-494A-AB24-5A4A9F3B3F71}"
+      DTS:ObjectName="SQLFTP_PD04Nwk.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLFTP]+  @[User::PD04NwkFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\pd04nlnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLFTP_PD05Pas.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{F3563D2F-667C-45EA-802F-134F9CA99CB6}"
+      DTS:ObjectName="SQLFTP_PD05Pas.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLFTP]+ @[User::PD04PasFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\pd04plnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_Folder]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{C9497801-36C5-4EE7-A61A-E59806782595}"
+      DTS:ObjectName="SQLImport_Folder">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLImport]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_PD04Atl.dat]"
+      DTS:CreationName="FILE"
+      DTS:Description="pd04alnc.dat"
+      DTS:DTSID="{99503CED-266F-4CA2-B572-D827DFDBE398}"
+      DTS:ObjectName="SQLImport_PD04Atl.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLImport]+ @[User::PD04AtlFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\pd04alnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_PD04Mtg.dat]"
+      DTS:CreationName="FILE"
+      DTS:Description="pd04mlnc.dat"
+      DTS:DTSID="{E0C7718C-4951-43A4-8FF2-943B260012DF}"
+      DTS:ObjectName="SQLImport_PD04Mtg.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLImport]+ @[User::PD04MtgFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\pd04mlnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_PD04Nwk.dat]"
+      DTS:CreationName="FILE"
+      DTS:Description="pd04nlnc.dat"
+      DTS:DTSID="{7FAF3579-3DE9-4961-B53B-8968F8E2C02F}"
+      DTS:ObjectName="SQLImport_PD04Nwk.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLImport]+ @[User::PD04NwkFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\pd04nlnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_PD04Pas.dat]"
+      DTS:CreationName="FILE"
+      DTS:Description="pd04plnc.dat"
+      DTS:DTSID="{4A9F4C36-468A-40A7-9566-44108489996A}"
+      DTS:ObjectName="SQLImport_PD04Pas.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] + @[$Project::SQLImport]+ @[User::PD04PasFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\pd04plnc.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_LoadLineNumConv_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{BD61091B-4F7E-48F2-9744-A46F98CB5D45}"
+      DTS:ObjectName="SSIS_LoadLineNumConv_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts] +"SSIS_LoadLineNumConv_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="1"
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_LoadLineNumConv_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_LoadLineNumConv_Log.xml"
+      DTS:CreationName="DTS.LogProviderXMLFile.3"
+      DTS:Description="Writes log entries for events to an XML file"
+      DTS:DTSID="{D524FC0C-452A-4321-B451-FE5C7CCE64D5}"
+      DTS:ObjectName="SSIS log provider for XML files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{417EA9DC-BE75-4FB0-9203-D6D2EEDE2196}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LineConvFmtFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">lineconv.fmt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8BC5D7E9-7D5F-48F7-BBB0-197E12FFA1C7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PD04AtlFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">pd04alnc.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B63844FC-45C9-4E7D-98FE-96AFB78C1992}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PD04MtgFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">pd04mlnc.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{70651CF4-F4A1-424F-B870-264358C66899}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PD04NwkFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">pd04nlnc.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F9229F8E-B9AD-4C3E-9943-817E91BC0371}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PD04PasFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">pd04plnc.dat</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,10,OnProgress,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnWarning"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{D524FC0C-452A-4321-B451-FE5C7CCE64D5}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Check PD04 files Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{6949107F-D7FF-498E-848A-E7A0720E1525}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check PD04 files Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Check PD04 FTP Extract Files Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Check PD04 files successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{941CC993-90A5-4ED1-A3F9-80774984574F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check PD04 files successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Check PD04 FTP Extract Files Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Check PD04Branch Files"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Verifys DuplicateSSN file exists and is not zero bytes"
+      DTS:DTSID="{ED85D1B0-FBC2-496E-9F6A-2CC64008D1E8}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check PD04Branch Files"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_165b02ad1c3947a8860f6a9d96e42ea8"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="VisualBasic"
+          ReadOnlyVariables="User::PD04AtlFileName,User::PD04MtgFileName,User::PD04NwkFileName,User::PD04PasFileName,$Project::SQLFTP,$Project::AvonPubSQLDirs">
+          <ProjectItem
+            Name="My Project\AssemblyInfo.vb"
+            Encoding="UTF8"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("ST_643efa5d42e04f7b9ef9df044154397d")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("Avon Products, Inc.")> 
+<Assembly: AssemblyProduct("ST_643efa5d42e04f7b9ef9df044154397d")> 
+<Assembly: AssemblyCopyright("Copyright @ Avon Products, Inc. 2014")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("82cf0e42-dda5-4b44-a604-ab49ccd470d7")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.vb"
+            Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
+'The Script Task allows you to perform virtually any operation that can be accomplished in
+'a .Net application within the context of an Integration Services control flow. 
+
+'Expand the other regions which have "Help" prefixes for examples of specific ways to use
+'Integration Services features within this script task.
+#End Region
+
+
+#Region "Imports"
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+Imports System.IO
+#End Region
+
+'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+'or parent of this class.
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+#Region "Help:  Using Integration Services variables and parameters in a script"
+    'To use a variable in this script, first ensure that the variable has been added to 
+    'either the list contained in the ReadOnlyVariables property or the list contained in 
+    'the ReadWriteVariables property of this script task, according to whether or not your
+    'code needs to write to the variable.  To add the variable, save this script, close this instance of
+    'Visual Studio, and update the ReadOnlyVariables and 
+    'ReadWriteVariables properties in the Script Transformation Editor window.
+    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
+
+    'Example of reading from a variable:
+    ' startTime = Dts.Variables("System::StartTime").Value
+
+    'Example of writing to a variable:
+    ' Dts.Variables("User::myStringVariable").Value = "new value"
+
+    'Example of reading from a package parameter:
+    ' batchId = Dts.Variables("$Package::batchId").Value
+
+    'Example of reading from a project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").Value
+
+    'Example of reading from a sensitive project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
+#End Region
+
+#Region "Help:  Firing Integration Services events from a script"
+    'This script task can fire events for logging purposes.
+
+    'Example of firing an error event:
+    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
+
+    'Example of firing an information event:
+    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
+
+    'Example of firing a warning event:
+    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
+#End Region
+
+#Region "Help:  Using Integration Services connection managers in a script"
+    'Some types of connection managers can be used in this script task.  See the topic 
+    '"Working with Connection Managers Programatically" for details.
+
+    'Example of using an ADO.Net connection manager:
+    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
+    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
+
+    'Example of using a File connection manager
+    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
+    ' Dim filePath As String = CType(rawConnection, String)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
+#End Region
+
+    'This method is called when this script task executes in the control flow.
+    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+    'To open Help, press F1.
+
+    Public Sub Main()
+        '
+        ' VB Code to check the existence of File DuplicateSSN.dat file
+        ' and if files exists, greater than zero bytes
+        '
+        Dim strServerName As String = Dts.Variables("AvonPubSQLDirs").Value.ToString
+        Dim strServerPath As String = Dts.Variables("SQLFTP").Value.ToString
+        Dim strAtlFileName As String = Dts.Variables("PD04AtlFileName").Value.ToString
+        Dim strMtgFileName As String = Dts.Variables("PD04MtgFileName").Value.ToString
+        Dim strNwkFileName As String = Dts.Variables("PD04NwkFileName").Value.ToString
+        Dim strPasFileName As String = Dts.Variables("PD04PasFileName").Value.ToString
+        Dim strAtlFilePath As String = (strServerName + strServerPath + strAtlFileName)
+        Dim strMtgFilePath As String = (strServerName + strServerPath + strMtgFileName)
+        Dim strNwkFilePath As String = (strServerName + strServerPath + strNwkFileName)
+        Dim strPasFilePath As String = (strServerName + strServerPath + strPasFileName)
+
+            Try
+            'if the file is there, then go on
+            'Atlanta
+            If File.Exists(strAtlFilePath) = True Or
+                File.Exists(strMtgFilePath) = True Or
+                File.Exists(strNwkFilePath) = True Or
+                File.Exists(strPasFilePath) = True Then
+                'check for zero bytes
+                If FileLen(strAtlFilePath) > 0 Or
+                    FileLen(strMtgFilePath) > 0 Or
+                    FileLen(strNwkFilePath) > 0 Or
+                    FileLen(strPasFilePath) > 0 Then
+                    'ok to go
+                    Dts.TaskResult = ScriptResults.Success
+                    Exit Sub
+                Else
+                    Dts.TaskResult = ScriptResults.Failure
+                End If
+            Else
+                Dts.TaskResult = ScriptResults.Failure
+            End If
+
+        Catch ex As Exception
+            Dts.TaskResult = ScriptResults.Failure
+        End Try
+
+    End Sub
+
+#Region "ScriptResults declaration"
+    'This enum provides a convenient shorthand within the scope of this class for setting the
+    'result of the script.
+
+    'This code was generated automatically.
+    Enum ScriptResults
+        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+    End Enum
+
+#End Region
+
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="ST_165b02ad1c3947a8860f6a9d96e42ea8.vbproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{67a7bd43-9c03-45ed-8a95-01433b391541}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>My Project</AppDesignerFolder><RootNamespace>ST_643efa5d42e04f7b9ef9df044154397d</RootNamespace><AssemblyName>ST_165b02ad1c3947a8860f6a9d96e42ea8</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>true</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>false</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><Import Include="Microsoft.VisualBasic" /><Import Include="System" /><Import Include="System.Collections" /><Import Include="System.Data" /><Import Include="System.Diagnostics" /><Import Include="System.Windows.Forms" /></ItemGroup><ItemGroup><AppDesigner Include="My Project\" /><Compile Include="My Project\AssemblyInfo.vb"><SubType>Code</SubType></Compile><EmbeddedResource Include="My Project\Resources.resx"><Generator>VbMyResourcesResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.vb</LastGenOutput><CustomToolNamespace>My.Resources</CustomToolNamespace></EmbeddedResource><Compile Include="My Project\Resources.Designer.vb"><AutoGen>True</AutoGen><DesignTime>True</DesignTime><DependentUpon>Resources.resx</DependentUpon><SubType>Code</SubType></Compile><None Include="My Project\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.vb</LastGenOutput></None><Compile Include="My Project\Settings.Designer.vb"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon><SubType>Code</SubType></Compile><Compile Include="ScriptMain.vb"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a VB project.--><Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" DebugInfoExeName="#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\InstallDir#\devenv.exe" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" /><Host Name="ScriptTask" IconIndex=""></Host><ProjectClient><HostIdentifier>SSIS_ST110</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>ST_643efa5d42e04f7b9ef9df044154397d</msb:CodeName>
+		<msb:DisplayName>ST_643efa5d42e04f7b9ef9df044154397d</msb:DisplayName>
+		<msb:ProjectId>{B46BACA4-77FE-4F01-ABB0-954D147434B1}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_165b02ad1c3947a8860f6a9d96e42ea8.vbproj"/>
+		<msb:File Include="My Project\AssemblyInfo.vb"/>
+		<msb:File Include="ScriptMain.vb"/>
+		<msb:File Include="My Project\Resources.resx"/>
+		<msb:File Include="My Project\Resources.Designer.vb"/>
+		<msb:File Include="My Project\Settings.settings"/>
+		<msb:File Include="My Project\Settings.Designer.vb"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+Namespace My.Resources
+    
+    '''<summary>
+    '''   A strongly-typed resource class, for looking up localized strings, etc.
+    '''</summary>
+    'This class was auto-generated by the Strongly Typed Resource Builder
+    'class via a tool like ResGen or Visual Studio.NET.
+    'To add or remove a member, edit your .ResX file then rerun ResGen
+    'with the /str option, or rebuild your VS project.
+    Class MyResources
+        
+        Private Shared _resMgr As System.Resources.ResourceManager
+        
+        Private Shared _resCulture As System.Globalization.CultureInfo
+        
+        Friend Sub New()
+            MyBase.New
+        End Sub
+        
+        '''<summary>
+        '''   Returns the cached ResourceManager instance used by this class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared ReadOnly Property ResourceManager() As System.Resources.ResourceManager
+            Get
+                If (_resMgr Is Nothing) Then
+                    Dim temp As System.Resources.ResourceManager = New System.Resources.ResourceManager("My.Resources.MyResources", GetType(MyResources).Assembly)
+                    _resMgr = temp
+                End If
+                Return _resMgr
+            End Get
+        End Property
+        
+        '''<summary>
+        '''   Overrides the current thread's CurrentUICulture property for all
+        '''   resource lookups using this strongly typed resource class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared Property Culture() As System.Globalization.CultureInfo
+            Get
+                Return _resCulture
+            End Get
+            Set
+                _resCulture = value
+            End Set
+        End Property
+    End Class
+End Namespace]]></ProjectItem>
+          <BinaryItem
+            Name="ST_165b02ad1c3947a8860f6a9d96e42ea8.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAPfsoVMAAAAAAAAAAOAAAiELAQsAAB4AAAAIAAAAAAAAPjwA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAIAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAPA7AABLAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAARBwAAAAgAAAAHgAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAgAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAJgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAg
+PAAAAAAAAEgAAAACAAUADCUAAOQWAAABAAAAAAAAAFQkAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKAEAAAoqHgIoBAAACiqmcwYAAAqAAQAABHMHAAAKgAIA
+AARzCAAACoADAAAEcwkAAAqABAAABCoAABMwAQALAAAAAQAAEX4BAAAEbwoAAAoqABMwAQALAAAA
+AgAAEX4CAAAEbwsAAAoqABMwAQALAAAAAwAAEX4DAAAEbwwAAAoqABMwAQALAAAABAAAEX4EAAAE
+bw0AAAoqABMwAgANAAAABQAAEQIDKBEAAAooEgAACioAAAATMAEABwAAAAYAABECKBMAAAoqABMw
+AQALAAAABwAAEdAFAAACKBQAAAoqABMwAQAHAAAACAAAEQIoFQAACioAEzABABAAAAAJAAARAowB
+AAAbLQYoAQAAKyoCKhMwAgAQAAAACgAAEQMSAP4VAgAAGwaBAgAAGyoeAigXAAAKKhMwAgAoAAAA
+CwAAEQJ7GQAACm8aAAAKCweMAwAAGy0SKAIAACsLAnsZAAAKB28bAAAKBypKAigXAAAKAnMcAAAK
+fRkAAAoqAB4CKBcAAAoqEzACAC0AAAAMAAARfgYAAAQtIHIBAABw0AcAAAIoFAAACm8eAAAKcx8A
+AAoLB4AGAAAEfgYAAAQqAAAAEzABAAYAAAANAAARfgcAAAQqAAAeAoAHAAAEKkJzFwAACigRAAAK
+gAkAAAQqAAAAHgIoIAAACiobMAEAPwAAAA4AABF+CAAABC0yfgkAAAQoEQAACighAAAKfggAAAQt
+HHMWAAAGgAgAAATeEH4JAAAEKBEAAAooIgAACtx+CAAABCoAARAAAAIAHQAMKQAQAAAAAB4CKCQA
+AAoqGzADAIgBAAAPAAARAm8lAAAKbyYAAApyMwAAcG8nAAAKbygAAApvFQAAChMIAm8lAAAKbyYA
+AApyUQAAcG8nAAAKbygAAApvFQAAChMJAm8lAAAKbyYAAApyXwAAcG8nAAAKbygAAApvFQAACgoC
+byUAAApvJgAACnJ/AABwbycAAApvKAAACm8VAAAKDAJvJQAACm8mAAAKcp8AAHBvJwAACm8oAAAK
+bxUAAAoTBAJvJQAACm8mAAAKcr8AAHBvJwAACm8oAAAKbxUAAAoTBhEIEQkGKCkAAAoLEQgRCQgo
+KQAACg0RCBEJEQQoKQAAChMFEQgRCREGKCkAAAoTBwcoKgAACgkoKgAACmARBSgqAAAKYBEHKCoA
+AApgLEsHKCsAAAoWav4CCSgrAAAKFmr+AmARBSgrAAAKFmr+AmARBygrAAAKFmr+AmAsDgJvJQAA
+ChZvLAAACt43Am8lAAAKF28sAAAK3ikCbyUAAAoXbywAAAreGyUoLQAAChMKAm8lAAAKF28sAAAK
+KC4AAAreACoBEAAAAAD0AHhsARsbAAABtAAAAM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2Vz
+LlJlc291cmNlUmVhZGVyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRy
+YWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50
+aW1lUmVzb3VyY2VTZXQCAAAAAAAAAAAAAABQQURQQURQtAAAAEJTSkIBAAEAAAAAAAwAAAB2NC4w
+LjMwMzE5AAAAAAUAbAAAAOQHAAAjfgAAUAgAAMgJAAAjU3RyaW5ncwAAAAAYEgAA4AAAACNVUwD4
+EgAAEAAAACNHVUlEAAAACBMAANwDAAAjQmxvYgAAAAAAAAACAAABVx2iCQkPAAAA+iUzABYAAAEA
+AAAvAAAACgAAAAwAAAAZAAAABAAAADsAAAACAAAANgAAAA8AAAAEAAAACAAAAAkAAAAJAAAAAQAA
+AAUAAAABAAAAAwAAAAMAAAACAAAAAACeCQEAAAAAAAoASwEhAQoAfwFhAQYAjwGIAQoA5wEhAQYA
+ZQKIAQoA5wK9AgYAHQMMAwYASgM1Aw4AsQOcAxIAMAQHBAYAUQSIAQ4AhARuBA4AnQRuBA4AygSy
+BAYA9AThBAoAMwUMBQoASwUTAA4AgAVjBQYAtQWVBQYA0wWIAQYA9wWIAQoAEAYTAAYAVAY1BgYA
+egZoBgYAoQaQBgYAtAbhBAYA0QaIARIA2wYHBBYANAcUBxYATAcUBwYAXgeIAQYAdgdsBwoAggcT
+AAoApAcMBQYA0geIARIA6AcHBAYAQgiVBQYAYgiVBQYAmgiACAYAswhoBgYA0Ag1BgYA3ghoBgYA
++QhoBgYAFAloBgYALQloBgYARgloBgYAYwloBgAAAAABAAAAAAABAAEAAAAAACkANwAFAAEAAQAA
+AAAAXgA3AAkAAQACAAABEABpADcADQABAAMABQEAAHMAAAANAAUACAAFAQAAgQAAAA0ABQAPAAAA
+AACcAKgADQAGABEAAAEQANkA5AAlAAgAFQABAAAACAHkACkACgAYAAIBAAATAQAALQAKABoAMQCq
+ASAAMQDTAS0AMQD1AToAMQAaAkcAIQD2ApAAEQAtA50AEQBWA6EAEQDJA78AEQDRA8MABgZWBNkA
+VoBeBNwAVoBmBNwAUCAAAAAABhhbARMAAQBYIAAAAAAGGFsBEwABAGAgAAAAABEYlgEXAAEAjCAA
+AAAAEwidARsAAQCkIAAAAAATCMMBKAABALwgAAAAABMI7AE1AAEA1CAAAAAAEwgKAkIAAQDsIAAA
+AABGAlACYwABAAghAAAAAEYCWQJoAAIAHCEAAAAAgwBqAmwAAgA0IQAAAABGAnICcQACAEghAAAA
+ABEAewJ4AAIAZCEAAAAAAQCZAoAAAwCAIQAAAAAGGFsBEwAEAIghAAAAAAMIrQKLAAQAvCEAAAAA
+BhhbARMABADQIQAAAAADGFsBEwAEANghAAAAABYIYgOlAAQAFCIAAAAAFgh2A6oABAAoIgAAAAAW
+CIIDrwAEADAiAAAAABEYlgEXAAUARCIAAAAABhhbARMABQBMIgAAAAAWCN4DxgAFAKgiAAAAAAYY
+WwETAAUAsCIAAAAABgBMBBMABQAAAAEAVwIAAAEAkAIAAAEAkAIAAAEAjgMJAFsBEwBhAFsB6gBx
+AFsB+QARAFsBEwB5AFsBEwAkAFsBEwAsAFsBEwA0AFsBEwA8AFsBEwAkAK0CiwAsAK0CiwA0AK0C
+iwA8AK0CiwCBAFsBEwCJAFsBEwCRAFsBSAGZAMQFkwEZAFACYwAZAFkCaAApAOUFoAEZAHICcQCp
+AAEGsAEZAFsBEwCxAFsBwAFEAPYCkABMAN4DiwBMACsGPQJMAFsBEwC5AFsBTAIpAIMGVwI5AFsB
+XAJJAFsBEwDJAKkGeALJAK8GeALRAFsBEwBRAFsBEwBRAO0GggLhAD4HhwLpAFUHjALxAN4DkgL5
+AGUHlgIBAXsHnQIJAY0HogLhAJUHpwIRAbAHrAIRAcAHFwAZAVsBTAIhAVsBEwApAVsBpwIxAVsB
+EwA5AVsBSAFBAVsBSAFJAVsBSAFRAVsBSAFZAVsBSAFhAVsBSAFpAVsBSAFxAVsBSAF5AVsBSAEI
+ACwA4AAIADAA5QApAIMAYQEuAMsBwQMuAMMBmAMuALsBbgMuAJMBygIuAJsB6QIuALMBUQIuANsB
+mAMuAIsBwQIuANMBUQIuAKMBMQMuAKsBPgMuAOsAUQIuAHsBaANAACsA5QBAABMA8ABDABMA8ABD
+ABsA/wBJAIMAfwFjABsA/wBjABMA8ABpAIMAcgGAACsA5QCDABsA/wCDAHMA5QCDAHsA5QCJAIMA
+TQGgACsA5QCjAMMAyAGjABMA8ADAACsA5QDDABMA8ADDAOsAUQLJABMAbwLgACsA5QDpABMAbwIA
+ARMA8AAAASsA5QAJARsB5QAgARMA8AAgASsA5QAjAYMB5QAjAXsBUQJAARMA8ABAASsA5QBgARMA
+8ABgASsA5QCAASsA5QCgASsA5QDAASsA5QDAARMA8ADgASsA5QAAAhMA8AAAAisA5QA0ATkBPgFD
+AZgBnAGnAawBuwG7AUMCYwJqAn0CsgIEAAEABgAFAAcABgAIAAgAAAB/AU8AAAA4AlQAAADnAVkA
+AABEAl4AAAAAA5gAAAAdA7UAAACUA7oAAACOA8sAAgAEAAMAAgAFAAUAAgAGAAcAAgAHAAkAAgAP
+AAsAAgASAA0AAgATAA8AAQAUAA8AAgAXABEAdQB1AIgAGAEfASYBLQEqAjECBIAAAAEAAAAAAAAA
+AAAAAAAAegkAAAQAAAAAAAAAAAAAAAEACgAAAAAACgAAAAAAAAAAAAAACgATAAAAAAAEAAAAAAAA
+AAAAAAABAIgBAAAAAAsAAAAAAAAAAAAAANAA6AMAAAAACwAAAAAAAAAAAAAA0AD1BgAAAAAAAAAA
+AQAAAAoIAAAFAAQABgAEAAoACQAAABAADACOAgAAEAAZAI4CAAAAABsAjgItALYBLQA4AgAAAAAA
+PE1vZHVsZT4AbXNjb3JsaWIATWljcm9zb2Z0LlZpc3VhbEJhc2ljAE15QXBwbGljYXRpb24AU1Rf
+NjQzZWZhNWQ0MmUwNGY3YjllZjlkZjA0NDE1NDM5N2QuTXkATXlDb21wdXRlcgBNeVByb2plY3QA
+TXlXZWJTZXJ2aWNlcwBUaHJlYWRTYWZlT2JqZWN0UHJvdmlkZXJgMQBNeVJlc291cmNlcwBTVF82
+NDNlZmE1ZDQyZTA0ZjdiOWVmOWRmMDQ0MTU0Mzk3ZC5NeS5SZXNvdXJjZXMATXlTZXR0aW5ncwBT
+VF82NDNlZmE1ZDQyZTA0ZjdiOWVmOWRmMDQ0MTU0Mzk3ZABTY3JpcHRNYWluAFNjcmlwdFJlc3Vs
+dHMATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkFwcGxpY2F0aW9uU2VydmljZXMAQXBwbGljYXRpb25C
+YXNlAC5jdG9yAE1pY3Jvc29mdC5WaXN1YWxCYXNpYy5EZXZpY2VzAENvbXB1dGVyAFN5c3RlbQBP
+YmplY3QALmNjdG9yAGdldF9Db21wdXRlcgBtX0NvbXB1dGVyT2JqZWN0UHJvdmlkZXIAZ2V0X0Fw
+cGxpY2F0aW9uAG1fQXBwT2JqZWN0UHJvdmlkZXIAVXNlcgBnZXRfVXNlcgBtX1VzZXJPYmplY3RQ
+cm92aWRlcgBnZXRfV2ViU2VydmljZXMAbV9NeVdlYlNlcnZpY2VzT2JqZWN0UHJvdmlkZXIAQXBw
+bGljYXRpb24AV2ViU2VydmljZXMARXF1YWxzAG8AR2V0SGFzaENvZGUAVHlwZQBHZXRUeXBlAFRv
+U3RyaW5nAENyZWF0ZV9fSW5zdGFuY2VfXwBUAGluc3RhbmNlAERpc3Bvc2VfX0luc3RhbmNlX18A
+Z2V0X0dldEluc3RhbmNlAE1pY3Jvc29mdC5WaXN1YWxCYXNpYy5NeVNlcnZpY2VzLkludGVybmFs
+AENvbnRleHRWYWx1ZWAxAG1fQ29udGV4dABHZXRJbnN0YW5jZQBTeXN0ZW0uUmVzb3VyY2VzAFJl
+c291cmNlTWFuYWdlcgBfcmVzTWdyAFN5c3RlbS5HbG9iYWxpemF0aW9uAEN1bHR1cmVJbmZvAF9y
+ZXNDdWx0dXJlAGdldF9SZXNvdXJjZU1hbmFnZXIAZ2V0X0N1bHR1cmUAc2V0X0N1bHR1cmUAVmFs
+dWUAQ3VsdHVyZQBTeXN0ZW0uQ29uZmlndXJhdGlvbgBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQBt
+X1ZhbHVlAG1fU3luY09iamVjdABnZXRfVmFsdWUATWljcm9zb2Z0LlNxbFNlcnZlci5TY3JpcHRU
+YXNrAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlRhc2tzLlNjcmlwdFRhc2sAVlNUQVJUU2NyaXB0
+T2JqZWN0TW9kZWxCYXNlAE1haW4ARW51bQB2YWx1ZV9fAFN1Y2Nlc3MARmFpbHVyZQBTeXN0ZW0u
+Q29tcG9uZW50TW9kZWwARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZVN0
+YXRlAFN5c3RlbS5Db2RlRG9tLkNvbXBpbGVyAEdlbmVyYXRlZENvZGVBdHRyaWJ1dGUAU3lzdGVt
+LkRpYWdub3N0aWNzAERlYnVnZ2VySGlkZGVuQXR0cmlidXRlAE1pY3Jvc29mdC5WaXN1YWxCYXNp
+Yy5Db21waWxlclNlcnZpY2VzAFN0YW5kYXJkTW9kdWxlQXR0cmlidXRlAEhpZGVNb2R1bGVOYW1l
+QXR0cmlidXRlAFN5c3RlbS5Db21wb25lbnRNb2RlbC5EZXNpZ24ASGVscEtleXdvcmRBdHRyaWJ1
+dGUAU3lzdGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNlcwBSdW50aW1lSGVscGVycwBHZXRPYmpl
+Y3RWYWx1ZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBlRnJvbUhhbmRsZQBBY3RpdmF0b3IAQ3Jl
+YXRlSW5zdGFuY2UATXlHcm91cENvbGxlY3Rpb25BdHRyaWJ1dGUAc2V0X1ZhbHVlAFN5c3RlbS5S
+dW50aW1lLkludGVyb3BTZXJ2aWNlcwBDb21WaXNpYmxlQXR0cmlidXRlAFN5c3RlbS5SZWZsZWN0
+aW9uAEFzc2VtYmx5AGdldF9Bc3NlbWJseQBTeXN0ZW0uVGhyZWFkaW5nAE1vbml0b3IARW50ZXIA
+RXhpdABEZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRlAEV4Y2VwdGlvbgBTY3JpcHRPYmplY3RN
+b2RlbABnZXRfRHRzAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuTWFuYWdlZERUUwBNaWNyb3NvZnQuU3Fs
+U2VydmVyLkR0cy5SdW50aW1lAFZhcmlhYmxlcwBnZXRfVmFyaWFibGVzAFZhcmlhYmxlAGdldF9J
+dGVtAFN0cmluZwBDb25jYXQAU3lzdGVtLklPAEZpbGUARXhpc3RzAEZpbGVTeXN0ZW0ARmlsZUxl
+bgBzZXRfVGFza1Jlc3VsdABQcm9qZWN0RGF0YQBTZXRQcm9qZWN0RXJyb3IAQ2xlYXJQcm9qZWN0
+RXJyb3IAQ0xTQ29tcGxpYW50QXR0cmlidXRlAFNTSVNTY3JpcHRUYXNrRW50cnlQb2ludEF0dHJp
+YnV0ZQBTVF82NDNlZmE1ZDQyZTA0ZjdiOWVmOWRmMDQ0MTU0Mzk3ZC5SZXNvdXJjZXMucmVzb3Vy
+Y2VzAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAUnVudGltZUNvbXBhdGliaWxpdHlB
+dHRyaWJ1dGUAU3lzdGVtLlJ1bnRpbWUuVmVyc2lvbmluZwBUYXJnZXRGcmFtZXdvcmtBdHRyaWJ1
+dGUAQXNzZW1ibHlGaWxlVmVyc2lvbkF0dHJpYnV0ZQBHdWlkQXR0cmlidXRlAEFzc2VtYmx5VHJh
+ZGVtYXJrQXR0cmlidXRlAEFzc2VtYmx5Q29weXJpZ2h0QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVj
+dEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlwdGlvbkF0
+dHJpYnV0ZQBBc3NlbWJseVRpdGxlQXR0cmlidXRlAFNUXzE2NWIwMmFkMWMzOTQ3YTg4NjBmNmE5
+ZDk2ZTQyZWE4AFNUXzE2NWIwMmFkMWMzOTQ3YTg4NjBmNmE5ZDk2ZTQyZWE4LmRsbAAAAAAxTQB5
+AC4AUgBlAHMAbwB1AHIAYwBlAHMALgBNAHkAUgBlAHMAbwB1AHIAYwBlAHMAAB1BAHYAbwBuAFAA
+dQBiAFMAUQBMAEQAaQByAHMAAA1TAFEATABGAFQAUAAAH1AARAAwADQAQQB0AGwARgBpAGwAZQBO
+AGEAbQBlAAAfUABEADAANABNAHQAZwBGAGkAbABlAE4AYQBtAGUAAB9QAEQAMAA0AE4AdwBrAEYA
+aQBsAGUATgBhAG0AZQAAH1AARAAwADQAUABhAHMARgBpAGwAZQBOAGEAbQBlAAAAqdBnJEIPqkGo
+GNGYJSCkEwAIt3pcVhk04IkIsD9ffxHVCjoDIAABAwAAAQQAABIMBwYVEhgBEgwEAAASCAcGFRIY
+ARIIBAAAEhEHBhUSGAESEQQAABIUBwYVEhgBEhQECAASDAQIABIIBAgAEhEECAASFAQgAQIcAyAA
+CAQgABIVAyAADgIeAAcQAQEeAB4ABzABAQEQHgACEwAEIAATAAcGFRIZARMABCgAEwADBhIdAwYS
+IQQAABIdBAAAEiEFAAEBEiEECAASHQQIABIhAwYSIAIGHAQAABIgBAgAEiAIiYRdzYCAzJECBggD
+BhEoBAAAAAAEAQAAAAUgAQERNQgBAAEAAAAAAAUgAgEODhgBAApNeVRlbXBsYXRlCDEwLjAuMC4w
+AAAGFRIYARIMBhUSGAESCAYVEhgBEhEGFRIYARIUBAcBEgwEBwESCAQHARIRBAcBEhQEIAEBDhMB
+AA5NeS5XZWJTZXJ2aWNlcwAAEAEAC015LkNvbXB1dGVyAAAMAQAHTXkuVXNlcgAAEwEADk15LkFw
+cGxpY2F0aW9uAAAEAAEcHAMHAQIDBwEIBgABEhURUQQHARIVAwcBDgUQAQAeAAQKAR4ABAcBHgAH
+IAQBDg4ODmEBADRTeXN0ZW0uV2ViLlNlcnZpY2VzLlByb3RvY29scy5Tb2FwSHR0cENsaWVudFBy
+b3RvY29sEkNyZWF0ZV9fSW5zdGFuY2VfXxNEaXNwb3NlX19JbnN0YW5jZV9fAAAABhUSGAETAAYV
+EhkBEwAECgETAAUgAQETAAgHAxMAEwATAAQgAQECBQEAAAAABCAAEmEGIAIBDhJhBgcCEh0SHQQH
+ARIhCAEAAgAAAAAABAABARwEBwESIAQgABJxBCAAEnUFIAESeRwDIAAcBgADDg4ODgQAAQIOBAAB
+Cg4EIAEBCAUAAQESbQ4HCw4ODg4ODg4ODg4SbQgBAAgAAAAAAB4BAAEAVAIWV3JhcE5vbkV4Y2Vw
+dGlvblRocm93cwFHAQAaLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjABAFQOFEZyYW1ld29ya0Rp
+c3BsYXlOYW1lEC5ORVQgRnJhbWV3b3JrIDQMAQAHMS4wLjAuMAAAKQEAJDgyY2YwZTQyLWRkYTUt
+NGI0NC1hNjA0LWFiNDljY2Q0NzBkNwAABQEAAQAAKQEAJENvcHlyaWdodCBAIEF2b24gUHJvZHVj
+dHMsIEluYy4gMjAxNAAAKAEAI1NUXzY0M2VmYTVkNDJlMDRmN2I5ZWY5ZGYwNDQxNTQzOTdkAAAY
+AQATQXZvbiBQcm9kdWN0cywgSW5jLgAAAAAYPAAAAAAAAAAAAAAuPAAAACAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAIDwAAAAAAAAAAF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/JQAgABAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA
+EAAAABgAAIAAAAAAAAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABY
+QAAA8AMAAAAAAAAAAAAA8AM0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E
+7/4AAAEAAAABAAAAAAAAAAEAAAAAAD8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBW
+AGEAcgBGAGkAbABlAEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAA
+AACwBFADAAABAFMAdAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAACwDAAABADAAMAAwADAAMAA0
+AGIAMAAAAEgAFAABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAAAAAAQQB2AG8AbgAgAFAAcgBvAGQA
+dQBjAHQAcwAsACAASQBuAGMALgAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBu
+AAAAAABTAFQAXwA2ADQAMwBlAGYAYQA1AGQANAAyAGUAMAA0AGYANwBiADkAZQBmADkAZABmADAA
+NAA0ADEANQA0ADMAOQA3AGQAAAAwAAgAAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAw
+AC4AMAAuADAAAABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAVABfADEANgA1AGIA
+MAAyAGEAZAAxAGMAMwA5ADQANwBhADgAOAA2ADAAZgA2AGEAOQBkADkANgBlADQAMgBlAGEAOAAu
+AGQAbABsAAAAcAAlAAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkA
+ZwBoAHQAIABAACAAQQB2AG8AbgAgAFAAcgBvAGQAdQBjAHQAcwAsACAASQBuAGMALgAgADIAMAAx
+ADQAAAAAAHgAKAABAE8AcgBpAGcAaQBuAGEAbABGAGkAbABlAG4AYQBtAGUAAABTAFQAXwAxADYA
+NQBiADAAMgBhAGQAMQBjADMAOQA0ADcAYQA4ADgANgAwAGYANgBhADkAZAA5ADYAZQA0ADIAZQBh
+ADgALgBkAGwAbAAAAGgAJAABAFAAcgBvAGQAdQBjAHQATgBhAG0AZQAAAAAAUwBUAF8ANgA0ADMA
+ZQBmAGEANQBkADQAMgBlADAANABmADcAYgA5AGUAZgA5AGQAZgAwADQANAAxADUANAAzADkANwBk
+AAAANAAIAAEAUAByAG8AZAB1AGMAdABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAADgA
+CAABAEEAcwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADAALgAwAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAAEA8AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Console Log Begin Job"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{CFD6D441-3D6E-4854-A974-AD90DA522D71}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Console Log Begin Job"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','---------&gt; Begin Job &lt;---------l')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Constraints  PK_LINE_NUMBER_CONV"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Constraints"
+      DTS:DTSID="{38B39516-9326-406D-98A8-D30E82C68B20}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Constraints  PK_LINE_NUMBER_CONV"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="if not exists (select * from dbo.sysindexes where name = 'PK_LINE_NUMBER_CONV' and id = object_id(N'[dbo].[LINE_NUMBER_CONV]') )&#xA;   ALTER TABLE LINE_NUMBER_CONV&#xA;     ADD CONSTRAINT PK_LINE_NUMBER_CONV PRIMARY KEY CLUSTERED ([ID_BRANCH], [ID_CENT_YEAR], [ID_CAMPAIGN], [ID_LINE_NUMBER])&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Constraints  PK_LINE_NUMBER_CONV Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{A2EECAEB-23F6-4762-A2E8-2DA6C4265614}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Constraints  PK_LINE_NUMBER_CONV Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Create Constraints Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Constraints  PK_LINE_NUMBER_CONV Succeeded"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{6F8D3BF1-B3B8-4F21-A6D9-7D5E4A959C89}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Constraints  PK_LINE_NUMBER_CONV Succeeded"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','The Create Constraints Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Consrtaint PK_LINE_NUMBER_CONV Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{7D27FF15-9AB0-4307-9836-4218166B236A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Consrtaint PK_LINE_NUMBER_CONV Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Drop Constraint PK_LINE_NUMBER_CONV Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Constraint - PK_LINE_NUMBER_CONV"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Constraints"
+      DTS:DTSID="{4357630A-AABC-4FE3-85BD-9199A3B2AF6D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Constraint - PK_LINE_NUMBER_CONV"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="if exists (select * from dbo.sysindexes where name = 'PK_LINE_NUMBER_CONV' and id = object_id(N'[dbo].[LINE_NUMBER_CONV]') )&#xA;   ALTER TABLE LINE_NUMBER_CONV&#xA;     DROP CONSTRAINT PK_LINE_NUMBER_CONV&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Constraint PK_LINE_NUMBER_CONV Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{7BF069C6-259E-4992-9644-98FED0D3CB86}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Constraint PK_LINE_NUMBER_CONV Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Drop Constraint PK_LINE_NUMBER_CONV Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load PAS Line Number Conv Data Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{5DC6188B-8F40-43F1-8E8B-E51DBBC6F474}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load PAS Line Number Conv Data Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Load PAS Line Number Conv Data Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load PAS Line Number Conv Data Succeeded"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{31D008FC-4180-4EB1-A88B-9B82239B6426}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load PAS Line Number Conv Data Succeeded"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','The Load PAS Line Number Conv Data Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Move PD04 File to SQLImport Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{59F297E5-1813-439A-80AF-D2CF349B8F23}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Move PD04 File to SQLImport Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Move PD04 FTP Files To SQLImport Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Move PD04 files to SQLImport Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{98CDAEA4-1F7C-4CBD-8980-7C7C603C195B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Move PD04 files to SQLImport Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Move PD04 FTP Files To SQLImport Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container - Move Branch PD04 files to SQLImport"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{EF250B05-21B8-4877-81E8-1EC87B04642A}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container - Move Branch PD04 files to SQLImport">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Atl File To SQLImport"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="File System Task"
+          DTS:DTSID="{732C2DD7-41C5-4B1B-A4CE-5FEEBAE26C48}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move PD04Atl File To SQLImport"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="{2FA075E9-B68B-4A66-8972-AE53FCF74D5C}"
+              TaskDestinationPath="{C9497801-36C5-4EE7-A61A-E59806782595}" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Mtg File To SQLImport"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="File System Task"
+          DTS:DTSID="{FD366D8D-C7DB-4ADA-A395-08AB4552E9E7}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move PD04Mtg File To SQLImport"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="{FBA46205-1E53-4573-B0DE-77468A9592C2}"
+              TaskDestinationPath="{C9497801-36C5-4EE7-A61A-E59806782595}" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Nwk File To SQLImport"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="File System Task"
+          DTS:DTSID="{E7F8D88A-5522-40D1-A5F1-AFA4873040DC}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move PD04Nwk File To SQLImport"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="{FC6CCEF6-D6C7-494A-AB24-5A4A9F3B3F71}"
+              TaskDestinationPath="{C9497801-36C5-4EE7-A61A-E59806782595}" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Pas File To SQLImport"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="File System Task"
+          DTS:DTSID="{48CA15E2-E2BC-4857-871C-692DD5B29469}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move PD04Pas File To SQLImport"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="4">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="{F3563D2F-667C-45EA-802F-134F9CA99CB6}"
+              TaskDestinationPath="{C9497801-36C5-4EE7-A61A-E59806782595}" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container Load Branch Data To Line Number Conv Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F4DEC914-E4A3-4C61-8310-0D3FB9C218B0}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container Load Branch Data To Line Number Conv Table">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load ATL Line Number Conv Data"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Load ATL Line Number Conv Data"
+          DTS:DTSID="{F2C1C7FA-B781-4082-A60F-1299BB0A07A5}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load ATL Line Number Conv Data"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:PropertyExpression
+            DTS:Name="FormatFile">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+ @[User::LineConvFmtFileName]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <BulkInsertTask:BulkInsertTaskData
+              BulkInsertTask:CheckConstraints="False"
+              BulkInsertTask:CodePage="OEM"
+              BulkInsertTask:SourceConnectionName="{99503CED-266F-4CA2-B572-D827DFDBE398}"
+              BulkInsertTask:DestinationConnectionName="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+              BulkInsertTask:DestinationTableName="[dbo].[LINE_NUMBER_CONV]"
+              BulkInsertTask:FirstRow="0"
+              BulkInsertTask:UseFormatFile="True"
+              BulkInsertTask:FormatFile="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\lineconv.fmt"
+              BulkInsertTask:FieldTerminator="\t"
+              BulkInsertTask:RowTerminator="\n" xmlns:BulkInsertTask="www.microsoft.com/sqlserver/dts/tasks/bulkinserttask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load MGR Line Number Conv Data"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Load MGR Line Number Conv Data"
+          DTS:DTSID="{FE7E0571-8550-4609-893A-D5656837B380}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load MGR Line Number Conv Data"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:PropertyExpression
+            DTS:Name="FormatFile">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+ @[User::LineConvFmtFileName]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <BulkInsertTask:BulkInsertTaskData
+              BulkInsertTask:CheckConstraints="False"
+              BulkInsertTask:CodePage="OEM"
+              BulkInsertTask:SourceConnectionName="{E0C7718C-4951-43A4-8FF2-943B260012DF}"
+              BulkInsertTask:DestinationConnectionName="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+              BulkInsertTask:DestinationTableName="[dbo].[LINE_NUMBER_CONV]"
+              BulkInsertTask:FirstRow="0"
+              BulkInsertTask:UseFormatFile="True"
+              BulkInsertTask:FormatFile="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\lineconv.fmt"
+              BulkInsertTask:FieldTerminator="\t"
+              BulkInsertTask:RowTerminator="\n" xmlns:BulkInsertTask="www.microsoft.com/sqlserver/dts/tasks/bulkinserttask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load NWK Line Number Conv Data"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Load NWK Line Number Conv Data"
+          DTS:DTSID="{7D40E1D3-E166-4879-9E20-37CB97B759CC}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load NWK Line Number Conv Data"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:PropertyExpression
+            DTS:Name="FormatFile">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+ @[User::LineConvFmtFileName]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <BulkInsertTask:BulkInsertTaskData
+              BulkInsertTask:CheckConstraints="False"
+              BulkInsertTask:CodePage="OEM"
+              BulkInsertTask:SourceConnectionName="{7FAF3579-3DE9-4961-B53B-8968F8E2C02F}"
+              BulkInsertTask:DestinationConnectionName="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+              BulkInsertTask:DestinationTableName="[dbo].[LINE_NUMBER_CONV]"
+              BulkInsertTask:FirstRow="0"
+              BulkInsertTask:UseFormatFile="True"
+              BulkInsertTask:FormatFile="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\lineconv.fmt"
+              BulkInsertTask:FieldTerminator="\t"
+              BulkInsertTask:RowTerminator="\n" xmlns:BulkInsertTask="www.microsoft.com/sqlserver/dts/tasks/bulkinserttask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load PAS Line Number Conv Data"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Load PAS Line Number Conv Data"
+          DTS:DTSID="{349735F8-E9E8-45EC-8699-B102B449D93C}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load PAS Line Number Conv Data"
+          DTS:ThreadHint="4">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:PropertyExpression
+            DTS:Name="FormatFile">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+ @[User::LineConvFmtFileName]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <BulkInsertTask:BulkInsertTaskData
+              BulkInsertTask:CheckConstraints="False"
+              BulkInsertTask:CodePage="OEM"
+              BulkInsertTask:SourceConnectionName="{4A9F4C36-468A-40A7-9566-44108489996A}"
+              BulkInsertTask:DestinationConnectionName="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+              BulkInsertTask:DestinationTableName="[dbo].[LINE_NUMBER_CONV]"
+              BulkInsertTask:FirstRow="0"
+              BulkInsertTask:UseFormatFile="True"
+              BulkInsertTask:FormatFile="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\lineconv.fmt"
+              BulkInsertTask:FieldTerminator="\t"
+              BulkInsertTask:RowTerminator="\n" xmlns:BulkInsertTask="www.microsoft.com/sqlserver/dts/tasks/bulkinserttask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line_Number_Conv Table"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate Line_Number_Conv Table"
+      DTS:DTSID="{919ADB62-09C4-4BC3-B68B-A6CA88A1E4CA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line_Number_Conv Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="Truncate Table LINE_NUMBER_CONV&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line_Number_Conv Table Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{73A43107-A87B-48D4-9022-5A1EAA1E0FDA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line_Number_Conv Table Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','Truncate Line_Number_Conv Table Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Line_Number_Conv Table Succeeded"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{8DF64E6B-0947-4407-A734-8029A6A5F0C4}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Line_Number_Conv Table Succeeded"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv',' Truncate Line_Number_Conv Table Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Package Complete To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Package Complete To Console"
+      DTS:DTSID="{D9FEFB5A-EDAD-4EB9-ACCD-A79EEDA663C4}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Package Complete To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{49FF06EB-073C-4874-AE6D-6F69C6F2E0B4}"
+          SQLTask:SqlStatementSource="INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LoadLineNumConv','-----&gt;Package COMPLETED&lt;-----')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{240BB5DA-6818-471C-B88D-E088E3F87C07}"
+      DTS:From="Package\Check PD04Branch Files"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Check PD04 files successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{EF66CACC-504D-4B43-905A-E4D55167145D}"
+      DTS:From="Package\Check PD04Branch Files"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Check PD04 files Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{13116164-6CB6-4B34-B6A9-544E92242873}"
+      DTS:From="Package\Check PD04 files successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Sequence Container - Move Branch PD04 files to SQLImport"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{97562620-72AE-4DC3-B5BF-F22B290A8AB8}"
+      DTS:From="Package\Sequence Container - Move Branch PD04 files to SQLImport"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Move PD04 files to SQLImport Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{91DB3964-CF87-4F7B-A87C-CDC483D1DCDE}"
+      DTS:From="Package\Sequence Container - Move Branch PD04 files to SQLImport"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Move PD04 File to SQLImport Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{6AD94DD5-1015-4F00-BD0D-D59201BD045B}"
+      DTS:From="Package\Truncate Line_Number_Conv Table Succeeded"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Sequence Container Load Branch Data To Line Number Conv Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{E5FFF8B6-E048-4B8F-BFE6-91A67D906566}"
+      DTS:From="Package\Sequence Container Load Branch Data To Line Number Conv Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Load PAS Line Number Conv Data Succeeded" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{731D7428-9DC2-4C04-8598-BC2560FEB412}"
+      DTS:From="Package\Sequence Container Load Branch Data To Line Number Conv Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Load PAS Line Number Conv Data Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{D9297402-783F-40C8-9FE8-9330B913B488}"
+      DTS:From="Package\Console Log Begin Job"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Check PD04Branch Files" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{1B77DDE9-C232-470D-BA17-8898CEBFB02D\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{1B77DDE9-C232-470D-BA17-8898CEBFB02D}"
+      DTS:From="Package\Create Constraints  PK_LINE_NUMBER_CONV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{1B77DDE9-C232-470D-BA17-8898CEBFB02D}"
+      DTS:To="Package\Create Constraints  PK_LINE_NUMBER_CONV Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{26C091F4-9C18-4780-B151-52930E17BDC9\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{26C091F4-9C18-4780-B151-52930E17BDC9}"
+      DTS:From="Package\Move PD04 files to SQLImport Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{26C091F4-9C18-4780-B151-52930E17BDC9}"
+      DTS:To="Package\Drop Constraint - PK_LINE_NUMBER_CONV"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{3807946C-3F6F-455A-9DFD-63680C96CDC7\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{3807946C-3F6F-455A-9DFD-63680C96CDC7}"
+      DTS:From="Package\Truncate Line_Number_Conv Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{3807946C-3F6F-455A-9DFD-63680C96CDC7}"
+      DTS:To="Package\Truncate Line_Number_Conv Table Succeeded" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{5830BF12-7047-421D-8F0F-731F374CB8C2\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{5830BF12-7047-421D-8F0F-731F374CB8C2}"
+      DTS:From="Package\Drop Consrtaint PK_LINE_NUMBER_CONV Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{5830BF12-7047-421D-8F0F-731F374CB8C2}"
+      DTS:To="Package\Truncate Line_Number_Conv Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{795F7519-135E-4267-B7C5-EF569517C83B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{795F7519-135E-4267-B7C5-EF569517C83B}"
+      DTS:From="Package\Drop Constraint - PK_LINE_NUMBER_CONV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{795F7519-135E-4267-B7C5-EF569517C83B}"
+      DTS:To="Package\Drop Constraint PK_LINE_NUMBER_CONV Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{79D8A715-F826-43D6-8FC4-F68FA1011D3B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{79D8A715-F826-43D6-8FC4-F68FA1011D3B}"
+      DTS:From="Package\Create Constraints  PK_LINE_NUMBER_CONV Succeeded"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{79D8A715-F826-43D6-8FC4-F68FA1011D3B}"
+      DTS:To="Package\Write Package Complete To Console"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{89F96FCD-F82E-466E-80EF-E1C9C8402530\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{89F96FCD-F82E-466E-80EF-E1C9C8402530}"
+      DTS:From="Package\Truncate Line_Number_Conv Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{89F96FCD-F82E-466E-80EF-E1C9C8402530}"
+      DTS:To="Package\Truncate Line_Number_Conv Table Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{917233AF-6060-4AB7-B2BB-4D8DEA8CBAC1\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{917233AF-6060-4AB7-B2BB-4D8DEA8CBAC1}"
+      DTS:From="Package\Load PAS Line Number Conv Data Succeeded"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{917233AF-6060-4AB7-B2BB-4D8DEA8CBAC1}"
+      DTS:To="Package\Create Constraints  PK_LINE_NUMBER_CONV"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{9E384642-1EF5-476D-A1BE-A54B209189EA\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{9E384642-1EF5-476D-A1BE-A54B209189EA}"
+      DTS:From="Package\Create Constraints  PK_LINE_NUMBER_CONV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{9E384642-1EF5-476D-A1BE-A54B209189EA}"
+      DTS:To="Package\Create Constraints  PK_LINE_NUMBER_CONV Succeeded" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{EBD21AD5-2B33-4243-ADA9-554A918D27EC\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{EBD21AD5-2B33-4243-ADA9-554A918D27EC}"
+      DTS:From="Package\Drop Constraint - PK_LINE_NUMBER_CONV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{EBD21AD5-2B33-4243-ADA9-554A918D27EC}"
+      DTS:To="Package\Drop Consrtaint PK_LINE_NUMBER_CONV Success" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="190.4,41.6"
+          Id="Package\Check PD04 files Failed"
+          TopLeft="250.521280414987,410.559214615107" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Check PD04 files successful"
+          TopLeft="886.227576332218,410.559214615107" />
+        <NodeLayout
+          Size="211.2,41.6"
+          Id="Package\Check PD04Branch Files"
+          TopLeft="539.131024151328,310.042724356319" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Console Log Begin Job"
+          TopLeft="540.889615665806,203.383605774893" />
+        <NodeLayout
+          Size="295.2,41.6"
+          Id="Package\Create Constraints  PK_LINE_NUMBER_CONV"
+          TopLeft="497.131024151328,1862.24318179304" />
+        <NodeLayout
+          Size="326.4,41.6"
+          Id="Package\Create Constraints  PK_LINE_NUMBER_CONV Failed"
+          TopLeft="182.521280414987,1958.07396878718" />
+        <NodeLayout
+          Size="348.8,41.6"
+          Id="Package\Create Constraints  PK_LINE_NUMBER_CONV Succeeded"
+          TopLeft="816.727576332218,1958.07396878718" />
+        <NodeLayout
+          Size="319.2,41.6"
+          Id="Package\Drop Consrtaint PK_LINE_NUMBER_CONV Success"
+          TopLeft="831.727576332218,1101.27249420276" />
+        <NodeLayout
+          Size="286.4,41.6"
+          Id="Package\Drop Constraint - PK_LINE_NUMBER_CONV"
+          TopLeft="501.631024151328,989.676144545011" />
+        <NodeLayout
+          Size="310.4,41.6"
+          Id="Package\Drop Constraint PK_LINE_NUMBER_CONV Failed"
+          TopLeft="190.521280414987,1110.6379620617" />
+        <NodeLayout
+          Size="272,41.6"
+          Id="Package\Load PAS Line Number Conv Data Failed"
+          TopLeft="209.521280414987,1787.51114301339" />
+        <NodeLayout
+          Size="243.2,41.6"
+          Id="Package\Load PAS Line Number Conv Data Succeeded"
+          TopLeft="869.727576332218,1787.51114301339" />
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Move PD04 File to SQLImport Failed"
+          TopLeft="227.021280414987,882.706155575254" />
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Move PD04 files to SQLImport Successful"
+          TopLeft="872.727576332218,897.272494202754" />
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Atl File To SQLImport"
+          TopLeft="41.625,23.5985931710275" />
+        <NodeLayout
+          Size="240.8,41.6"
+          Id="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Mtg File To SQLImport"
+          TopLeft="39.125,77.5985931710275" />
+        <NodeLayout
+          Size="243.2,41.6"
+          Id="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Nwk File To SQLImport"
+          TopLeft="37.625,133.598593171027" />
+        <NodeLayout
+          Size="239.2,41.6"
+          Id="Package\Sequence Container - Move Branch PD04 files to SQLImport\Move PD04Pas File To SQLImport"
+          TopLeft="39.625,187.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="385.6,284"
+          Size="385.6,327.2"
+          Id="Package\Sequence Container - Move Branch PD04 files to SQLImport"
+          TopLeft="452.631024151328,504.381249084252" />
+        <NodeLayout
+          Size="240,41.6"
+          Id="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load ATL Line Number Conv Data"
+          TopLeft="57.5112823797028,5.5" />
+        <NodeLayout
+          Size="244,41.6"
+          Id="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load MGR Line Number Conv Data"
+          TopLeft="55.5112823797028,64.9202768977641" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load NWK Line Number Conv Data"
+          TopLeft="55.0112823797028,129.442291798898" />
+        <NodeLayout
+          Size="240.8,41.6"
+          Id="Package\Sequence Container Load Branch Data To Line Number Conv Table\Load PAS Line Number Conv Data"
+          TopLeft="57.0112823797028,192.117145458065" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="343.2,288.8"
+          Size="343.2,332"
+          Id="Package\Sequence Container Load Branch Data To Line Number Conv Table"
+          TopLeft="443.131024151328,1417.38124908425" />
+        <NodeLayout
+          Size="247.2,41.6"
+          Id="Package\Truncate Line_Number_Conv Table"
+          TopLeft="521.131024151328,1193.67614454501" />
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Truncate Line_Number_Conv Table Failed"
+          TopLeft="227.021280414987,1317.37456618996" />
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Truncate Line_Number_Conv Table Succeeded"
+          TopLeft="872.727576332218,1305.27249420275" />
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Write Package Complete To Console"
+          TopLeft="519.131024151328,2062.24318179304" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="678.464357484661,352.042724356319">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="312.763218847557,58.516490258788"
+              Start="0,0"
+              End="312.763218847557,51.016490258788">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.6708286089171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.6708286089171"
+                    Point2="0,23.6708286089171"
+                    Point3="4,23.6708286089171" />
+                  <mssgle:LineSegment
+                    End="308.763218847557,23.6708286089171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="308.763218847557,23.6708286089171"
+                    Point2="312.763218847557,23.6708286089171"
+                    Point3="312.763218847557,27.6708286089171" />
+                  <mssgle:LineSegment
+                    End="312.763218847557,51.016490258788" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="610.797690817995,352.042724356319">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-265.276410403007,58.516490258788"
+              Start="0,0"
+              End="-265.276410403007,51.016490258788">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.6708286089171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.6708286089171"
+                    Point2="0,23.6708286089171"
+                    Point3="-4,23.6708286089171" />
+                  <mssgle:LineSegment
+                    End="-261.276410403007,23.6708286089171" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-261.276410403007,23.6708286089171"
+                    Point2="-265.276410403007,23.6708286089171"
+                    Point3="-265.276410403007,27.6708286089171" />
+                  <mssgle:LineSegment
+                    End="-265.276410403007,51.016490258788" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-147.879552857753,28.6708286089171,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="991.227576332218,452.559214615107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-345.59655218089,51.822034469145"
+              Start="0,0"
+              End="-345.59655218089,44.322034469145">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.9110172345725" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.9110172345725"
+                    Point2="0,25.9110172345725"
+                    Point3="-4,25.9110172345725" />
+                  <mssgle:LineSegment
+                    End="-341.59655218089,25.9110172345725" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-341.59655218089,25.9110172345725"
+                    Point2="-345.59655218089,25.9110172345725"
+                    Point3="-345.59655218089,29.9110172345725" />
+                  <mssgle:LineSegment
+                    End="-345.59655218089,44.322034469145" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-198.102729215445,30.9110172345725,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="708.631024151328,831.381249084252">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="282.59655218089,65.891245118502"
+              Start="0,0"
+              End="282.59655218089,58.391245118502">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5196961777252" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5196961777252"
+                    Point2="0,26.5196961777252"
+                    Point3="4,26.5196961777252" />
+                  <mssgle:LineSegment
+                    End="278.59655218089,26.5196961777252" />
+                  <mssgle:CubicBezierSegment
+                    Point1="278.59655218089,26.5196961777252"
+                    Point2="282.59655218089,26.5196961777252"
+                    Point3="282.59655218089,30.5196961777252" />
+                  <mssgle:LineSegment
+                    End="282.59655218089,58.391245118502" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="582.631024151328,831.381249084252">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-237.109743736341,51.324906491002"
+              Start="0,0"
+              End="-237.109743736341,43.824906491002">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6570831078336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6570831078336"
+                    Point2="0,20.6570831078336"
+                    Point3="-4,20.6570831078336" />
+                  <mssgle:LineSegment
+                    End="-233.109743736341,20.6570831078336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-233.109743736341,20.6570831078336"
+                    Point2="-237.109743736341,20.6570831078336"
+                    Point3="-237.109743736341,24.6570831078336" />
+                  <mssgle:LineSegment
+                    End="-237.109743736341,43.824906491002" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-133.796219524421,25.6570831078336,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="991.227576332218,1347.27249420275">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-376.59655218089,70.1087548815001"
+              Start="0,0"
+              End="-376.59655218089,62.6087548815001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.05437744075" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.05437744075"
+                    Point2="0,35.05437744075"
+                    Point3="-4,35.05437744075" />
+                  <mssgle:LineSegment
+                    End="-372.59655218089,35.05437744075" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-372.59655218089,35.05437744075"
+                    Point2="-376.59655218089,35.05437744075"
+                    Point3="-376.59655218089,39.05437744075" />
+                  <mssgle:LineSegment
+                    End="-376.59655218089,62.6087548815001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-213.602729215445,40.05437744075,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="670.464357484661,1749.38124908425">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="320.763218847557,38.1298939291401"
+              Start="0,0"
+              End="320.763218847557,30.6298939291401">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.3581813040181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.3581813040181"
+                    Point2="0,15.3581813040181"
+                    Point3="4,15.3581813040181" />
+                  <mssgle:LineSegment
+                    End="316.763218847557,15.3581813040181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="316.763218847557,15.3581813040181"
+                    Point2="320.763218847557,15.3581813040181"
+                    Point3="320.763218847557,19.3581813040181" />
+                  <mssgle:LineSegment
+                    End="320.763218847557,30.6298939291401" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="558.797690817995,1749.38124908425">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-213.276410403008,38.1298939291401"
+              Start="0,0"
+              End="-213.276410403008,30.6298939291401">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.3581813040181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.3581813040181"
+                    Point2="0,15.3581813040181"
+                    Point3="-4,15.3581813040181" />
+                  <mssgle:LineSegment
+                    End="-209.276410403008,15.3581813040181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-209.276410403008,15.3581813040181"
+                    Point2="-213.276410403008,15.3581813040181"
+                    Point3="-213.276410403008,19.3581813040181" />
+                  <mssgle:LineSegment
+                    End="-213.276410403008,30.6298939291401" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-121.879552857754,20.3581813040181,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="645.260319908567,245.383605774893">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,64.6591185814261"
+              Start="0,0"
+              End="0,57.1591185814261">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.1591185814261" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{9E384642-1EF5-476D-A1BE-A54B209189EA\}]"
+          TopLeft="692.464357484661,1904.24318179304">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="298.763218847557,53.8307869941391"
+              Start="0,0"
+              End="298.763218847557,46.3307869941391">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.7065479585267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.7065479585267"
+                    Point2="0,21.7065479585267"
+                    Point3="4,21.7065479585267" />
+                  <mssgle:LineSegment
+                    End="294.763218847557,21.7065479585267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="294.763218847557,21.7065479585267"
+                    Point2="298.763218847557,21.7065479585267"
+                    Point3="298.763218847557,25.7065479585267" />
+                  <mssgle:LineSegment
+                    End="298.763218847557,46.3307869941391" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{1B77DDE9-C232-470D-BA17-8898CEBFB02D\}]"
+          TopLeft="596.797690817995,1904.24318179304">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-251.276410403007,53.8307869941391"
+              Start="0,0"
+              End="-251.276410403007,46.3307869941391">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.7065479585267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.7065479585267"
+                    Point2="0,21.7065479585267"
+                    Point3="-4,21.7065479585267" />
+                  <mssgle:LineSegment
+                    End="-247.276410403007,21.7065479585267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-247.276410403007,21.7065479585267"
+                    Point2="-251.276410403007,21.7065479585267"
+                    Point3="-251.276410403007,25.7065479585267" />
+                  <mssgle:LineSegment
+                    End="-251.276410403007,46.3307869941391" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-140.879552857753,26.7065479585267,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{795F7519-135E-4267-B7C5-EF569517C83B\}]"
+          TopLeft="598.297690817995,1031.67614454501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-252.776410403007,78.9618175166841"
+              Start="0,0"
+              End="-252.776410403007,71.4618175166841">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8482991374664" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.8482991374664"
+                    Point2="0,31.8482991374664"
+                    Point3="-4,31.8482991374664" />
+                  <mssgle:LineSegment
+                    End="-248.776410403007,31.8482991374664" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-248.776410403007,31.8482991374664"
+                    Point2="-252.776410403007,31.8482991374664"
+                    Point3="-252.776410403007,35.8482991374664" />
+                  <mssgle:LineSegment
+                    End="-252.776410403007,71.4618175166841" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-141.629552857754,36.8482991374664,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{89F96FCD-F82E-466E-80EF-E1C9C8402530\}]"
+          TopLeft="604.797690817995,1235.67614454501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-259.276410403007,81.6984216449511"
+              Start="0,0"
+              End="-259.276410403007,74.1984216449511">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.9948573336809" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.9948573336809"
+                    Point2="0,32.9948573336809"
+                    Point3="-4,32.9948573336809" />
+                  <mssgle:LineSegment
+                    End="-255.276410403007,32.9948573336809" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-255.276410403007,32.9948573336809"
+                    Point2="-259.276410403007,32.9948573336809"
+                    Point3="-259.276410403007,36.9948573336809" />
+                  <mssgle:LineSegment
+                    End="-259.276410403007,74.1984216449511" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-144.879552857754,37.9948573336809,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{3807946C-3F6F-455A-9DFD-63680C96CDC7\}]"
+          TopLeft="684.464357484661,1235.67614454501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="306.763218847557,69.5963496577409"
+              Start="0,0"
+              End="306.763218847557,62.0963496577409">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.1072948738423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.1072948738423"
+                    Point2="0,28.1072948738423"
+                    Point3="4,28.1072948738423" />
+                  <mssgle:LineSegment
+                    End="302.763218847557,28.1072948738423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="302.763218847557,28.1072948738423"
+                    Point2="306.763218847557,28.1072948738423"
+                    Point3="306.763218847557,32.1072948738423" />
+                  <mssgle:LineSegment
+                    End="306.763218847557,62.0963496577409" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{79D8A715-F826-43D6-8FC4-F68FA1011D3B\}]"
+          TopLeft="991.227576332218,2000.07396878718">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-346.59655218089,62.16921300586"
+              Start="0,0"
+              End="-346.59655218089,54.66921300586">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.08460650293" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.08460650293"
+                    Point2="0,31.08460650293"
+                    Point3="-4,31.08460650293" />
+                  <mssgle:LineSegment
+                    End="-342.59655218089,31.08460650293" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-342.59655218089,31.08460650293"
+                    Point2="-346.59655218089,31.08460650293"
+                    Point3="-346.59655218089,35.08460650293" />
+                  <mssgle:LineSegment
+                    End="-346.59655218089,54.66921300586" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-198.602729215445,36.08460650293,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{5830BF12-7047-421D-8F0F-731F374CB8C2\}]"
+          TopLeft="991.227576332218,1143.27249420276">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-346.59655218089,50.403650342256"
+              Start="0,0"
+              End="-346.59655218089,42.903650342256">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.201825171128" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.201825171128"
+                    Point2="0,25.201825171128"
+                    Point3="-4,25.201825171128" />
+                  <mssgle:LineSegment
+                    End="-342.59655218089,25.201825171128" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-342.59655218089,25.201825171128"
+                    Point2="-346.59655218089,25.201825171128"
+                    Point3="-346.59655218089,29.201825171128" />
+                  <mssgle:LineSegment
+                    End="-346.59655218089,42.903650342256" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-198.602729215445,30.201825171128,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{EBD21AD5-2B33-4243-ADA9-554A918D27EC\}]"
+          TopLeft="690.964357484661,1031.67614454501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="300.263218847557,69.596349657744"
+              Start="0,0"
+              End="300.263218847557,62.096349657744">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0708503487424" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.0708503487424"
+                    Point2="0,28.0708503487424"
+                    Point3="4,28.0708503487424" />
+                  <mssgle:LineSegment
+                    End="296.263218847557,28.0708503487424" />
+                  <mssgle:CubicBezierSegment
+                    Point1="296.263218847557,28.0708503487424"
+                    Point2="300.263218847557,28.0708503487424"
+                    Point3="300.263218847557,32.0708503487424" />
+                  <mssgle:LineSegment
+                    End="300.263218847557,62.096349657744" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{917233AF-6060-4AB7-B2BB-4D8DEA8CBAC1\}]"
+          TopLeft="991.227576332218,1829.51114301339">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-346.59655218089,32.7320387796551"
+              Start="0,0"
+              End="-346.59655218089,25.2320387796551">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.3660193898277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.3660193898277"
+                    Point2="0,16.3660193898277"
+                    Point3="-4,16.3660193898277" />
+                  <mssgle:LineSegment
+                    End="-342.59655218089,16.3660193898277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-342.59655218089,16.3660193898277"
+                    Point2="-346.59655218089,16.3660193898277"
+                    Point3="-346.59655218089,20.3660193898277" />
+                  <mssgle:LineSegment
+                    End="-346.59655218089,25.2320387796551" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-198.602729215445,21.3660193898277,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{26C091F4-9C18-4780-B151-52930E17BDC9\}]"
+          TopLeft="991.227576332218,939.272494202754">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-346.59655218089,50.403650342257"
+              Start="0,0"
+              End="-346.59655218089,42.903650342257">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.2018251711285" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.2018251711285"
+                    Point2="0,25.2018251711285"
+                    Point3="-4,25.2018251711285" />
+                  <mssgle:LineSegment
+                    End="-342.59655218089,25.2018251711285" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-342.59655218089,25.2018251711285"
+                    Point2="-346.59655218089,25.2018251711285"
+                    Point3="-346.59655218089,29.2018251711285" />
+                  <mssgle:LineSegment
+                    End="-346.59655218089,42.903650342257" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-198.602729215445,30.2018251711285,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="LoadLineNumConv"
+          ParentId="Package"
+          Size="200,47.2"
+          Id="2103c2c5-a971-4735-bc1d-ed62906169af"
+          TopLeft="532.458635218159,105.661874725628">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="This will read flat files and load them into the AvonPub DB"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="339.2,41.6"
+          Id="acbd108a-d8de-4de1-bff7-f347f96c8789"
+          TopLeft="475.131024151328,131.381249084252" />
+        <AnnotationLayout
+          Text="One thing to note here: &#xA;The move is at the folder level.&#xA;Therefore, the push connection must be at the folder level as well."
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="379.2,73.6"
+          Id="a029a219-f2ec-466d-9efe-59e388fdb232"
+          TopLeft="906,501.381249084252" />
+        <AnnotationLayout
+          Text="This is a pull to a BulkInsert. Therefore the pull connection is at the file level."
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="432,41.6"
+          Id="6749b648-88af-41f6-bb28-0ead3be20536"
+          TopLeft="828,1434.38124908425" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

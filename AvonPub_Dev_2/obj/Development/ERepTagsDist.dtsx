@@ -1,0 +1,3106 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 1:20:03 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYETOBIASJ"
+  DTS:CreatorName="AVONNA\tobiasj"
+  DTS:Description="SCC - Load Springdale Call Center DB ERep Tags Data"
+  DTS:DTSID="{1DE53CC0-C5AA-451E-B478-8288BFEB12D2}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ERepTagsDist"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{830897D8-7646-4830-9B34-803D191B4A32}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-ERepTagsDist-{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABuV+BnH2L5KXDraETeOs6OAAAAAASAAACgAAAAEAAAAO743ZgilnvhO4CxZ2zsk5oQAAAAiyQHNXrfPwmbJS06BuWNjhQAAACo54++m2LVsKk8E5yrhfvmaoMRsg</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SCC Repdat - EREP_TAGS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+      DTS:ObjectName="SCC Repdat - EREP_TAGS">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonSCCDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ryemspcssql1;User ID=SCCBATCH;Initial Catalog=Repdat;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-ERepTagsDist-{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}Repdat - EREP_TAGS;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAD3ftRhGrxMKqogZgFowz6WAAAAAASAAACgAAAAEAAAAOhCaHE7F68RnKNI/Bw+ko0QAAAAx1IWeNf3m0IvL9KBtbmhnRQAAABmyzHQSPdIatLGebARh6KBwUlFwQ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_ERepTagsDist_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:Description="SSIS Log File for LoadPD42Files"
+      DTS:DTSID="{E0F9C47A-3B2A-4C0B-AC59-A622B6EB2E4A}"
+      DTS:ObjectName="SSIS_ERepTagsDist_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts] +"SSIS_ERepTagsDist_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="1"
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_ERepTagsDist_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_ERepTagsDist_Log.xml"
+      DTS:CreationName="DTS.LogProviderXMLFile.3"
+      DTS:Description="Writes log entries for events to an XML file"
+      DTS:DTSID="{01CAB192-369C-4F30-8F65-FC742D44C921}"
+      DTS:ObjectName="SSIS log provider for XML files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables />
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">4,7,OnError,19,OnExecStatusChanged,10,OnProgress,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{01CAB192-369C-4F30-8F65-FC742D44C921}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Add constraint PK_EREP_TAGS"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Add constraint PK_EREP_TAGS"
+      DTS:DTSID="{A0647B1C-24BB-4B24-A277-38F9F7D2446F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add constraint PK_EREP_TAGS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+          SQLTask:SqlStatementSource="if not exists (select * from dbo.sysobjects where name = 'PK_EREP_TAGS')&#xA;  ALTER TABLE EREP_TAGS WITH NOCHECK ADD CONSTRAINT PK_EREP_TAGS PRIMARY KEY CLUSTERED (ID_BRANCH,ID_DISTRICT,ID_REP)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Add constraint PK_EREP_TAGS Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Add constraint PK_EREP_TAGS Failure"
+      DTS:DTSID="{CD54D538-878E-4A81-BFFF-5EF9ABBE7E04}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add constraint PK_EREP_TAGS Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Add EREP_TAGS Constraint Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Add constraint PK_EREP_TAGS Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Add constraint PK_EREP_TAGS Successful"
+      DTS:DTSID="{6E9B161C-84B4-4C88-B306-2D6121DA421E}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add constraint PK_EREP_TAGS Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Add EREP_TAGS Constraint Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Index  irep_dist"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Index  irep_dist"
+      DTS:DTSID="{2CFB3CE7-907F-4334-9C61-9DC93B4B1E8C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Index  irep_dist"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+          SQLTask:SqlStatementSource="&#xA;if not exists (select * from dbo.sysindexes where name = ' irep_dist')&#xA; CREATE INDEX irep_dist ON EREP_TAGS (ID_REP, ID_DISTRICT)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Index  irep_dist Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Index  irep_dist Failed"
+      DTS:DTSID="{33357592-F07F-4B8F-98E9-AD8C65DFE2B1}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Index  irep_dist Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Create Index  irep_dist EREP_TAGS Index Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Index  irep_dist Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Index  irep_dist Successful"
+      DTS:DTSID="{F390C2DE-40C6-4DA7-A44A-A4307E2C3E13}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Index  irep_dist Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'ERepTagsDist','SSIS - Create   irep_dist EREP_TAGS Index Success')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop constraint PK_EREP_TAGS"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop constraint PK_EREP_TAGS"
+      DTS:DTSID="{E1FD7619-B7AA-4FDF-85D3-2BDF4FED952A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop constraint PK_EREP_TAGS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+          SQLTask:SqlStatementSource="if exists (select * from dbo.sysobjects where name = 'PK_EREP_TAGS')&#xA;  ALTER TABLE EREP_TAGS DROP CONSTRAINT PK_EREP_TAGS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop constraint PK_EREP_TAGS Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop constraint PK_EREP_TAGS Failure"
+      DTS:DTSID="{69C92B54-5B26-4AC1-9910-84A99831D432}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop constraint PK_EREP_TAGS Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Drop EREP_TAGS Constraint Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop constraint PK_EREP_TAGS Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop constraint PK_EREP_TAGS Success"
+      DTS:DTSID="{4DF731B1-C5C0-446D-9A0E-A64CB228788E}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop constraint PK_EREP_TAGS Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Drop EREP_TAGS Constraint Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Index EREP_TAGS"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Index"
+      DTS:DTSID="{78047898-197A-4D45-AD1D-6F7DAC94DC59}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Index EREP_TAGS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+          SQLTask:SqlStatementSource="if exists (select * from dbo.sysindexes where name = 'irep_dist')&#xA;    drop index EREP_TAGS.irep_dist" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Index ERep_Tags Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Index ERep_Tags Failure"
+      DTS:DTSID="{C4347BC1-D454-4974-A9A2-DD7D197ACED6}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Index ERep_Tags Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Drop EREP_TAGS Index Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Index ERep_Tags Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Drop Index ERep_Tags Success"
+      DTS:DTSID="{64BDAE35-60E3-4DAE-A913-01D7EF468337}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Index ERep_Tags Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Drop EREP_TAGS Index Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Push ERepTags data to SCCDB ERepTags Table Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failed to Console"
+      DTS:DTSID="{0FB14D31-6BD4-483E-A81A-2B82751F6843}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Push ERepTags data to SCCDB ERepTags Table Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Push ERep_Tags Data to SCCDB Task Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Push ERepTags data to SCCDB ERepTags Table Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success to Console 4"
+      DTS:DTSID="{C25BF8B6-8CCF-4180-98F6-3D96BB20AB53}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Push ERepTags data to SCCDB ERepTags Table Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Push ERep_Tags Data to SCCDB Task Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Push ERepTags data to SCCDB ERepTagsData"
+      DTS:DTSID="{55811143-9F4C-4F42-A37B-8A203009285C}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info"
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="AvonPub RepTable ERepTags Info"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[REP_TABLE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AvonPub]"
+                  connectionManagerRefId="Package.ConnectionManagers[AvonPub]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_REP]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_REP]"
+                      length="8"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_REP]"
+                      name="ID_REP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_DISTRICT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_DISTRICT]"
+                      length="4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_DISTRICT]"
+                      name="ID_DISTRICT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[PRES_CLUB]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PRES_CLUB]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[PRES_CLUB]"
+                      name="PRES_CLUB"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LANG_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LANG_CODE]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LANG_CODE]"
+                      name="LANG_CODE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_BRANCH]"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_BRANCH]"
+                      name="ID_BRANCH"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ENROLL_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ENROLL_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ENROLL_TAG]"
+                      name="ENROLL_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[BEAUTY_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[BEAUTY_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[BEAUTY_TAG]"
+                      name="BEAUTY_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ETHNIC_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ETHNIC_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ETHNIC_TAG]"
+                      name="ETHNIC_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TAG]"
+                      name="LEADERSHIP_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_LEVEL]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_LEVEL]"
+                      name="LEADERSHIP_LEVEL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VAL_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LIFETIME_VAL_RANK]"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VAL_RANK]"
+                      name="LIFETIME_VAL_RANK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VALUE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LIFETIME_VALUE_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VALUE_TAG]"
+                      name="LIFETIME_VALUE_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[RETENTION_SCORE_RANK]"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_RANK]"
+                      name="RETENTION_SCORE_RANK"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[RETENTION_SCORE_TAG]"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_TAG]"
+                      name="RETENTION_SCORE_TAG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TITLE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_TITLE]"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TITLE]"
+                      name="LEADERSHIP_TITLE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_REP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="ID_REP" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TITLE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="TITLE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LAST_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="LAST_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[FIRST_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="FIRST_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[MIDDLE_INIT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="MIDDLE_INIT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ADDRESS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CITY_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="CITY_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ADR_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ADR_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ADR_ZIP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="ADR_ZIP" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[HOME_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="HOME_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[WORK_PHONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="WORK_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_DISTRICT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ID_DISTRICT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PRES_CLUB]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PRES_CLUB" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[NUM_MAILPLAN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="NUM_MAILPLAN" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LANG_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LANG_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ACCT_STAT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ACCT_STAT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SELECT_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SELECT_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CHR_ALPHA_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="CHR_ALPHA_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SS_NUMBER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="9"
+                      name="SS_NUMBER" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LOS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="LOS" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CURRENT_BALANCE]"
+                      dataType="cy"
+                      name="CURRENT_BALANCE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PAST_DUE_TOTAL]"
+                      dataType="cy"
+                      name="PAST_DUE_TOTAL" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PAST_DUE_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PAST_DUE_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ST_SALES_CTD]"
+                      dataType="cy"
+                      name="ST_SALES_CTD" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TR_PAYMENT]"
+                      dataType="cy"
+                      name="TR_PAYMENT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[DISTRICT_TYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DISTRICT_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[DISTRICT_UPDATE]"
+                      dataType="i2"
+                      name="DISTRICT_UPDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[DIVISION]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="DIVISION" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ID_BRANCH" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CHR_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CHR_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EP_ENROLL_CKSTAT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EP_ENROLL_CKSTAT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EP_PIN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="EP_PIN" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EP_PIN_STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EP_PIN_STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EP_NPC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EP_NPC" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EP_ENABLED]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EP_ENABLED" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ENROLL_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ENROLL_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[BEAUTY_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BEAUTY_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[QUICKPAY_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="QUICKPAY_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[AUTODEBIT_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="AUTODEBIT_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ETHNIC_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ETHNIC_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LEADERSHIP_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[DIST_SALES_MGR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DIST_SALES_MGR" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[BIRTHDAY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="BIRTHDAY" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNIVERSARY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="ANNIVERSARY" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LEADERSHIP_LEVEL" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[DISTRICT_UPDATE_YEAR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DISTRICT_UPDATE_YEAR" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LIFETIME_VAL_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="LIFETIME_VAL_RANK" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LIFETIME_VALUE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LIFETIME_VALUE_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[RETENTION_SCORE_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="RETENTION_SCORE_RANK" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[RETENTION_SCORE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RETENTION_SCORE_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PC_Points_Available]"
+                      dataType="i4"
+                      name="PC_Points_Available" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Raw_Score_Amt]"
+                      dataType="i4"
+                      name="Raw_Score_Amt" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Truck_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Truck_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Correspondence_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="Correspondence_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Campaign_Last_Update]"
+                      dataType="i2"
+                      name="Campaign_Last_Update" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Collection_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Collection_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[eLit_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="eLit_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Mark_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Mark_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Credit_Extension_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Credit_Extension_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Pay_Sell_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Pay_Sell_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Leadership_Kit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Leadership_Kit" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PC_Avon_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PC_Avon_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Removal_Reason_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Removal_Reason_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Appt_Source_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Appt_Source_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Credit_Card_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Credit_Card_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[Current_Tier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Current_Tier" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SS_Tag_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SS_Tag_3" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SS_Tag_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SS_Tag_5" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SS_Tag_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SS_Tag_7" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SS_Tag_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SS_Tag_8" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[High_Returns_Tag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="High_Returns_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[NSF_Tag]"
+                      dataType="i4"
+                      name="NSF_Tag" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[RECORD_DATETIME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="14"
+                      name="RECORD_DATETIME" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PC_AVON_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PC_AVON_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_OPT_FLAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LEADERSHIP_OPT_FLAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_OPT_CAMP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="LEADERSHIP_OPT_CAMP" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SERVICE_DATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="SERVICE_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CREDIT_HOLD_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CREDIT_HOLD_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PACKAGE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="PACKAGE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SELECT_TAG02]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SELECT_TAG02" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG01]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG01" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG02]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG02" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG03]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG03" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG04]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG04" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG05]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG05" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG06]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG06" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG07]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG07" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG08]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG08" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG09]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG09" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ANNEX_TAG10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ANNEX_TAG10" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[REP_HOLD_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="REP_HOLD_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SHIP_STREET]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SHIP_STREET" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SHIP_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SHIP_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SHIP_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="SHIP_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[SHIP_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="SHIP_ZIP_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ADDRESS2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ADDRESS2" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TRUCK_ZONE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TRUCK_ZONE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TRUCK_WEIGHT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TRUCK_WEIGHT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CHR_NAME_WITHTAGS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CHR_NAME_WITHTAGS" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PREFERRED_PREVIEW]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PREFERRED_PREVIEW" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[PUBLICITY_RELEASE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PUBLICITY_RELEASE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[CREDIT_SCORE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CREDIT_SCORE_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TEMP_STREET]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="TEMP_STREET" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TEMP_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="TEMP_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TEMP_STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TEMP_STATE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TEMP_ZIP_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="TEMP_ZIP_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[TEMP_CARE_OF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="TEMP_CARE_OF" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[ACCT_MAKER_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ACCT_MAKER_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].ExternalColumns[LEADERSHIP_TITLE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="LEADERSHIP_TITLE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_REP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_REP]"
+                      name="ID_REP" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_DISTRICT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_DISTRICT]"
+                      name="ID_DISTRICT" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[PRES_CLUB]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[PRES_CLUB]"
+                      name="PRES_CLUB" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LANG_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LANG_CODE]"
+                      name="LANG_CODE" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ID_BRANCH]"
+                      name="ID_BRANCH" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ENROLL_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ENROLL_TAG]"
+                      name="ENROLL_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[BEAUTY_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[BEAUTY_TAG]"
+                      name="BEAUTY_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ETHNIC_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ETHNIC_TAG]"
+                      name="ETHNIC_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_TAG]"
+                      name="LEADERSHIP_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_LEVEL]"
+                      name="LEADERSHIP_LEVEL" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LIFETIME_VAL_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LIFETIME_VAL_RANK]"
+                      name="LIFETIME_VAL_RANK" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LIFETIME_VALUE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LIFETIME_VALUE_TAG]"
+                      name="LIFETIME_VALUE_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[RETENTION_SCORE_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[RETENTION_SCORE_RANK]"
+                      name="RETENTION_SCORE_RANK" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[RETENTION_SCORE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[RETENTION_SCORE_TAG]"
+                      name="RETENTION_SCORE_TAG" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_TITLE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[LEADERSHIP_TITLE]"
+                      name="LEADERSHIP_TITLE" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags"
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="SCC ERepTags"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Repdat].[dbo].[EREP_TAGS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">1000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SCC Repdat - EREP_TAGS]"
+                  connectionManagerRefId="Package.ConnectionManagers[SCC Repdat - EREP_TAGS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[ID_REP]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="ID_REP"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_REP]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_REP]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[ID_DISTRICT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ID_DISTRICT"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_DISTRICT]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_DISTRICT]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[PRES_CLUB]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="PRES_CLUB"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[PRES_CLUB]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[PRES_CLUB]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LANG_CODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="LANG_CODE"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LANG_CODE]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LANG_CODE]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[ID_BRANCH]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="ID_BRANCH"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_BRANCH]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ID_BRANCH]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[ENROLL_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ENROLL_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ENROLL_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ENROLL_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[BEAUTY_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="BEAUTY_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[BEAUTY_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[BEAUTY_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[ETHNIC_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ETHNIC_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ETHNIC_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[ETHNIC_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LEADERSHIP_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="LEADERSHIP_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LEADERSHIP_LEVEL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="LEADERSHIP_LEVEL"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_LEVEL]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_LEVEL]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LIFETIME_VAL_RANK]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="LIFETIME_VAL_RANK"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LIFETIME_VAL_RANK]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VAL_RANK]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LIFETIME_VALUE_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="LIFETIME_VALUE_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LIFETIME_VALUE_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LIFETIME_VALUE_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[RETENTION_SCORE_RANK]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="RETENTION_SCORE_RANK"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[RETENTION_SCORE_RANK]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_RANK]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[RETENTION_SCORE_TAG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RETENTION_SCORE_TAG"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[RETENTION_SCORE_TAG]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[RETENTION_SCORE_TAG]" />
+                    <inputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].Columns[LEADERSHIP_TITLE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="LEADERSHIP_TITLE"
+                      externalMetadataColumnId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_TITLE]"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output].Columns[LEADERSHIP_TITLE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_REP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="ID_REP" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_DISTRICT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ID_DISTRICT" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ID_BRANCH" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[PRES_CLUB]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PRES_CLUB" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ENROLL_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ENROLL_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[BEAUTY_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BEAUTY_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LEADERSHIP_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_LEVEL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LEADERSHIP_LEVEL" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LANG_CODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LANG_CODE" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[ETHNIC_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ETHNIC_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LIFETIME_VAL_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="LIFETIME_VAL_RANK" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LIFETIME_VALUE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="LIFETIME_VALUE_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[RETENTION_SCORE_RANK]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="RETENTION_SCORE_RANK" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[RETENTION_SCORE_TAG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RETENTION_SCORE_TAG" />
+                    <externalMetadataColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input].ExternalColumns[LEADERSHIP_TITLE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="LEADERSHIP_TITLE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table.Paths[OLE DB Source Output]"
+              endId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate EREP_TAGS Table"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate EREP_TAGS Table"
+      DTS:DTSID="{98AA1ABF-2311-4CA3-BA11-F41115B56B3C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate EREP_TAGS Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B3EE0AD4-4BC9-4374-8A5B-A1AB134EDFA7}"
+          SQLTask:SqlStatementSource="Delete From EREP_TAGS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate EREP_TAGS Table Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate EREP_TAGS Table Failure"
+      DTS:DTSID="{5B21EF12-5463-4204-BDF7-C1A5FCCE067D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate EREP_TAGS Table Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="6">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Truncate EREP_TAGs Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate EREP_TAGS Table Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate EREP_TAGS Table Success"
+      DTS:DTSID="{DB6727A3-1ED9-4E69-993E-03DC5D3F14DA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate EREP_TAGS Table Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Truncate EREP_TAGS Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Slow down you move too fast Got to make the morning last"
+      DTS:DTSID="{8469A5B0-341D-4C5F-91A7-AF4262DE9469}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="WAITFOR DELAY '00:00:15'  -- Pause for a while" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Wait Failure"
+      DTS:DTSID="{540D5F96-E52A-4D59-88CD-95924FC92F9D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="7">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','Wait Task Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Wait Success"
+      DTS:DTSID="{33E1E49F-229F-46C9-870A-D8A6DD80CD63}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','WaitTask Success')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Package End To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Package End To Console"
+      DTS:DTSID="{2995DCE1-B88B-455D-9AFC-6A1F46F7F83A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Package End To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','-----&gt;Package ERepTagsDis END&lt;-----')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Package Start To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Package Complete To Console"
+      DTS:DTSID="{EFF208E9-5B6D-4D9B-9014-93367228A3A5}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Package Start To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{90EE5755-CC7E-40D5-88D9-6D8712B53C7A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-ERepTagsDist','-----&gt;Package ERepTagsDis START&lt;-----')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6045C3AD-9D6D-4FE3-A138-0D61D15D247C}"
+      DTS:From="Package\Write Package Start To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Drop Index EREP_TAGS" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{F4BCC9DA-6174-4E2F-AB3E-FA39D038DA1D}"
+      DTS:From="Package\Create Index  irep_dist Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Write Package End To Console"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{A3312C14-3FD7-4E61-B0E4-3A430449AE80}"
+      DTS:From="Package\Push ERepTags data to SCCDB ERepTags Table Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Wait"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{D75F4A58-AA83-44EF-A9D1-C4FF7786A4FB}"
+      DTS:From="Package\Wait"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Wait Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{428A397B-6473-4E83-9CF9-99085C37C0F9}"
+      DTS:From="Package\Wait Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Add constraint PK_EREP_TAGS"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{B805BE80-8ACC-422A-BA3D-02D88DF735BE}"
+      DTS:From="Package\Wait"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Wait Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{0025B4E2-F64E-4023-838A-B2AA3F80AA4E\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{0025B4E2-F64E-4023-838A-B2AA3F80AA4E}"
+      DTS:From="Package\Drop constraint PK_EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{0025B4E2-F64E-4023-838A-B2AA3F80AA4E}"
+      DTS:To="Package\Drop constraint PK_EREP_TAGS Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{00AC6684-ABD0-40E8-8C71-1AEF9956E65F\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{00AC6684-ABD0-40E8-8C71-1AEF9956E65F}"
+      DTS:From="Package\Drop Index EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{00AC6684-ABD0-40E8-8C71-1AEF9956E65F}"
+      DTS:To="Package\Drop Index ERep_Tags Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{00F45EF7-904F-4FD9-963C-37AB0CD5D728\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{00F45EF7-904F-4FD9-963C-37AB0CD5D728}"
+      DTS:From="Package\Add constraint PK_EREP_TAGS Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{00F45EF7-904F-4FD9-963C-37AB0CD5D728}"
+      DTS:To="Package\Create Index  irep_dist"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{02AA5264-E00A-4BCA-9DE5-36FA9D348A14\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{02AA5264-E00A-4BCA-9DE5-36FA9D348A14}"
+      DTS:From="Package\Add constraint PK_EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{02AA5264-E00A-4BCA-9DE5-36FA9D348A14}"
+      DTS:To="Package\Add constraint PK_EREP_TAGS Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{02E44CC1-5D60-4F1E-9743-929DF245FDE9\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{02E44CC1-5D60-4F1E-9743-929DF245FDE9}"
+      DTS:From="Package\Truncate EREP_TAGS Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{02E44CC1-5D60-4F1E-9743-929DF245FDE9}"
+      DTS:To="Package\Truncate EREP_TAGS Table Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{0EDE9B90-CCB0-4B1F-B988-B073DB0BA588\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{0EDE9B90-CCB0-4B1F-B988-B073DB0BA588}"
+      DTS:From="Package\Create Index  irep_dist"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{0EDE9B90-CCB0-4B1F-B988-B073DB0BA588}"
+      DTS:To="Package\Create Index  irep_dist Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{226EBC55-7938-4E48-A2B2-13A6284A21CD\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{226EBC55-7938-4E48-A2B2-13A6284A21CD}"
+      DTS:From="Package\Drop Index ERep_Tags Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{226EBC55-7938-4E48-A2B2-13A6284A21CD}"
+      DTS:To="Package\Drop constraint PK_EREP_TAGS"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{2576FE1D-8860-409D-8A35-EEEE1523206E\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{2576FE1D-8860-409D-8A35-EEEE1523206E}"
+      DTS:From="Package\Add constraint PK_EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{2576FE1D-8860-409D-8A35-EEEE1523206E}"
+      DTS:To="Package\Add constraint PK_EREP_TAGS Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{35C867BB-8392-45F5-AF7A-F89E6AD2D46C\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{35C867BB-8392-45F5-AF7A-F89E6AD2D46C}"
+      DTS:From="Package\Drop constraint PK_EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{35C867BB-8392-45F5-AF7A-F89E6AD2D46C}"
+      DTS:To="Package\Drop constraint PK_EREP_TAGS Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{4E669826-AE3A-47C0-8627-9D9B2E5A4E5C\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{4E669826-AE3A-47C0-8627-9D9B2E5A4E5C}"
+      DTS:From="Package\Truncate EREP_TAGS Table Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{4E669826-AE3A-47C0-8627-9D9B2E5A4E5C}"
+      DTS:To="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{5C054CF9-19E9-46A6-ACBC-2FA85F0ACC16\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{5C054CF9-19E9-46A6-ACBC-2FA85F0ACC16}"
+      DTS:From="Package\Drop Index EREP_TAGS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{5C054CF9-19E9-46A6-ACBC-2FA85F0ACC16}"
+      DTS:To="Package\Drop Index ERep_Tags Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{63174250-E73C-41B8-A5A1-A844E317E704\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{63174250-E73C-41B8-A5A1-A844E317E704}"
+      DTS:From="Package\Create Index  irep_dist"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{63174250-E73C-41B8-A5A1-A844E317E704}"
+      DTS:To="Package\Create Index  irep_dist Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{8DDEF58A-1924-46D7-B467-14548E4E8D5D\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{8DDEF58A-1924-46D7-B467-14548E4E8D5D}"
+      DTS:From="Package\Truncate EREP_TAGS Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{8DDEF58A-1924-46D7-B467-14548E4E8D5D}"
+      DTS:To="Package\Truncate EREP_TAGS Table Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{C75102E7-3250-4A52-84BA-0BE3E590FFD8\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{C75102E7-3250-4A52-84BA-0BE3E590FFD8}"
+      DTS:From="Package\Drop constraint PK_EREP_TAGS Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{C75102E7-3250-4A52-84BA-0BE3E590FFD8}"
+      DTS:To="Package\Truncate EREP_TAGS Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{CD99999A-AC20-46AF-8499-08D87A65B569\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{CD99999A-AC20-46AF-8499-08D87A65B569}"
+      DTS:From="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{CD99999A-AC20-46AF-8499-08D87A65B569}"
+      DTS:To="Package\Push ERepTags data to SCCDB ERepTags Table Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{D8AA54E6-B7D7-4778-931E-340DDCF61AE2\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{D8AA54E6-B7D7-4778-931E-340DDCF61AE2}"
+      DTS:From="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{D8AA54E6-B7D7-4778-931E-340DDCF61AE2}"
+      DTS:To="Package\Push ERepTags data to SCCDB ERepTags Table Success" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="225.6,41.6"
+          Id="Package\Add constraint PK_EREP_TAGS"
+          TopLeft="356.455080042278,1227.5" />
+        <NodeLayout
+          Size="260.8,41.6"
+          Id="Package\Add constraint PK_EREP_TAGS Failure"
+          TopLeft="64.8159004803225,1336.66047356797" />
+        <NodeLayout
+          Size="278.4,41.6"
+          Id="Package\Add constraint PK_EREP_TAGS Successful"
+          TopLeft="648.843045112555,1336.66047356797" />
+        <NodeLayout
+          Size="188.8,41.6"
+          Id="Package\Create Index  irep_dist"
+          TopLeft="374.955080042278,1431.5" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\Create Index  irep_dist Failed"
+          TopLeft="85.3159004803225,1539.60727708952" />
+        <NodeLayout
+          Size="240.8,41.6"
+          Id="Package\Create Index  irep_dist Successful"
+          TopLeft="667.343045112555,1538.60727708952" />
+        <NodeLayout
+          Size="231.2,41.6"
+          Id="Package\Drop constraint PK_EREP_TAGS"
+          TopLeft="353.955080042278,413.5" />
+        <NodeLayout
+          Size="265.6,41.6"
+          Id="Package\Drop constraint PK_EREP_TAGS Failure"
+          TopLeft="62.3159004803225,522.660473567965" />
+        <NodeLayout
+          Size="271.2,41.6"
+          Id="Package\Drop constraint PK_EREP_TAGS Success"
+          TopLeft="652.343045112555,522.660473567965" />
+        <NodeLayout
+          Size="192.8,41.6"
+          Id="Package\Drop Index EREP_TAGS"
+          TopLeft="372.955080042278,210.5" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Drop Index ERep_Tags Failure"
+          TopLeft="83.3159004803225,318.149496243891" />
+        <NodeLayout
+          Size="230.4,41.6"
+          Id="Package\Drop Index ERep_Tags Success"
+          TopLeft="672.843045112555,318.149496243891" />
+        <NodeLayout
+          Size="336,41.6"
+          Id="Package\Push ERepTags data to SCCDB ERepTags Table Failed"
+          TopLeft="30.8159004803225,935.089020862391" />
+        <NodeLayout
+          Size="344.8,41.6"
+          Id="Package\Push ERepTags data to SCCDB ERepTags Table Success"
+          TopLeft="618.843045112555,935.089020862391" />
+        <NodeLayout
+          Size="358.4,41.6"
+          Id="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+          TopLeft="320.455080042278,821.5" />
+        <NodeLayout
+          Size="211.2,41.6"
+          Id="Package\Truncate EREP_TAGS Table"
+          TopLeft="363.955080042278,617.5" />
+        <NodeLayout
+          Size="246.4,41.6"
+          Id="Package\Truncate EREP_TAGS Table Failure"
+          TopLeft="72.3159004803225,716.660473567965" />
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Truncate EREP_TAGS Table Success"
+          TopLeft="662.343045112555,716.660473567965" />
+        <NodeLayout
+          Size="102.4,41.6"
+          Id="Package\Wait"
+          TopLeft="418.455080042278,1036.39255960277" />
+        <NodeLayout
+          Size="136.8,41.6"
+          Id="Package\Wait Failure"
+          TopLeft="126.815900480323,1133.3295153927" />
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\Wait Success"
+          TopLeft="716.843045112555,1122.48008275354" />
+        <NodeLayout
+          Size="230.4,41.6"
+          Id="Package\Write Package End To Console"
+          TopLeft="354.455080042278,1631" />
+        <NodeLayout
+          Size="230.4,41.6"
+          Id="Package\Write Package Start To Console"
+          TopLeft="354.455080042278,123.681740486162" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="469.455080042278,165.681740486162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,44.818259513838"
+              Start="0,0"
+              End="0,37.318259513838">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.318259513838" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="787.843045112555,1580.60727708952">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-318.387965070277,50.39272291048"
+              Start="0,0"
+              End="-318.387965070277,42.89272291048">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.19636145524" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.19636145524"
+                    Point2="0,25.19636145524"
+                    Point3="-4,25.19636145524" />
+                  <mssgle:LineSegment
+                    End="-314.387965070277,25.19636145524" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.387965070277,25.19636145524"
+                    Point2="-318.387965070277,25.19636145524"
+                    Point3="-318.387965070277,29.19636145524" />
+                  <mssgle:LineSegment
+                    End="-318.387965070277,42.89272291048" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-184.498435660139,30.19636145524,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="791.343045112555,977.089020862391">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-321.887965070277,59.3035387403752"
+              Start="0,0"
+              End="-321.887965070277,51.8035387403752">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.6517693701876" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.6517693701876"
+                    Point2="0,29.6517693701876"
+                    Point3="-4,29.6517693701876" />
+                  <mssgle:LineSegment
+                    End="-317.887965070277,29.6517693701876" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-317.887965070277,29.6517693701876"
+                    Point2="-321.887965070277,29.6517693701876"
+                    Point3="-321.887965070277,33.6517693701876" />
+                  <mssgle:LineSegment
+                    End="-321.887965070277,51.8035387403752" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-186.248435660139,34.6517693701876,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="485.121746708944,1078.39255960277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="302.721298403611,44.0875231507773"
+              Start="0,0"
+              End="302.721298403611,36.5875231507773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.0435422933683" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.0435422933683"
+                    Point2="0,18.0435422933683"
+                    Point3="4,18.0435422933683" />
+                  <mssgle:LineSegment
+                    End="298.721298403611,18.0435422933683" />
+                  <mssgle:CubicBezierSegment
+                    Point1="298.721298403611,18.0435422933683"
+                    Point2="302.721298403611,18.0435422933683"
+                    Point3="302.721298403611,22.0435422933683" />
+                  <mssgle:LineSegment
+                    End="302.721298403611,36.5875231507773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="787.843045112555,1164.48008275354">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-318.387965070277,63.0199172464565"
+              Start="0,0"
+              End="-318.387965070277,55.5199172464565">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5099586232283" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5099586232283"
+                    Point2="0,31.5099586232283"
+                    Point3="-4,31.5099586232283" />
+                  <mssgle:LineSegment
+                    End="-314.387965070277,31.5099586232283" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.387965070277,31.5099586232283"
+                    Point2="-318.387965070277,31.5099586232283"
+                    Point3="-318.387965070277,35.5099586232283" />
+                  <mssgle:LineSegment
+                    End="-318.387965070277,55.5199172464565" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-184.498435660139,36.5099586232283,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="453.788413375611,1078.39255960277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-258.472512895288,54.9369557899361"
+              Start="0,0"
+              End="-258.472512895288,47.4369557899361">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.4838506321746" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.4838506321746"
+                    Point2="0,22.4838506321746"
+                    Point3="-4,22.4838506321746" />
+                  <mssgle:LineSegment
+                    End="-254.472512895288,22.4838506321746" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-254.472512895288,22.4838506321746"
+                    Point2="-258.472512895288,22.4838506321746"
+                    Point3="-258.472512895288,26.4838506321746" />
+                  <mssgle:LineSegment
+                    End="-258.472512895288,47.4369557899361" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-144.477604103894,27.4838506321746,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{0025B4E2-F64E-4023-838A-B2AA3F80AA4E\}]"
+          TopLeft="506.621746708944,455.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="281.221298403611,67.160473567965"
+              Start="0,0"
+              End="281.221298403611,59.660473567965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1413779681372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1413779681372"
+                    Point2="0,27.1413779681372"
+                    Point3="4,27.1413779681372" />
+                  <mssgle:LineSegment
+                    End="277.221298403611,27.1413779681372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="277.221298403611,27.1413779681372"
+                    Point2="281.221298403611,27.1413779681372"
+                    Point3="281.221298403611,31.1413779681372" />
+                  <mssgle:LineSegment
+                    End="281.221298403611,59.660473567965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{00AC6684-ABD0-40E8-8C71-1AEF9956E65F\}]"
+          TopLeft="500.288413375611,252.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="287.554631736944,65.649496243891"
+              Start="0,0"
+              End="287.554631736944,58.149496243891">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5836603495304" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5836603495304"
+                    Point2="0,26.5836603495304"
+                    Point3="4,26.5836603495304" />
+                  <mssgle:LineSegment
+                    End="283.554631736944,26.5836603495304" />
+                  <mssgle:CubicBezierSegment
+                    Point1="283.554631736944,26.5836603495304"
+                    Point2="287.554631736944,26.5836603495304"
+                    Point3="287.554631736944,30.5836603495304" />
+                  <mssgle:LineSegment
+                    End="287.554631736944,58.149496243891" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{00F45EF7-904F-4FD9-963C-37AB0CD5D728\}]"
+          TopLeft="787.843045112555,1378.66047356797">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-318.387965070277,52.83952643203"
+              Start="0,0"
+              End="-318.387965070277,45.33952643203">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.419763216015" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.419763216015"
+                    Point2="0,26.419763216015"
+                    Point3="-4,26.419763216015" />
+                  <mssgle:LineSegment
+                    End="-314.387965070277,26.419763216015" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.387965070277,26.419763216015"
+                    Point2="-318.387965070277,26.419763216015"
+                    Point3="-318.387965070277,30.419763216015" />
+                  <mssgle:LineSegment
+                    End="-318.387965070277,45.33952643203" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-184.498435660139,31.419763216015,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{02AA5264-E00A-4BCA-9DE5-36FA9D348A14\}]"
+          TopLeft="433.121746708944,1269.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-237.805846228622,67.16047356797"
+              Start="0,0"
+              End="-237.805846228622,59.66047356797">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1474673473341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1474673473341"
+                    Point2="0,27.1474673473341"
+                    Point3="-4,27.1474673473341" />
+                  <mssgle:LineSegment
+                    End="-233.805846228622,27.1474673473341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-233.805846228622,27.1474673473341"
+                    Point2="-237.805846228622,27.1474673473341"
+                    Point3="-237.805846228622,31.1474673473341" />
+                  <mssgle:LineSegment
+                    End="-237.805846228622,59.66047356797" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-134.144270770561,32.1474673473341,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{02E44CC1-5D60-4F1E-9743-929DF245FDE9\}]"
+          TopLeft="503.288413375611,659.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="284.554631736944,57.160473567965"
+              Start="0,0"
+              End="284.554631736944,49.660473567965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1222988092427" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.1222988092427"
+                    Point2="0,23.1222988092427"
+                    Point3="4,23.1222988092427" />
+                  <mssgle:LineSegment
+                    End="280.554631736944,23.1222988092427" />
+                  <mssgle:CubicBezierSegment
+                    Point1="280.554631736944,23.1222988092427"
+                    Point2="284.554631736944,23.1222988092427"
+                    Point3="284.554631736944,27.1222988092427" />
+                  <mssgle:LineSegment
+                    End="284.554631736944,49.660473567965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{0EDE9B90-CCB0-4B1F-B988-B073DB0BA588\}]"
+          TopLeft="439.288413375611,1473.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-243.972512895288,66.10727708952"
+              Start="0,0"
+              End="-243.972512895288,58.60727708952">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.7758750855768" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.7758750855768"
+                    Point2="0,26.7758750855768"
+                    Point3="-4,26.7758750855768" />
+                  <mssgle:LineSegment
+                    End="-239.972512895288,26.7758750855768" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-239.972512895288,26.7758750855768"
+                    Point2="-243.972512895288,26.7758750855768"
+                    Point3="-243.972512895288,30.7758750855768" />
+                  <mssgle:LineSegment
+                    End="-243.972512895288,58.60727708952" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-137.227604103894,31.7758750855768,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{226EBC55-7938-4E48-A2B2-13A6284A21CD\}]"
+          TopLeft="787.843045112555,360.149496243891">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-318.387965070277,53.350503756109"
+              Start="0,0"
+              End="-318.387965070277,45.850503756109">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.6752518780545" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.6752518780545"
+                    Point2="0,26.6752518780545"
+                    Point3="-4,26.6752518780545" />
+                  <mssgle:LineSegment
+                    End="-314.387965070277,26.6752518780545" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.387965070277,26.6752518780545"
+                    Point2="-318.387965070277,26.6752518780545"
+                    Point3="-318.387965070277,30.6752518780545" />
+                  <mssgle:LineSegment
+                    End="-318.387965070277,45.850503756109" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-184.498435660139,31.6752518780545,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{2576FE1D-8860-409D-8A35-EEEE1523206E\}]"
+          TopLeft="505.788413375611,1269.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="282.054631736944,67.16047356797"
+              Start="0,0"
+              End="282.054631736944,59.66047356797">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1474673473341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1474673473341"
+                    Point2="0,27.1474673473341"
+                    Point3="4,27.1474673473341" />
+                  <mssgle:LineSegment
+                    End="278.054631736944,27.1474673473341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="278.054631736944,27.1474673473341"
+                    Point2="282.054631736944,27.1474673473341"
+                    Point3="282.054631736944,31.1474673473341" />
+                  <mssgle:LineSegment
+                    End="282.054631736944,59.66047356797" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{35C867BB-8392-45F5-AF7A-F89E6AD2D46C\}]"
+          TopLeft="432.288413375611,455.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-236.972512895288,67.160473567965"
+              Start="0,0"
+              End="-236.972512895288,59.660473567965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1413779681372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1413779681372"
+                    Point2="0,27.1413779681372"
+                    Point3="-4,27.1413779681372" />
+                  <mssgle:LineSegment
+                    End="-232.972512895288,27.1413779681372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-232.972512895288,27.1413779681372"
+                    Point2="-236.972512895288,27.1413779681372"
+                    Point3="-236.972512895288,31.1413779681372" />
+                  <mssgle:LineSegment
+                    End="-236.972512895288,59.660473567965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-133.727604103894,32.1413779681372,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{4E669826-AE3A-47C0-8627-9D9B2E5A4E5C\}]"
+          TopLeft="787.843045112555,758.660473567965">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-288.387965070277,62.839526432035"
+              Start="0,0"
+              End="-288.387965070277,55.339526432035">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.4197632160175" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.4197632160175"
+                    Point2="0,31.4197632160175"
+                    Point3="-4,31.4197632160175" />
+                  <mssgle:LineSegment
+                    End="-284.387965070277,31.4197632160175" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-284.387965070277,31.4197632160175"
+                    Point2="-288.387965070277,31.4197632160175"
+                    Point3="-288.387965070277,35.4197632160175" />
+                  <mssgle:LineSegment
+                    End="-288.387965070277,55.339526432035" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-169.498435660139,36.4197632160175,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{5C054CF9-19E9-46A6-ACBC-2FA85F0ACC16\}]"
+          TopLeft="438.621746708944,252.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-243.305846228622,65.649496243891"
+              Start="0,0"
+              End="-243.305846228622,58.149496243891">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5836603495304" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5836603495304"
+                    Point2="0,26.5836603495304"
+                    Point3="-4,26.5836603495304" />
+                  <mssgle:LineSegment
+                    End="-239.305846228622,26.5836603495304" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-239.305846228622,26.5836603495304"
+                    Point2="-243.305846228622,26.5836603495304"
+                    Point3="-243.305846228622,30.5836603495304" />
+                  <mssgle:LineSegment
+                    End="-243.305846228622,58.149496243891" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-136.894270770561,31.5836603495304,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{63174250-E73C-41B8-A5A1-A844E317E704\}]"
+          TopLeft="499.621746708944,1473.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="288.221298403611,65.10727708952"
+              Start="0,0"
+              End="288.221298403611,57.60727708952">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.3708383594488" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.3708383594488"
+                    Point2="0,26.3708383594488"
+                    Point3="4,26.3708383594488" />
+                  <mssgle:LineSegment
+                    End="284.221298403611,26.3708383594488" />
+                  <mssgle:CubicBezierSegment
+                    Point1="284.221298403611,26.3708383594488"
+                    Point2="288.221298403611,26.3708383594488"
+                    Point3="288.221298403611,30.3708383594488" />
+                  <mssgle:LineSegment
+                    End="288.221298403611,57.60727708952" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{8DDEF58A-1924-46D7-B467-14548E4E8D5D\}]"
+          TopLeft="435.621746708944,659.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-240.305846228622,57.160473567965"
+              Start="0,0"
+              End="-240.305846228622,49.660473567965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1222988092427" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.1222988092427"
+                    Point2="0,23.1222988092427"
+                    Point3="-4,23.1222988092427" />
+                  <mssgle:LineSegment
+                    End="-236.305846228622,23.1222988092427" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-236.305846228622,23.1222988092427"
+                    Point2="-240.305846228622,23.1222988092427"
+                    Point3="-240.305846228622,27.1222988092427" />
+                  <mssgle:LineSegment
+                    End="-240.305846228622,49.660473567965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-135.394270770561,28.1222988092427,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{C75102E7-3250-4A52-84BA-0BE3E590FFD8\}]"
+          TopLeft="787.843045112555,564.660473567965">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-318.387965070277,52.839526432035"
+              Start="0,0"
+              End="-318.387965070277,45.339526432035">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.4197632160175" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.4197632160175"
+                    Point2="0,26.4197632160175"
+                    Point3="-4,26.4197632160175" />
+                  <mssgle:LineSegment
+                    End="-314.387965070277,26.4197632160175" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.387965070277,26.4197632160175"
+                    Point2="-318.387965070277,26.4197632160175"
+                    Point3="-318.387965070277,30.4197632160175" />
+                  <mssgle:LineSegment
+                    End="-318.387965070277,45.339526432035" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-184.498435660139,31.4197632160175,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{CD99999A-AC20-46AF-8499-08D87A65B569\}]"
+          TopLeft="441.121746708944,863.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-242.305846228622,71.589020862391"
+              Start="0,0"
+              End="-242.305846228622,64.089020862391">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.826724752153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.826724752153"
+                    Point2="0,28.826724752153"
+                    Point3="-4,28.826724752153" />
+                  <mssgle:LineSegment
+                    End="-238.305846228622,28.826724752153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-238.305846228622,28.826724752153"
+                    Point2="-242.305846228622,28.826724752153"
+                    Point3="-242.305846228622,32.826724752153" />
+                  <mssgle:LineSegment
+                    End="-242.305846228622,64.089020862391" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-136.394270770561,33.826724752153,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{D8AA54E6-B7D7-4778-931E-340DDCF61AE2\}]"
+          TopLeft="557.788413375611,863.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="233.554631736944,71.589020862391"
+              Start="0,0"
+              End="233.554631736944,64.089020862391">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.826724752153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.826724752153"
+                    Point2="0,28.826724752153"
+                    Point3="4,28.826724752153" />
+                  <mssgle:LineSegment
+                    End="229.554631736944,28.826724752153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="229.554631736944,28.826724752153"
+                    Point2="233.554631736944,28.826724752153"
+                    Point3="233.554631736944,32.826724752153" />
+                  <mssgle:LineSegment
+                    End="233.554631736944,64.089020862391" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="ERepTagsDist"
+          ParentId="Package"
+          Size="155.2,47.2"
+          Id="2d5452ae-d5d2-4531-b0bc-85294490e50f"
+          TopLeft="391.955080042278,6">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="Why does this package exist on AvonPub? It should be on SCCDB.&#xA;Every step deals with SCC DB. "
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="380,57.6"
+          Id="c89ba29f-8ccb-4da9-9a0c-b29aeace4cea"
+          TopLeft="279.455080042278,49" />
+        <AnnotationLayout
+          Text="This is a straight Column to Column Copy to an external DB."
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="348,41.6"
+          Id="d0961335-173b-445d-9f30-4cde8b9696a4"
+          TopLeft="671,817" />
+        <AnnotationLayout
+          Text="Wait (for some strange reason) &#xA;This may have been an issue TEN YEARS ago"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="267.2,57.6"
+          Id="23b2012c-ccce-4d53-a1e7-16db42a3bc26"
+          TopLeft="780,1029" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags"
+          TopLeft="44.25,107.5" />
+        <NodeLayout
+          Size="241.6,41.6"
+          Id="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info"
+          TopLeft="5.25000000000001,5.5" />
+        <EdgeLayout
+          Id="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table.Paths[OLE DB Source Output]"
+          TopLeft="122.75,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="This is a straight Column to Column copy. &#xA;No Transformations"
+          ParentId="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table"
+          FontInfo="{x:Null}"
+          Size="254.4,57.6"
+          Id="06f48f60-aeb6-4ff5-be86-c89f0edfcb09"
+          TopLeft="272,54" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\AvonPub RepTable ERepTags Info">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Push Rep_Table ERepTags data to SCCDB ERepTags Table\SCC ERepTags">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

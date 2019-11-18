@@ -1,0 +1,717 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/22/2019 3:54:42 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="REYIGNELZIG5"
+  DTS:CreatorName="NEWAVON\IgnelziG"
+  DTS:DTSID="{E857EE08-3229-43C4-B4D8-8D98AA926A87}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CopyParmTable"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{8E236636-AA1C-418D-BE90-2E69CAB758AE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0D1BF4FB-8DDA-4421-9B10-280A235A8A2A}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[User::PubServername]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbj4LJc2f+Eeg3Z0EOgipOAAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADHtv8cSsWKtVUfk48QddOpAAAAAASAAACgAAAAEAAAAPnnb8dWBKJefZSFzBAo1n4QAAAAS8MlldM/llaxnN+MzNRGWBQAAAByuOlLB61RQE1aIVyBS587oSa5dg</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PHISTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0F2674AD-4166-4025-9F9C-9168077B8903}"
+      DTS:ObjectName="PHISTP">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[User::PHISTServername]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=PHISTP.WORLD;User ID=phist_ousr;Provider=OraOLEDB.Oracle.1;Persist Security Info=True;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbj4LJc2f+Eeg3Z0EOgipOAAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACCKWScs0r0M+aiKCttKZI8AAAAAASAAACgAAAAEAAAABWeklXIOQv67d/fc063mOogAAAAaWnRKDsWD/NeOM+M0FygUjQ1jVZhMmhBL82JzZ+19FMUAAAAEtPyZs2XCPzXssc5BgLYzWRFFpo</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5AAEC522-13DD-495A-99A0-A676EF066CBD}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PHISTServername">
+      <DTS:VariableValue
+        DTS:DataType="8">PHISTP.WORLD</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B31FBCCC-10E7-44E1-B359-8BDC2459D5B6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PubServername">
+      <DTS:VariableValue
+        DTS:DataType="8">POKMSPCONSQL8</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Copy parm_table"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CACB17EC-8F95-4A1E-B8E2-B1844F19D192}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Copy parm_table"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Copy parm_table\AvonPub parm_table"
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="AvonPub parm_table"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PARM_TABLE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Copy parm_table\AvonPub parm_table.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AvonPub]"
+                  connectionManagerRefId="Package.ConnectionManagers[AvonPub]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[ID_BRANCH]"
+                      length="3"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[ID_BRANCH]"
+                      name="ID_BRANCH"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_ACTIVE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_ACTIVE]"
+                      length="27"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_ACTIVE]"
+                      name="CMP_ACTIVE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_HIGH]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_HIGH]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_HIGH]"
+                      name="CMP_HIGH"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_LOW]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_LOW]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_LOW]"
+                      name="CMP_LOW"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_MAX]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_MAX]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_MAX]"
+                      name="CMP_MAX"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_TS_OFFSET]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_TS_OFFSET]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_TS_OFFSET]"
+                      name="CMP_TS_OFFSET"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_CMPS_ACTIVE]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_CMPS_ACTIVE]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_CMPS_ACTIVE]"
+                      name="NUM_CMPS_ACTIVE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_FSC_CUSTOMER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_FSC_CUSTOMER]"
+                      length="7"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_FSC_CUSTOMER]"
+                      name="NUM_FSC_CUSTOMER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_LINE_CUSTOMER]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_LINE_CUSTOMER]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_LINE_CUSTOMER]"
+                      name="NUM_LINE_CUSTOMER"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ID_BRANCH" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_ACTIVE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      name="CMP_ACTIVE" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_HIGH]"
+                      dataType="i2"
+                      name="CMP_HIGH" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_LOW]"
+                      dataType="i2"
+                      name="CMP_LOW" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_MAX]"
+                      dataType="i2"
+                      name="CMP_MAX" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[CMP_TS_OFFSET]"
+                      dataType="i2"
+                      name="CMP_TS_OFFSET" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_CMPS_ACTIVE]"
+                      dataType="i2"
+                      name="NUM_CMPS_ACTIVE" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_FSC_CUSTOMER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="NUM_FSC_CUSTOMER" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].ExternalColumns[NUM_LINE_CUSTOMER]"
+                      dataType="i4"
+                      name="NUM_LINE_CUSTOMER" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ID_BRANCH]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ID_BRANCH]"
+                      name="ID_BRANCH" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_ACTIVE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_ACTIVE]"
+                      name="CMP_ACTIVE" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_HIGH]"
+                      dataType="i2"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_HIGH]"
+                      name="CMP_HIGH" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_LOW]"
+                      dataType="i2"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_LOW]"
+                      name="CMP_LOW" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_MAX]"
+                      dataType="i2"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_MAX]"
+                      name="CMP_MAX" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_TS_OFFSET]"
+                      dataType="i2"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[CMP_TS_OFFSET]"
+                      name="CMP_TS_OFFSET" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_CMPS_ACTIVE]"
+                      dataType="i2"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_CMPS_ACTIVE]"
+                      name="NUM_CMPS_ACTIVE" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_FSC_CUSTOMER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_FSC_CUSTOMER]"
+                      name="NUM_FSC_CUSTOMER" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_LINE_CUSTOMER]"
+                      dataType="i4"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[NUM_LINE_CUSTOMER]"
+                      name="NUM_LINE_CUSTOMER" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table"
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PHISTP PRCHS_HIST_PARM_STG Table"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">"PHIST"."PRCHS_HIST_PARM_STG"</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[PHISTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[PHISTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[ID_BRANCH]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="ID_BRANCH"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[BRNCH_CD]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[ID_BRANCH]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[CMP_ACTIVE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="27"
+                      cachedName="CMP_ACTIVE"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[ACTV_CMPGN_BTMAP_TXT]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_ACTIVE]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[CMP_HIGH]"
+                      cachedDataType="i2"
+                      cachedName="CMP_HIGH"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[HIGH_CMPGN_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_HIGH]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[CMP_LOW]"
+                      cachedDataType="i2"
+                      cachedName="CMP_LOW"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[LOW_CMPGN_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_LOW]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[CMP_MAX]"
+                      cachedDataType="i2"
+                      cachedName="CMP_MAX"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[MAX_CMPGN_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_MAX]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[CMP_TS_OFFSET]"
+                      cachedDataType="i2"
+                      cachedName="CMP_TS_OFFSET"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[CMPGN_TS_OFS_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[CMP_TS_OFFSET]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[NUM_CMPS_ACTIVE]"
+                      cachedDataType="i2"
+                      cachedName="NUM_CMPS_ACTIVE"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[ACTV_CMPGN_CNT]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_CMPS_ACTIVE]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[NUM_FSC_CUSTOMER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="NUM_FSC_CUSTOMER"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[FSC_CUST_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_FSC_CUSTOMER]" />
+                    <inputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].Columns[NUM_LINE_CUSTOMER]"
+                      cachedDataType="i4"
+                      cachedName="NUM_LINE_CUSTOMER"
+                      externalMetadataColumnId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[LINE_CUST_NR]"
+                      lineageId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output].Columns[NUM_LINE_CUSTOMER]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[BRNCH_CD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="BRNCH_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[ACTV_CMPGN_BTMAP_TXT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      name="ACTV_CMPGN_BTMAP_TXT" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[HIGH_CMPGN_NR]"
+                      dataType="numeric"
+                      name="HIGH_CMPGN_NR"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[LOW_CMPGN_NR]"
+                      dataType="numeric"
+                      name="LOW_CMPGN_NR"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[MAX_CMPGN_NR]"
+                      dataType="numeric"
+                      name="MAX_CMPGN_NR"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[CMPGN_TS_OFS_NR]"
+                      dataType="numeric"
+                      name="CMPGN_TS_OFS_NR"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[ACTV_CMPGN_CNT]"
+                      dataType="numeric"
+                      name="ACTV_CMPGN_CNT"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[FSC_CUST_NR]"
+                      dataType="numeric"
+                      name="FSC_CUST_NR"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input].ExternalColumns[LINE_CUST_NR]"
+                      dataType="numeric"
+                      name="LINE_CUST_NR"
+                      precision="10" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Copy parm_table.Paths[OLE DB Source Output]"
+              endId="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Copy parm_table\AvonPub parm_table.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PRCHS_HIST_PARM_STG"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0E498CC3-9778-4A69-BEDB-8ADA0A751A7C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PRCHS_HIST_PARM_STG"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0F2674AD-4166-4025-9F9C-9168077B8903}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="DELETE FROM &#xA;PHIST.PRCHS_HIST_PARM_STG" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{694DA7FC-38E5-4A21-896F-9430DFB3CE18}"
+      DTS:From="Package\Delete PRCHS_HIST_PARM_STG"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Copy parm_table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\Copy parm_table"
+          TopLeft="66.8571439957132,99.7176484573259" />
+        <NodeLayout
+          Size="233.6,41.6"
+          Id="Package\Delete PRCHS_HIST_PARM_STG"
+          TopLeft="30.285714801477,10.4000001458561" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="146.971429398595,52.0000001458561">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.7176483114698"
+              Start="0,0"
+              End="0,40.2176483114698">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.2176483114698" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Copy parm_table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="267.2,41.6"
+          Id="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table"
+          TopLeft="16,118.4" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\Copy parm_table\AvonPub parm_table"
+          TopLeft="54.4,16.8" />
+        <EdgeLayout
+          Id="Package\Copy parm_table.Paths[OLE DB Source Output]"
+          TopLeft="146.4,58.4">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Copy parm_table\AvonPub parm_table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Copy parm_table\PHISTP PRCHS_HIST_PARM_STG Table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

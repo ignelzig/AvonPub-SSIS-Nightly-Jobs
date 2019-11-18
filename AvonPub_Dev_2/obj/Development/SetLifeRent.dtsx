@@ -1,0 +1,1185 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 10:01:01 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYETOBIASJ"
+  DTS:CreatorName="AVONNA\tobiasj"
+  DTS:Description="AvonPub - Update Rep table with LifetimeRetention "
+  DTS:DTSID="{64F4D139-E559-4D22-84DD-4E9E3A2435FC}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="SetLifeRent"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{E8994B18-226F-486E-A0EC-29FD3A527E0F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-SetLifeRent-{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAAn34gLvzb2a2p7bQ1PEcLCAAAAAASAAACgAAAAEAAAAIkf8TO/FwN4BJu/lYAR/MwQAAAAVqnNGN0j51LBWxCjw5+zjBQAAACWE8Wc/1Ou5/hKWwFGBsDj3UDB/Q</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_SetLifeRent_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{9917FB9A-7A6B-4E43-A414-00536E5E4E0A}"
+      DTS:ObjectName="SSIS_SetLifeRent_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts] +"SSIS_SetLifeRent_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="1"
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_SetLifeRent_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_SetLifeRent_Log.xml"
+      DTS:CreationName="DTS.LogProviderXMLFile.3"
+      DTS:Description="Writes log entries for events to an XML file"
+      DTS:DTSID="{6A0AE4A7-691A-4395-8FEC-0AC981291816}"
+      DTS:ObjectName="SSIS log provider for XML files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{72E2EA83-D677-432C-98B6-AD29BD004B7B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Branch_Atl">
+      <DTS:VariableValue
+        DTS:DataType="8">011</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{632EE113-8F3A-456C-B103-B79B4BB300F9}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Branch_Mtg">
+      <DTS:VariableValue
+        DTS:DataType="8">015</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4FE17D64-40F4-45D5-9128-03F8E999D1C9}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Branch_Nwk">
+      <DTS:VariableValue
+        DTS:DataType="8">012</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1C1E513E-B63B-4D4C-BF84-5E1DBB782692}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Branch_Pas">
+      <DTS:VariableValue
+        DTS:DataType="8">017</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">4,7,OnError,19,OnExecStatusChanged,10,OnProgress,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnInformation"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{6A0AE4A7-691A-4395-8FEC-0AC981291816}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Lifetime Tags for Atlanta"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Load Lifetime Tags"
+      DTS:DTSID="{D72EAB40-4FB1-4760-8D60-A7E6CDDF80B1}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Lifetime Tags for Atlanta"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="exec usp_set_lifetime_retention ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="NewParameterName"
+            SQLTask:DtsVariableName="User::Branch_Atl"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Lifetime Tags for Morton Grove"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Load Lifetime Tags"
+      DTS:DTSID="{9BA59907-9172-4674-9DF2-75A9C32E9321}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Lifetime Tags for Morton Grove"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="exec usp_set_lifetime_retention ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="NewParameterName"
+            SQLTask:DtsVariableName="User::Branch_Mtg"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Lifetime Tags for Newark"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Load Lifetime Tags"
+      DTS:DTSID="{7C864411-4787-4D2B-98B6-556E381109EE}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Lifetime Tags for Newark"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="exec usp_set_lifetime_retention ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="NewParameterName"
+            SQLTask:DtsVariableName="User::Branch_Nwk"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Lifetime Tags for Pasadena"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Load Lifetime Tags"
+      DTS:DTSID="{E87BFF93-DD1F-4215-84B9-A6FA7E12D8A2}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Lifetime Tags for Pasadena"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="exec usp_set_lifetime_retention ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="NewParameterName"
+            SQLTask:DtsVariableName="User::Branch_Pas"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent ATL Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{ECC421B0-D3C9-4B6E-9946-0B2B1A423208}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent ATL Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LifeRentLoad','SetLifeRent ATL Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent ATL Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{203543C1-5B46-413F-9AA1-F36DF0568696}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent ATL Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','SetLifeRent  ATL Success')&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent MTG Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{0C506227-2325-44CD-9FE0-AC7C8449180C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent MTG Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LifeRentLoad','SetLifeRent MTG Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent MTG Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{ACFEB038-26E8-4544-9CFF-34AF868B451A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent MTG Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','SetLifeRent  MTG Success')&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent NWK Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{00616E7F-DADC-4957-8280-C57CA16B5562}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent NWK Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LifeRentLoad','SetLifeRent NWK Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent NWK Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{6D76D8BB-FE7F-4D75-A21B-46E485D4995B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent NWK Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','SetLifeRent  NWK Success')&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent PAS Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{CACBCAF8-6170-48FF-A638-E80971875D53}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent PAS Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-LifeRentLoad','SetLifeRent PAS Failed')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetLifeRent PAS Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{C154A1E8-C17D-4B83-B3F9-647218767A6C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetLifeRent PAS Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','SetLifeRent  PAS Success')&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write End Job to Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Completion Record To Console Log"
+      DTS:DTSID="{66199FB5-0E7D-4765-AD15-B282BB344484}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write End Job to Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','------&gt;End SetLifeRent&lt;-----')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Start Job to Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Completion Record To Console Log"
+      DTS:DTSID="{9A23438C-51DF-43D2-8A3B-7CD77713207A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Start Job to Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7A1A4F41-E1E5-4F25-B388-DF2203835DD6}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetLifeRent','------&gt;Start SetLifeRent&lt;-----')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{BB9E2143-73D5-4D79-8990-54984390E5F5}"
+      DTS:From="Package\SetLifeRent ATL Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Lifetime Tags for Newark"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{68CD0FA7-C3AC-4D1C-BCBD-FCFE468E6BBB}"
+      DTS:From="Package\Load Lifetime Tags for Newark"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SetLifeRent NWK Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{21165918-AC12-472E-9B5E-F72C7C221CB9}"
+      DTS:From="Package\Load Lifetime Tags for Newark"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SetLifeRent NWK Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{2CF33C11-C83A-454A-936A-028A14017A8A}"
+      DTS:From="Package\SetLifeRent NWK Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Load Lifetime Tags for Morton Grove"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{9F2CE453-055F-4510-BD13-7CAC72BEF6E9}"
+      DTS:From="Package\Load Lifetime Tags for Morton Grove"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\SetLifeRent MTG Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{793DB2A4-50E0-4520-A871-1CCA7F21D8E2}"
+      DTS:From="Package\Load Lifetime Tags for Morton Grove"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\SetLifeRent MTG Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{2FF2097F-8574-45DB-9F77-2DDE28EDA52F}"
+      DTS:From="Package\SetLifeRent MTG Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Load Lifetime Tags for Pasadena"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{0AFADB3E-D070-4746-894E-1D13ECEE3C48}"
+      DTS:From="Package\Load Lifetime Tags for Pasadena"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\SetLifeRent PAS Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{216289C4-CB63-4235-8108-BC5BDF57A457}"
+      DTS:From="Package\Load Lifetime Tags for Pasadena"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\SetLifeRent PAS Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{7C1D6AA3-E352-47B4-BF88-8EC943EEB1B4}"
+      DTS:From="Package\SetLifeRent PAS Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Write End Job to Console"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{4EAD0C11-1261-47B4-A548-459BA4DF40C6\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{4EAD0C11-1261-47B4-A548-459BA4DF40C6}"
+      DTS:From="Package\Load Lifetime Tags for Atlanta"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{4EAD0C11-1261-47B4-A548-459BA4DF40C6}"
+      DTS:To="Package\SetLifeRent ATL Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{5D0C6376-7AD9-43B0-9A26-40708B8DE744\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{5D0C6376-7AD9-43B0-9A26-40708B8DE744}"
+      DTS:From="Package\Write Start Job to Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{5D0C6376-7AD9-43B0-9A26-40708B8DE744}"
+      DTS:To="Package\Load Lifetime Tags for Atlanta"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{D64B7360-C13E-4793-9ECB-E8AC810A0567\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{D64B7360-C13E-4793-9ECB-E8AC810A0567}"
+      DTS:From="Package\Load Lifetime Tags for Atlanta"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{D64B7360-C13E-4793-9ECB-E8AC810A0567}"
+      DTS:To="Package\SetLifeRent ATL Failure"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Load Lifetime Tags for Atlanta"
+          TopLeft="298.989778847016,211.5" />
+        <NodeLayout
+          Size="254.4,41.6"
+          Id="Package\Load Lifetime Tags for Morton Grove"
+          TopLeft="283.489778847016,618.119011048772" />
+        <NodeLayout
+          Size="224.8,41.6"
+          Id="Package\Load Lifetime Tags for Newark"
+          TopLeft="297.989778847016,415" />
+        <NodeLayout
+          Size="254.4,41.6"
+          Id="Package\Load Lifetime Tags for Pasadena"
+          TopLeft="283.489778847016,835.119011048772" />
+        <NodeLayout
+          Size="196,41.6"
+          Id="Package\SetLifeRent ATL Failure"
+          TopLeft="79.4168498401231,314.862451126024" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\SetLifeRent ATL Successful"
+          TopLeft="570.119142882392,314.862451126024" />
+        <NodeLayout
+          Size="196,41.6"
+          Id="Package\SetLifeRent MTG Failure"
+          TopLeft="79.4168498401231,721.481462174796" />
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\SetLifeRent MTG Successful"
+          TopLeft="567.619142882392,721.481462174796" />
+        <NodeLayout
+          Size="196,41.6"
+          Id="Package\SetLifeRent NWK Failure"
+          TopLeft="79.4168498401231,518.362451126024" />
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\SetLifeRent NWK Successful"
+          TopLeft="567.619142882392,518.362451126024" />
+        <NodeLayout
+          Size="196,41.6"
+          Id="Package\SetLifeRent PAS Failure"
+          TopLeft="79.4168498401231,937.981462174796" />
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\SetLifeRent PAS Successful"
+          TopLeft="567.619142882392,937.981462174796" />
+        <NodeLayout
+          Size="204,41.6"
+          Id="Package\Write End Job to Console"
+          TopLeft="308.489778847016,1026.72024034411" />
+        <NodeLayout
+          Size="204,41.6"
+          Id="Package\Write Start Job to Console"
+          TopLeft="308.489778847016,109.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="674.119142882392,356.862451126024">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-263.629364035376,58.137548873976"
+              Start="0,0"
+              End="-263.629364035376,50.637548873976">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.068774436988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.068774436988"
+                    Point2="0,29.068774436988"
+                    Point3="-4,29.068774436988" />
+                  <mssgle:LineSegment
+                    End="-259.629364035376,29.068774436988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-259.629364035376,29.068774436988"
+                    Point2="-263.629364035376,29.068774436988"
+                    Point3="-263.629364035376,33.068774436988" />
+                  <mssgle:LineSegment
+                    End="-263.629364035376,50.637548873976" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-157.119135142688,34.068774436988,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="446.656445513683,457">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="227.462697368709,61.362451126024"
+              Start="0,0"
+              End="227.462697368709,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.8049449388517" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.8049449388517"
+                    Point2="0,24.8049449388517"
+                    Point3="4,24.8049449388517" />
+                  <mssgle:LineSegment
+                    End="223.462697368709,24.8049449388517" />
+                  <mssgle:CubicBezierSegment
+                    Point1="223.462697368709,24.8049449388517"
+                    Point2="227.462697368709,24.8049449388517"
+                    Point3="227.462697368709,28.8049449388517" />
+                  <mssgle:LineSegment
+                    End="227.462697368709,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="374.323112180349,457">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-196.906262340226,61.362451126024"
+              Start="0,0"
+              End="-196.906262340226,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.8049449388517" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.8049449388517"
+                    Point2="0,24.8049449388517"
+                    Point3="-4,24.8049449388517" />
+                  <mssgle:LineSegment
+                    End="-192.906262340226,24.8049449388517" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-192.906262340226,24.8049449388517"
+                    Point2="-196.906262340226,24.8049449388517"
+                    Point3="-196.906262340226,28.8049449388517" />
+                  <mssgle:LineSegment
+                    End="-196.906262340226,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.694478826363,29.8049449388517,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="674.119142882392,560.362451126024">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-263.629364035376,57.756559922748"
+              Start="0,0"
+              End="-263.629364035376,50.256559922748">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.878279961374" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.878279961374"
+                    Point2="0,28.878279961374"
+                    Point3="-4,28.878279961374" />
+                  <mssgle:LineSegment
+                    End="-259.629364035376,28.878279961374" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-259.629364035376,28.878279961374"
+                    Point2="-263.629364035376,28.878279961374"
+                    Point3="-263.629364035376,32.878279961374" />
+                  <mssgle:LineSegment
+                    End="-263.629364035376,50.256559922748" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-157.119135142688,33.878279961374,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="451.489778847016,660.119011048772">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="222.629364035376,61.362451126024"
+              Start="0,0"
+              End="222.629364035376,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.7754497504134" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.7754497504134"
+                    Point2="0,24.7754497504134"
+                    Point3="4,24.7754497504134" />
+                  <mssgle:LineSegment
+                    End="218.629364035376,24.7754497504134" />
+                  <mssgle:CubicBezierSegment
+                    Point1="218.629364035376,24.7754497504134"
+                    Point2="222.629364035376,24.7754497504134"
+                    Point3="222.629364035376,28.7754497504134" />
+                  <mssgle:LineSegment
+                    End="222.629364035376,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="369.489778847016,660.119011048772">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-192.072929006893,61.362451126024"
+              Start="0,0"
+              End="-192.072929006893,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.7754497504134" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.7754497504134"
+                    Point2="0,24.7754497504134"
+                    Point3="-4,24.7754497504134" />
+                  <mssgle:LineSegment
+                    End="-188.072929006893,24.7754497504134" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-188.072929006893,24.7754497504134"
+                    Point2="-192.072929006893,24.7754497504134"
+                    Point3="-192.072929006893,28.7754497504134" />
+                  <mssgle:LineSegment
+                    End="-192.072929006893,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-111.277812159696,29.7754497504134,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="674.119142882392,763.481462174796">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-263.629364035376,71.637548873976"
+              Start="0,0"
+              End="-263.629364035376,64.137548873976">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.818774436988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.818774436988"
+                    Point2="0,35.818774436988"
+                    Point3="-4,35.818774436988" />
+                  <mssgle:LineSegment
+                    End="-259.629364035376,35.818774436988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-259.629364035376,35.818774436988"
+                    Point2="-263.629364035376,35.818774436988"
+                    Point3="-263.629364035376,39.818774436988" />
+                  <mssgle:LineSegment
+                    End="-263.629364035376,64.137548873976" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-157.119135142688,40.818774436988,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="451.489778847016,877.119011048772">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="222.629364035376,60.8624511260235"
+              Start="0,0"
+              End="222.629364035376,53.3624511260235">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.573571816141" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.573571816141"
+                    Point2="0,24.573571816141"
+                    Point3="4,24.573571816141" />
+                  <mssgle:LineSegment
+                    End="218.629364035376,24.573571816141" />
+                  <mssgle:CubicBezierSegment
+                    Point1="218.629364035376,24.573571816141"
+                    Point2="222.629364035376,24.573571816141"
+                    Point3="222.629364035376,28.573571816141" />
+                  <mssgle:LineSegment
+                    End="222.629364035376,53.3624511260235" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="369.489778847016,877.119011048772">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-192.072929006893,60.8624511260235"
+              Start="0,0"
+              End="-192.072929006893,53.3624511260235">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.573571816141" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.573571816141"
+                    Point2="0,24.573571816141"
+                    Point3="-4,24.573571816141" />
+                  <mssgle:LineSegment
+                    End="-188.072929006893,24.573571816141" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-188.072929006893,24.573571816141"
+                    Point2="-192.072929006893,24.573571816141"
+                    Point3="-192.072929006893,28.573571816141" />
+                  <mssgle:LineSegment
+                    End="-192.072929006893,53.3624511260235" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-111.277812159696,29.573571816141,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="674.119142882392,979.981462174796">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-263.629364035376,46.7387781693144"
+              Start="0,0"
+              End="-263.629364035376,39.2387781693144">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.3693890846572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.3693890846572"
+                    Point2="0,23.3693890846572"
+                    Point3="-4,23.3693890846572" />
+                  <mssgle:LineSegment
+                    End="-259.629364035376,23.3693890846572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-259.629364035376,23.3693890846572"
+                    Point2="-263.629364035376,23.3693890846572"
+                    Point3="-263.629364035376,27.3693890846572" />
+                  <mssgle:LineSegment
+                    End="-263.629364035376,39.2387781693144" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-157.119135142688,28.3693890846572,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{4EAD0C11-1261-47B4-A548-459BA4DF40C6\}]"
+          TopLeft="446.323112180349,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="227.796030702043,61.362451126024"
+              Start="0,0"
+              End="227.796030702043,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.8072598497016" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.8072598497016"
+                    Point2="0,24.8072598497016"
+                    Point3="4,24.8072598497016" />
+                  <mssgle:LineSegment
+                    End="223.796030702043,24.8072598497016" />
+                  <mssgle:CubicBezierSegment
+                    Point1="223.796030702043,24.8072598497016"
+                    Point2="227.796030702043,24.8072598497016"
+                    Point3="227.796030702043,28.8072598497016" />
+                  <mssgle:LineSegment
+                    End="227.796030702043,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{5D0C6376-7AD9-43B0-9A26-40708B8DE744\}]"
+          TopLeft="410.489778847016,151.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.304453125,20.4453125,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{D64B7360-C13E-4793-9ECB-E8AC810A0567\}]"
+          TopLeft="374.656445513683,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-197.23959567356,61.362451126024"
+              Start="0,0"
+              End="-197.23959567356,53.862451126024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.8072598497016" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.8072598497016"
+                    Point2="0,24.8072598497016"
+                    Point3="-4,24.8072598497016" />
+                  <mssgle:LineSegment
+                    End="-193.23959567356,24.8072598497016" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-193.23959567356,24.8072598497016"
+                    Point2="-197.23959567356,24.8072598497016"
+                    Point3="-197.23959567356,28.8072598497016" />
+                  <mssgle:LineSegment
+                    End="-197.23959567356,53.862451126024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.86114549303,29.8072598497016,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="SetLifeRent"
+          ParentId="Package"
+          Size="136.8,47.2"
+          Id="95a2afc1-e7f7-4438-b483-85bcc19d5815"
+          TopLeft="341.989778847016,0">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="This will execute a stored procedure four times once for each branch&#xA;It loads the Lifetime RETENTION NOT Rent as the name implies"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="392.8,57.6"
+          Id="4a37ac85-ace7-4094-ac64-5ed6b8421ee1"
+          TopLeft="213.989778847016,43" />
+        <AnnotationLayout
+          Text="exec usp_set_lifetime_retention '011'&#xA;GO"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="223.2,57.6"
+          Id="fe07e65e-fb93-4257-8f61-4b805ffb2572"
+          TopLeft="695.75,198" />
+        <AnnotationLayout
+          Text="exec usp_set_lifetime_retention '012'&#xA;GO"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="223.2,57.6"
+          Id="85b0568e-8a9c-4965-bb18-7ae0dd0293c4"
+          TopLeft="695.75,407" />
+        <AnnotationLayout
+          Text="exec usp_set_lifetime_retention '015'&#xA;GO"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="223.2,57.6"
+          Id="bac0dee3-f798-4979-91e6-1df2918bff79"
+          TopLeft="695.75,613" />
+        <AnnotationLayout
+          Text="exec usp_set_lifetime_retention '017'&#xA;GO"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="223.2,57.6"
+          Id="b153864a-87f8-4c7e-9e4d-0ab764402764"
+          TopLeft="695.75,836" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1942 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 1:24:50 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYEMACKES2816"
+  DTS:CreatorName="AVONNA\MackeS"
+  DTS:Description="AvonPub - Update Line Number Table Profile Shade Description Column"
+  DTS:DTSID="{5B470780-49CB-4702-8370-7AAF38C56CD0}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="SetProfShadeDesc"
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{FEEE0E5D-4698-49B5-A2DB-51F1A5E666F4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-SetProfShadeDesc-{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbj4LJc2f+Eeg3Z0EOgipOAAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB4Eq/9leHylqmY+xfqLY5mAAAAAASAAACgAAAAEAAAAHUn6KkCyoTEmbxd3G5VtTIQAAAAHWzsc6snA5BkbytWhXGxfRQAAADtj0oH2A2OYSlvqNFvMt3FHRShOw</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_SETPROFSHADEDESC_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{C97AB819-3CCB-4E94-A45C-849C18A3FBDB}"
+      DTS:ObjectName="SSIS_SETPROFSHADEDESC_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLScripts] + "SSIS_SETPROFSHADEDESC_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_SETPROFSHADEDESC_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_SETPROFSHADEDESC_Log.xml"
+      DTS:CreationName="DTS.LogProviderXMLFile.3"
+      DTS:Description="Writes log entries for events to an XML file"
+      DTS:DTSID="{1D32E3B3-49DD-4C1A-8F2A-1DAA79A0F4C9}"
+      DTS:ObjectName="SSIS log provider for XML files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{35BDF0D9-B04F-4AE8-97A3-D907EDC595AF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ImisItemCount">
+      <DTS:VariableValue
+        DTS:DataType="3">100</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">6,7,OnError,19,OnExecStatusChanged,13,OnInformation,10,OnProgress,12,OnTaskFailed,22,OnVariableValueChanged</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnInformation"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnVariableValueChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{1D32E3B3-49DD-4C1A-8F2A-1DAA79A0F4C9}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Check IMIS_ITEMDATA Rowcount"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Check IMIS_ITEMDATA Rowcount"
+      DTS:DTSID="{6794E0BA-14BC-4711-9F78-55D13FE9FE72}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check IMIS_ITEMDATA Rowcount"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_2eff4dad9f954997bbde945f6c942d9e"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="VisualBasic"
+          ReadOnlyVariables="User::ImisItemCount">
+          <ProjectItem
+            Name="ST_2eff4dad9f954997bbde945f6c942d9e.vbproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{AEA9992D-8EC8-4637-9A73-1E7AD135BC74}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>My Project</AppDesignerFolder><RootNamespace>ST_53f95fa8d42141b7b710ed46b7577f41</RootNamespace><AssemblyName>ST_2eff4dad9f954997bbde945f6c942d9e</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>true</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>false</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><Import Include="Microsoft.VisualBasic" /><Import Include="System" /><Import Include="System.Collections" /><Import Include="System.Data" /><Import Include="System.Diagnostics" /><Import Include="System.Windows.Forms" /></ItemGroup><ItemGroup><AppDesigner Include="My Project\" /><Compile Include="My Project\AssemblyInfo.vb"><SubType>Code</SubType></Compile><EmbeddedResource Include="My Project\Resources.resx"><Generator>VbMyResourcesResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.vb</LastGenOutput><CustomToolNamespace>My.Resources</CustomToolNamespace></EmbeddedResource><Compile Include="My Project\Resources.Designer.vb"><AutoGen>True</AutoGen><DesignTime>True</DesignTime><DependentUpon>Resources.resx</DependentUpon><SubType>Code</SubType></Compile><None Include="My Project\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.vb</LastGenOutput></None><Compile Include="My Project\Settings.Designer.vb"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon><SubType>Code</SubType></Compile><Compile Include="ScriptMain.vb"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a VB project.--><Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" DebugInfoExeName="#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\InstallDir#\devenv.exe" /><Host Name="ScriptTask" /><ProjectClient><HostIdentifier>SSIS_ST110</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\AssemblyInfo.vb"
+            Encoding="UTF8"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("ST_53f95fa8d42141b7b710ed46b7577f41")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("Avon Products, Inc.")> 
+<Assembly: AssemblyProduct("ST_53f95fa8d42141b7b710ed46b7577f41")> 
+<Assembly: AssemblyCopyright("Copyright @ Avon Products, Inc. 2014")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("8553baeb-cd0a-4bf8-8f87-6288fecb8045")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.vb"
+            Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
+'The Script Task allows you to perform virtually any operation that can be accomplished in
+'a .Net application within the context of an Integration Services control flow. 
+
+'Expand the other regions which have "Help" prefixes for examples of specific ways to use
+'Integration Services features within this script task.
+#End Region
+
+
+#Region "Imports"
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+Imports System.IO
+#End Region
+
+'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+'or parent of this class.
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+#Region "Help:  Using Integration Services variables and parameters in a script"
+    'To use a variable in this script, first ensure that the variable has been added to 
+    'either the list contained in the ReadOnlyVariables property or the list contained in 
+    'the ReadWriteVariables property of this script task, according to whether or not your
+    'code needs to write to the variable.  To add the variable, save this script, close this instance of
+    'Visual Studio, and update the ReadOnlyVariables and 
+    'ReadWriteVariables properties in the Script Transformation Editor window.
+    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
+
+    'Example of reading from a variable:
+    ' startTime = Dts.Variables("System::StartTime").Value
+
+    'Example of writing to a variable:
+    ' Dts.Variables("User::myStringVariable").Value = "new value"
+
+    'Example of reading from a package parameter:
+    ' batchId = Dts.Variables("$Package::batchId").Value
+
+    'Example of reading from a project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").Value
+
+    'Example of reading from a sensitive project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
+#End Region
+
+#Region "Help:  Firing Integration Services events from a script"
+    'This script task can fire events for logging purposes.
+
+    'Example of firing an error event:
+    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
+
+    'Example of firing an information event:
+    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
+
+    'Example of firing a warning event:
+    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
+#End Region
+
+#Region "Help:  Using Integration Services connection managers in a script"
+    'Some types of connection managers can be used in this script task.  See the topic 
+    '"Working with Connection Managers Programatically" for details.
+
+    'Example of using an ADO.Net connection manager:
+    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
+    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
+
+    'Example of using a File connection manager
+    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
+    ' Dim filePath As String = CType(rawConnection, String)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
+#End Region
+
+    'This method is called when this script task executes in the control flow.
+    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+    'To open Help, press F1.
+
+    Public Sub Main()
+        '
+        ' VB Code to check tht rows exist in the IMIS_ITEMDATA table
+        '
+        Dim bt(0) As Byte
+
+        Try
+            If Convert.ToInt32(Dts.Variables("ImisItemCount").Value) > 0 Then
+                Dts.Log("The IMIS_ITEMDATA Table has " & Dts.Variables("ImisItemCount").Value.ToString & " rows.", 0, bt)
+                Dts.TaskResult = ScriptResults.Success
+            ElseIf Convert.ToInt32(Dts.Variables("ImisItemCount").Value) > 0 Then
+                Dts.Log("The IMIS_ITEMDATA Table Contains Zero Rows. Rows are Required To Populate The Line_Number Profile Shade Desc Column.", -1, bt)
+                Dts.TaskResult = ScriptResults.Success
+            Else
+                Dts.TaskResult = ScriptResults.Failure
+            End If
+        Catch ex As Exception
+            Dts.TaskResult = ScriptResults.Failure
+        End Try
+
+    End Sub
+
+#Region "ScriptResults declaration"
+    'This enum provides a convenient shorthand within the scope of this class for setting the
+    'result of the script.
+
+    'This code was generated automatically.
+    Enum ScriptResults
+        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+    End Enum
+
+#End Region
+
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>ST_53f95fa8d42141b7b710ed46b7577f41</msb:CodeName>
+		<msb:DisplayName>ST_53f95fa8d42141b7b710ed46b7577f41</msb:DisplayName>
+		<msb:ProjectId>{B54D646B-624E-4792-85FE-DD0C2E238E28}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_2eff4dad9f954997bbde945f6c942d9e.vbproj"/>
+		<msb:File Include="My Project\AssemblyInfo.vb"/>
+		<msb:File Include="ScriptMain.vb"/>
+		<msb:File Include="My Project\Resources.resx"/>
+		<msb:File Include="My Project\Resources.Designer.vb"/>
+		<msb:File Include="My Project\Settings.settings"/>
+		<msb:File Include="My Project\Settings.Designer.vb"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+Namespace My.Resources
+    
+    '''<summary>
+    '''   A strongly-typed resource class, for looking up localized strings, etc.
+    '''</summary>
+    'This class was auto-generated by the Strongly Typed Resource Builder
+    'class via a tool like ResGen or Visual Studio.NET.
+    'To add or remove a member, edit your .ResX file then rerun ResGen
+    'with the /str option, or rebuild your VS project.
+    Class MyResources
+        
+        Private Shared _resMgr As System.Resources.ResourceManager
+        
+        Private Shared _resCulture As System.Globalization.CultureInfo
+        
+        Friend Sub New()
+            MyBase.New
+        End Sub
+        
+        '''<summary>
+        '''   Returns the cached ResourceManager instance used by this class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared ReadOnly Property ResourceManager() As System.Resources.ResourceManager
+            Get
+                If (_resMgr Is Nothing) Then
+                    Dim temp As System.Resources.ResourceManager = New System.Resources.ResourceManager("My.Resources.MyResources", GetType(MyResources).Assembly)
+                    _resMgr = temp
+                End If
+                Return _resMgr
+            End Get
+        End Property
+        
+        '''<summary>
+        '''   Overrides the current thread's CurrentUICulture property for all
+        '''   resource lookups using this strongly typed resource class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared Property Culture() As System.Globalization.CultureInfo
+            Get
+                Return _resCulture
+            End Get
+            Set
+                _resCulture = value
+            End Set
+        End Property
+    End Class
+End Namespace]]></ProjectItem>
+          <BinaryItem
+            Name="ST_2eff4dad9f954997bbde945f6c942d9e.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAJsL0VMAAAAAAAAAAOAAAiELAQsAAB4AAAAIAAAAAAAALjwA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAIAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAOA7AABLAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAANBwAAAAgAAAAHgAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAgAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAJgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAQ
+PAAAAAAAAEgAAAACAAUAbCQAAHQXAAABAAAAAAAAALQjAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKAEAAAoqHgIoBAAACiqmcwYAAAqAAQAABHMHAAAKgAIA
+AARzCAAACoADAAAEcwkAAAqABAAABCoAABMwAQALAAAAAQAAEX4BAAAEbwoAAAoqABMwAQALAAAA
+AgAAEX4CAAAEbwsAAAoqABMwAQALAAAAAwAAEX4DAAAEbwwAAAoqABMwAQALAAAABAAAEX4EAAAE
+bw0AAAoqABMwAgANAAAABQAAEQIDKBEAAAooEgAACioAAAATMAEABwAAAAYAABECKBMAAAoqABMw
+AQALAAAABwAAEdAFAAACKBQAAAoqABMwAQAHAAAACAAAEQIoFQAACioAEzABABAAAAAJAAARAowB
+AAAbLQYoAQAAKyoCKhMwAgAQAAAACgAAEQMSAP4VAgAAGwaBAgAAGyoeAigXAAAKKhMwAgAoAAAA
+CwAAEQJ7GQAACm8aAAAKCweMAwAAGy0SKAIAACsLAnsZAAAKB28bAAAKBypKAigXAAAKAnMcAAAK
+fRkAAAoqAB4CKBcAAAoqEzACAC0AAAAMAAARfgYAAAQtIHIBAABw0AcAAAIoFAAACm8eAAAKcx8A
+AAoLB4AGAAAEfgYAAAQqAAAAEzABAAYAAAANAAARfgcAAAQqAAAeAoAHAAAEKkJzFwAACigRAAAK
+gAkAAAQqAAAAHgIoIAAACiobMAEAPwAAAA4AABF+CAAABC0yfgkAAAQoEQAACighAAAKfggAAAQt
+HHMWAAAGgAgAAATeEH4JAAAEKBEAAAooIgAACtx+CAAABCoAARAAAAIAHQAMKQAQAAAAAB4CKCQA
+AAoqGzAEAOcAAAAPAAARF40cAAABCgJvJQAACm8mAAAKcjMAAHBvJwAACm8oAAAKKBEAAAooKQAA
+ChYxSQJvJQAACnJPAABwAm8lAAAKbyYAAApyMwAAcG8nAAAKbygAAApvFQAACnKJAABwKCoAAAoW
+Bm8rAAAKAm8lAAAKFm8sAAAK3m8CbyUAAApvJgAACnIzAABwbycAAApvKAAACigRAAAKKCkAAAoW
+MSACbyUAAApylwAAcBUGbysAAAoCbyUAAAoWbywAAAreKAJvJQAAChdvLAAACt4aJSgtAAAKCwJv
+JQAAChdvLAAACiguAAAK3gAqAAEQAAAAAAcAxcwAGhsAAAG0AAAAzsrvvgEAAACRAAAAbFN5c3Rl
+bS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1
+bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVz
+b3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAAQlNKQgEAAQAA
+AAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA5AcAACN+AABQCAAAuAkAACNTdHJpbmdzAAAAAAgS
+AACEAQAAI1VTAIwTAAAQAAAAI0dVSUQAAACcEwAA2AMAACNCbG9iAAAAAAAAAAIAAAFXHaIJCQ8A
+AAD6JTMAFgAAAQAAAC8AAAAKAAAADAAAABkAAAAEAAAAOwAAAAIAAAA2AAAADwAAAAQAAAAIAAAA
+CQAAAAkAAAABAAAABQAAAAEAAAADAAAAAwAAAAIAAAAAAI4JAQAAAAAACgBLASEBCgB/AWEBBgCP
+AYgBCgDnASEBBgBlAogBCgDnAr0CBgAdAwwDBgBKAzUDDgCxA5wDEgAwBAcEBgBRBIgBDgCEBG4E
+DgCdBG4EDgDKBLIEBgD0BOEECgAzBQwFCgBLBRMADgCABWMFBgC1BZUFBgDTBYgBBgD3BYgBCgAQ
+BhMABgBUBjUGBgB6BmgGBgChBpAGBgC0BuEEBgDRBogBBgDbBogBEgDgBgcEFgA5BxkHFgBRBxkH
+BgBjB4gBBgBzB4gBCgCUBwwFBgDCB4gBEgDYBwcEBgAyCJUFBgBSCJUFBgCKCHAIBgCjCGgGBgDA
+CDUGBgDOCGgGBgDpCGgGBgAECWgGBgAdCWgGBgA2CWgGBgBTCWgGAAAAAAEAAAAAAAEAAQAAAAAA
+KQA3AAUAAQABAAAAAABeADcACQABAAIAAAEQAGkANwANAAEAAwAFAQAAcwAAAA0ABQAIAAUBAACB
+AAAADQAFAA8AAAAAAJwAqAANAAYAEQAAARAA2QDkACUACAAVAAEAAAAIAeQAKQAKABgAAgEAABMB
+AAAtAAoAGgAxAKoBIAAxANMBLQAxAPUBOgAxABoCRwAhAPYCkAARAC0DnQARAFYDoQARAMkDvwAR
+ANEDwwAGBlYE2QBWgF4E3ABWgGYE3ABQIAAAAAAGGFsBEwABAFggAAAAAAYYWwETAAEAYCAAAAAA
+ERiWARcAAQCMIAAAAAATCJ0BGwABAKQgAAAAABMIwwEoAAEAvCAAAAAAEwjsATUAAQDUIAAAAAAT
+CAoCQgABAOwgAAAAAEYCUAJjAAEACCEAAAAARgJZAmgAAgAcIQAAAACDAGoCbAACADQhAAAAAEYC
+cgJxAAIASCEAAAAAEQB7AngAAgBkIQAAAAABAJkCgAADAIAhAAAAAAYYWwETAAQAiCEAAAAAAwit
+AosABAC8IQAAAAAGGFsBEwAEANAhAAAAAAMYWwETAAQA2CEAAAAAFghiA6UABAAUIgAAAAAWCHYD
+qgAEACgiAAAAABYIggOvAAQAMCIAAAAAERiWARcABQBEIgAAAAAGGFsBEwAFAEwiAAAAABYI3gPG
+AAUAqCIAAAAABhhbARMABQCwIgAAAAAGAEwEEwAFAAAAAQBXAgAAAQCQAgAAAQCQAgAAAQCOAwkA
+WwETAGEAWwHqAHEAWwH5ABEAWwETAHkAWwETACQAWwETACwAWwETADQAWwETADwAWwETACQArQKL
+ACwArQKLADQArQKLADwArQKLAIEAWwETAIkAWwETAJEAWwFIAZkAxAWTARkAUAJjABkAWQJoACkA
+5QWgARkAcgJxAKkAAQawARkAWwETALEAWwHAAUQA9gKQAEwA3gOLAEwAKwY9AkwAWwETALkAWwFM
+AikAgwZXAjkAWwFcAkkAWwETAMkAqQZ4AskArwZ4AtEAWwETAFEAWwETAFEA8gaCAukAQweHAvEA
+WgeMAvkA3gOSAgEBaweWAgkBegebAukAgQeiAukAhQeqAhEBoAevAhEBsAcXABkBWwFMAiEBWwET
+ACkBWwGqAjEBWwETADkBWwFIAUEBWwFIAUkBWwFIAVEBWwFIAVkBWwFIAWEBWwFIAWkBWwFIAXEB
+WwFIAXkBWwFIAQgALADgAAgAMADlACkAgwBhAS4AywG8Ay4AwwGTAy4AmwHkAi4AuwFpAy4A0wFR
+Ai4A2wGTAy4AiwG8Ai4AkwHFAi4AowEsAy4AqwE5Ay4A6wBRAi4AewFjAy4AswFRAkAAKwDlAEAA
+EwDwAEMAEwDwAEMAGwD/AEkAgwB/AWMAGwD/AGMAEwDwAGkAgwByAYAAKwDlAIMAcwDlAIMAewDl
+AIMAGwD/AIkAgwBNAaAAKwDlAKMAwwDIAaMAEwDwAMAAKwDlAMMAEwDwAMMA6wBRAskAEwBvAuAA
+KwDlAOkAEwBvAgABKwDlAAABEwDwAAkBGwHlACABKwDlACABEwDwACMBgwHlACMBewFRAkABEwDw
+AEABKwDlAGABKwDlAGABEwDwAIABKwDlAKABKwDlAMABKwDlAMABEwDwAOABKwDlAAACEwDwAAAC
+KwDlADQBOQE+AUMBmAGcAacBrAG7AbsBQwJjAmoCfQK1AgQAAQAGAAUABwAGAAgACAAAAH8BTwAA
+ADgCVAAAAOcBWQAAAEQCXgAAAAADmAAAAB0DtQAAAJQDugAAAI4DywACAAQAAwACAAUABQACAAYA
+BwACAAcACQACAA8ACwACABIADQACABMADwABABQADwACABcAEQB1AHUAiAAYAR8BJgEtASoCMQIE
+gAAAAQAAAAAAAAAAAAAAAABqCQAABAAAAAAAAAAAAAAAAQAKAAAAAAAKAAAAAAAAAAAAAAAKABMA
+AAAAAAQAAAAAAAAAAAAAAAEAiAEAAAAACwAAAAAAAAAAAAAA0ADoAwAAAAALAAAAAAAAAAAAAADQ
+APoGAAAAAAAAAAABAAAA+gcAAAUABAAGAAQACgAJAAAAEAAMAI4CAAAQABkAjgIAAAAAGwCOAi0A
+tgEtADgCAAAAAAA8TW9kdWxlPgBtc2NvcmxpYgBNaWNyb3NvZnQuVmlzdWFsQmFzaWMATXlBcHBs
+aWNhdGlvbgBTVF81M2Y5NWZhOGQ0MjE0MWI3YjcxMGVkNDZiNzU3N2Y0MS5NeQBNeUNvbXB1dGVy
+AE15UHJvamVjdABNeVdlYlNlcnZpY2VzAFRocmVhZFNhZmVPYmplY3RQcm92aWRlcmAxAE15UmVz
+b3VyY2VzAFNUXzUzZjk1ZmE4ZDQyMTQxYjdiNzEwZWQ0NmI3NTc3ZjQxLk15LlJlc291cmNlcwBN
+eVNldHRpbmdzAFNUXzUzZjk1ZmE4ZDQyMTQxYjdiNzEwZWQ0NmI3NTc3ZjQxAFNjcmlwdE1haW4A
+U2NyaXB0UmVzdWx0cwBNaWNyb3NvZnQuVmlzdWFsQmFzaWMuQXBwbGljYXRpb25TZXJ2aWNlcwBB
+cHBsaWNhdGlvbkJhc2UALmN0b3IATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkRldmljZXMAQ29tcHV0
+ZXIAU3lzdGVtAE9iamVjdAAuY2N0b3IAZ2V0X0NvbXB1dGVyAG1fQ29tcHV0ZXJPYmplY3RQcm92
+aWRlcgBnZXRfQXBwbGljYXRpb24AbV9BcHBPYmplY3RQcm92aWRlcgBVc2VyAGdldF9Vc2VyAG1f
+VXNlck9iamVjdFByb3ZpZGVyAGdldF9XZWJTZXJ2aWNlcwBtX015V2ViU2VydmljZXNPYmplY3RQ
+cm92aWRlcgBBcHBsaWNhdGlvbgBXZWJTZXJ2aWNlcwBFcXVhbHMAbwBHZXRIYXNoQ29kZQBUeXBl
+AEdldFR5cGUAVG9TdHJpbmcAQ3JlYXRlX19JbnN0YW5jZV9fAFQAaW5zdGFuY2UARGlzcG9zZV9f
+SW5zdGFuY2VfXwBnZXRfR2V0SW5zdGFuY2UATWljcm9zb2Z0LlZpc3VhbEJhc2ljLk15U2Vydmlj
+ZXMuSW50ZXJuYWwAQ29udGV4dFZhbHVlYDEAbV9Db250ZXh0AEdldEluc3RhbmNlAFN5c3RlbS5S
+ZXNvdXJjZXMAUmVzb3VyY2VNYW5hZ2VyAF9yZXNNZ3IAU3lzdGVtLkdsb2JhbGl6YXRpb24AQ3Vs
+dHVyZUluZm8AX3Jlc0N1bHR1cmUAZ2V0X1Jlc291cmNlTWFuYWdlcgBnZXRfQ3VsdHVyZQBzZXRf
+Q3VsdHVyZQBWYWx1ZQBDdWx0dXJlAFN5c3RlbS5Db25maWd1cmF0aW9uAEFwcGxpY2F0aW9uU2V0
+dGluZ3NCYXNlAG1fVmFsdWUAbV9TeW5jT2JqZWN0AGdldF9WYWx1ZQBNaWNyb3NvZnQuU3FsU2Vy
+dmVyLlNjcmlwdFRhc2sATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuVGFza3MuU2NyaXB0VGFzawBW
+U1RBUlRTY3JpcHRPYmplY3RNb2RlbEJhc2UATWFpbgBFbnVtAHZhbHVlX18AU3VjY2VzcwBGYWls
+dXJlAFN5c3RlbS5Db21wb25lbnRNb2RlbABFZGl0b3JCcm93c2FibGVBdHRyaWJ1dGUARWRpdG9y
+QnJvd3NhYmxlU3RhdGUAU3lzdGVtLkNvZGVEb20uQ29tcGlsZXIAR2VuZXJhdGVkQ29kZUF0dHJp
+YnV0ZQBTeXN0ZW0uRGlhZ25vc3RpY3MARGVidWdnZXJIaWRkZW5BdHRyaWJ1dGUATWljcm9zb2Z0
+LlZpc3VhbEJhc2ljLkNvbXBpbGVyU2VydmljZXMAU3RhbmRhcmRNb2R1bGVBdHRyaWJ1dGUASGlk
+ZU1vZHVsZU5hbWVBdHRyaWJ1dGUAU3lzdGVtLkNvbXBvbmVudE1vZGVsLkRlc2lnbgBIZWxwS2V5
+d29yZEF0dHJpYnV0ZQBTeXN0ZW0uUnVudGltZS5Db21waWxlclNlcnZpY2VzAFJ1bnRpbWVIZWxw
+ZXJzAEdldE9iamVjdFZhbHVlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEFj
+dGl2YXRvcgBDcmVhdGVJbnN0YW5jZQBNeUdyb3VwQ29sbGVjdGlvbkF0dHJpYnV0ZQBzZXRfVmFs
+dWUAU3lzdGVtLlJ1bnRpbWUuSW50ZXJvcFNlcnZpY2VzAENvbVZpc2libGVBdHRyaWJ1dGUAU3lz
+dGVtLlJlZmxlY3Rpb24AQXNzZW1ibHkAZ2V0X0Fzc2VtYmx5AFN5c3RlbS5UaHJlYWRpbmcATW9u
+aXRvcgBFbnRlcgBFeGl0AERlYnVnZ2VyTm9uVXNlckNvZGVBdHRyaWJ1dGUARXhjZXB0aW9uAEJ5
+dGUAU2NyaXB0T2JqZWN0TW9kZWwAZ2V0X0R0cwBNaWNyb3NvZnQuU3FsU2VydmVyLk1hbmFnZWRE
+VFMATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUnVudGltZQBWYXJpYWJsZXMAZ2V0X1ZhcmlhYmxl
+cwBWYXJpYWJsZQBnZXRfSXRlbQBDb252ZXJ0AFRvSW50MzIAU3RyaW5nAENvbmNhdABMb2cAc2V0
+X1Rhc2tSZXN1bHQAUHJvamVjdERhdGEAU2V0UHJvamVjdEVycm9yAENsZWFyUHJvamVjdEVycm9y
+AENMU0NvbXBsaWFudEF0dHJpYnV0ZQBTU0lTU2NyaXB0VGFza0VudHJ5UG9pbnRBdHRyaWJ1dGUA
+U1RfNTNmOTVmYThkNDIxNDFiN2I3MTBlZDQ2Yjc1NzdmNDEuUmVzb3VyY2VzLnJlc291cmNlcwBD
+b21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRlAFJ1bnRpbWVDb21wYXRpYmlsaXR5QXR0cmli
+dXRlAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAEFz
+c2VtYmx5RmlsZVZlcnNpb25BdHRyaWJ1dGUAR3VpZEF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFy
+a0F0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RBdHRy
+aWJ1dGUAQXNzZW1ibHlDb21wYW55QXR0cmlidXRlAEFzc2VtYmx5RGVzY3JpcHRpb25BdHRyaWJ1
+dGUAQXNzZW1ibHlUaXRsZUF0dHJpYnV0ZQBTVF8yZWZmNGRhZDlmOTU0OTk3YmJkZTk0NWY2Yzk0
+MmQ5ZQBTVF8yZWZmNGRhZDlmOTU0OTk3YmJkZTk0NWY2Yzk0MmQ5ZS5kbGwAAAAAMU0AeQAuAFIA
+ZQBzAG8AdQByAGMAZQBzAC4ATQB5AFIAZQBzAG8AdQByAGMAZQBzAAAbSQBtAGkAcwBJAHQAZQBt
+AEMAbwB1AG4AdAAAOVQAaABlACAASQBNAEkAUwBfAEkAVABFAE0ARABBAFQAQQAgAFQAYQBiAGwA
+ZQAgAGgAYQBzACAAAA0gAHIAbwB3AHMALgAAgOlUAGgAZQAgAEkATQBJAFMAXwBJAFQARQBNAEQA
+QQBUAEEAIABUAGEAYgBsAGUAIABDAG8AbgB0AGEAaQBuAHMAIABaAGUAcgBvACAAUgBvAHcAcwAu
+ACAAUgBvAHcAcwAgAGEAcgBlACAAUgBlAHEAdQBpAHIAZQBkACAAVABvACAAUABvAHAAdQBsAGEA
+dABlACAAVABoAGUAIABMAGkAbgBlAF8ATgB1AG0AYgBlAHIAIABQAHIAbwBmAGkAbABlACAAUwBo
+AGEAZABlACAARABlAHMAYwAgAEMAbwBsAHUAbQBuAC4AAAAAyP6M17IOYUOEQa0DEH8DjQAIt3pc
+Vhk04IkIsD9ffxHVCjoDIAABAwAAAQQAABIMBwYVEhgBEgwEAAASCAcGFRIYARIIBAAAEhEHBhUS
+GAESEQQAABIUBwYVEhgBEhQECAASDAQIABIIBAgAEhEECAASFAQgAQIcAyAACAQgABIVAyAADgIe
+AAcQAQEeAB4ABzABAQEQHgACEwAEIAATAAcGFRIZARMABCgAEwADBhIdAwYSIQQAABIdBAAAEiEF
+AAEBEiEECAASHQQIABIhAwYSIAIGHAQAABIgBAgAEiAIiYRdzYCAzJECBggDBhEoBAAAAAAEAQAA
+AAUgAQERNQgBAAEAAAAAAAUgAgEODhgBAApNeVRlbXBsYXRlCDEwLjAuMC4wAAAGFRIYARIMBhUS
+GAESCAYVEhgBEhEGFRIYARIUBAcBEgwEBwESCAQHARIRBAcBEhQEIAEBDhMBAA5NeS5XZWJTZXJ2
+aWNlcwAAEAEAC015LkNvbXB1dGVyAAAMAQAHTXkuVXNlcgAAEwEADk15LkFwcGxpY2F0aW9uAAAE
+AAEcHAMHAQIDBwEIBgABEhURUQQHARIVAwcBDgUQAQAeAAQKAR4ABAcBHgAHIAQBDg4ODmEBADRT
+eXN0ZW0uV2ViLlNlcnZpY2VzLlByb3RvY29scy5Tb2FwSHR0cENsaWVudFByb3RvY29sEkNyZWF0
+ZV9fSW5zdGFuY2VfXxNEaXNwb3NlX19JbnN0YW5jZV9fAAAABhUSGAETAAYVEhkBEwAECgETAAUg
+AQETAAgHAxMAEwATAAQgAQECBQEAAAAABCAAEmEGIAIBDhJhBgcCEh0SHQQHARIhCAEAAgAAAAAA
+BAABARwEBwESIAQgABJ1BCAAEnkFIAESfRwDIAAcBAABCBwGAAMODg4OByADAQ4IHQUEIAEBCAUA
+AQESbQYHAh0FEm0IAQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBRwEAGi5O
+RVRGcmFtZXdvcmssVmVyc2lvbj12NC4wAQBUDhRGcmFtZXdvcmtEaXNwbGF5TmFtZRAuTkVUIEZy
+YW1ld29yayA0DAEABzEuMC4wLjAAACkBACQ4NTUzYmFlYi1jZDBhLTRiZjgtOGY4Ny02Mjg4ZmVj
+YjgwNDUAAAUBAAEAACkBACRDb3B5cmlnaHQgQCBBdm9uIFByb2R1Y3RzLCBJbmMuIDIwMTQAACgB
+ACNTVF81M2Y5NWZhOGQ0MjE0MWI3YjcxMGVkNDZiNzU3N2Y0MQAAGAEAE0F2b24gUHJvZHVjdHMs
+IEluYy4AAAAAAAg8AAAAAAAAAAAAAB48AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQPAAAAAAA
+AAAAX0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA
+EAAAABgAAIAAAAAAAAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABY
+QAAA8AMAAAAAAAAAAAAA8AM0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E
+7/4AAAEAAAABAAAAAAAAAAEAAAAAAD8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBW
+AGEAcgBGAGkAbABlAEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAA
+AACwBFADAAABAFMAdAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAACwDAAABADAAMAAwADAAMAA0
+AGIAMAAAAEgAFAABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAAAAAAQQB2AG8AbgAgAFAAcgBvAGQA
+dQBjAHQAcwAsACAASQBuAGMALgAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBu
+AAAAAABTAFQAXwA1ADMAZgA5ADUAZgBhADgAZAA0ADIAMQA0ADEAYgA3AGIANwAxADAAZQBkADQA
+NgBiADcANQA3ADcAZgA0ADEAAAAwAAgAAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAw
+AC4AMAAuADAAAABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAVABfADIAZQBmAGYA
+NABkAGEAZAA5AGYAOQA1ADQAOQA5ADcAYgBiAGQAZQA5ADQANQBmADYAYwA5ADQAMgBkADkAZQAu
+AGQAbABsAAAAcAAlAAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkA
+ZwBoAHQAIABAACAAQQB2AG8AbgAgAFAAcgBvAGQAdQBjAHQAcwAsACAASQBuAGMALgAgADIAMAAx
+ADQAAAAAAHgAKAABAE8AcgBpAGcAaQBuAGEAbABGAGkAbABlAG4AYQBtAGUAAABTAFQAXwAyAGUA
+ZgBmADQAZABhAGQAOQBmADkANQA0ADkAOQA3AGIAYgBkAGUAOQA0ADUAZgA2AGMAOQA0ADIAZAA5
+AGUALgBkAGwAbAAAAGgAJAABAFAAcgBvAGQAdQBjAHQATgBhAG0AZQAAAAAAUwBUAF8ANQAzAGYA
+OQA1AGYAYQA4AGQANAAyADEANAAxAGIANwBiADcAMQAwAGUAZAA0ADYAYgA3ADUANwA3AGYANAAx
+AAAANAAIAAEAUAByAG8AZAB1AGMAdABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAADgA
+CAABAEEAcwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADAALgAwAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAADA8AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Check IMIS_ITEMDATA Rowcount Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Check IMIS_ITEMDATA Rowcount Failure"
+      DTS:DTSID="{3132738E-CC6B-4C88-8F37-93404FA58B17}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check IMIS_ITEMDATA Rowcount Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Check IMIS_ITEMDATA Table Rowcount Task FAILED. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Check IMIS_ITEMDATA Rowcount Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Check IMIS_ITEMDATA Rowcount Success"
+      DTS:DTSID="{534430B1-1593-4A0E-9CE5-904E5F1F1570}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check IMIS_ITEMDATA Rowcount Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Check IMIS_ITEMDATA Table Rowcount Task Was Successful. Check Log File For Details')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get IMIS_ITEMDATA Table Rowcount"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Get IMIS_ITEMDATA Table Rowcount"
+      DTS:DTSID="{B1365780-990B-4FFA-9787-05C53585B878}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get IMIS_ITEMDATA Table Rowcount"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="SELECT COUNT(*) FROM IMIS_ITEMDATA"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="ImisItemCount" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get IMIS_ITEMDATA Table Rowcount Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Get IMIS_ITEMDATA Table Rowcount Failure"
+      DTS:DTSID="{A749F7AB-9B4E-4832-AFCF-778D24670CFE}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get IMIS_ITEMDATA Table Rowcount Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Get IMIS_ITEMDATA Table Rowcount Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get IMIS_ITEMDATA Table Rowcount Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Get IMIS_ITEMDATA Table Rowcount Success"
+      DTS:DTSID="{D7731F64-E4F1-4360-9E92-82A9A47661A0}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get IMIS_ITEMDATA Table Rowcount Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Get IMIS_ITEMDATA Table Rowcount Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Line Number Profile Shade Desc Column"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Line Number Profile Shade Desc Column"
+      DTS:DTSID="{18C98A55-02A5-4BC6-9728-DC4DFDE928BF}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Line Number Profile Shade Desc Column"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="UPDATE LINE_NUMBER&#xA;SET PROFILE_SHADE_DESC = TTS_PROFILE_SHADE_DESC &#xA;FROM LINE_NUMBER A, VW_PROFILE_SHADE_DESC B&#xA;WHERE A.FSC = B.TTS_SHORT_FSC" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Line Number Profile Shade Desc Column Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Line Number Profile Shade Desc Column Failure"
+      DTS:DTSID="{E1092A23-8C14-4871-8BDA-43AA4B82E830}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Line Number Profile Shade Desc Column Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Set Line Number Profile Shade Desc Column Task FAILED. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Line Number Profile Shade Desc Column Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Line Number Profile Shade Desc Column Success"
+      DTS:DTSID="{0EDE8E32-A5A1-4D13-BE9C-B0FCB7641F53}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Line Number Profile Shade Desc Column Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Set Line Number Profile Shade Desc Column Task Was Successful. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Profile Shade Desc Default"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Profile Shade Desc Default"
+      DTS:DTSID="{E8C4C41A-1089-4032-AEAB-66DD74BD5220}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Profile Shade Desc Default"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Default Profile_Shade_Desc To Short Desc &#xA;-- ** Where Not Set By IMIS Desc&#xA;&#xA;UPDATE LINE_NUMBER&#xA;SET PROFILE_SHADE_DESC = DSC_ITEM&#xA;WHERE PROFILE_SHADE_DESC IS NULL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Profile Shade Desc Default Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Profile Shade Desc Default Failure"
+      DTS:DTSID="{ED011864-D41D-4BD5-B83A-4F2FCCC31F67}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Profile Shade Desc Default Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Set Profile Shade Desc Default Task FAILED. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set Profile Shade Desc Default Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Set Profile Shade Desc Default Success"
+      DTS:DTSID="{CCBA1C3F-9617-43C0-9003-B728500556DA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set Profile Shade Desc Default Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Set Profile Shade Desc Default Task Was Successful. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetProfShadeDesc Process Finished"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="SetProfShadeDesc Process Finished"
+      DTS:DTSID="{AEB1333B-1ED7-43FD-B332-77D89170867B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetProfShadeDesc Process Finished"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','The Package Completed Successfully')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update Final Sale Items"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Update Final Sale Items"
+      DTS:DTSID="{da233919-f5d4-407b-883f-64f280b81705}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Final Sale Items"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="UPDATE LINE_NUMBER&#xA;SET DSC_ITEM = 'FS ' + DSC_ITEM&#xA;WHERE SPEC_TAG_2 IN ('W','Z')&#xA;AND ((ID_CENT_YEAR = 2019 AND ID_CAMPAIGN &gt;= 5) OR (ID_CENT_YEAR &gt; 2019))&#xA;AND LEN(DSC_ITEM) &lt; (COL_LENGTH('LINE_NUMBER', 'DSC_ITEM') - 2)&#xA;GO&#xA;&#xA;UPDATE LINE_NUMBER&#xA;SET DSC_ITEM = 'FS ' + LEFT(DSC_ITEM, (COL_LENGTH('LINE_NUMBER', 'DSC_ITEM') - 3))&#xA;WHERE SPEC_TAG_2 IN ('W','Z')&#xA;AND ((ID_CENT_YEAR = 2019 AND ID_CAMPAIGN &gt;= 5) OR (ID_CENT_YEAR &gt; 2019))&#xA;AND LEN(DSC_ITEM) &gt; (COL_LENGTH('LINE_NUMBER', 'DSC_ITEM') - 3)&#xA;GO&#xA;&#xA;UPDATE LINE_NUMBER&#xA;SET PROFILE_SHADE_DESC = PROFILE_SHADE_DESC + ' FinalSale'&#xA;WHERE SPEC_TAG_2 IN ('W','Z')&#xA;AND ((ID_CENT_YEAR = 2019 AND ID_CAMPAIGN &gt;= 5) OR (ID_CENT_YEAR &gt; 2019))&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update Final Sale Items Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Update Final Sale Items Failure"
+      DTS:DTSID="{1f79ef24-5926-4aa2-8955-9361397bd8af}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Final Sale Items Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-UpdateFinalSaleItems','The Update Final Sale Items Task FAILED. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update Final Sale Items Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Update Final Sale Items Success"
+      DTS:DTSID="{1e3667d7-8de4-4206-8b98-51ac77bffd28}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Final Sale Items Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-UpdateFinalSaleItems','The Update Final Sale Items Task Was Successful. Check Log File For Details.')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Start To Console Log"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Start To Console Log"
+      DTS:DTSID="{8E48511B-47C2-4716-9B4C-C3F2569621DF}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Start To Console Log"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0AEF8C24-D8A8-43B2-87C3-164EBE0E4B97}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-SetProfShadeDesc','Package Start')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{EB8EB875-9E81-4A92-A40E-B464D58A08EB}"
+      DTS:From="Package\Write Start To Console Log"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Get IMIS_ITEMDATA Table Rowcount" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4A005581-7817-4727-9B4A-BF5CA4D58F17}"
+      DTS:From="Package\Get IMIS_ITEMDATA Table Rowcount Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Check IMIS_ITEMDATA Rowcount"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{67575152-C334-4DF0-8035-03719602C4CC}"
+      DTS:From="Package\Check IMIS_ITEMDATA Rowcount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Check IMIS_ITEMDATA Rowcount Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{DDF1EA57-3E91-455F-923E-8F5F2D9730B7}"
+      DTS:From="Package\Check IMIS_ITEMDATA Rowcount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Check IMIS_ITEMDATA Rowcount Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{7507E70F-1C37-422F-A234-248ABAFDDFA0}"
+      DTS:From="Package\Set Profile Shade Desc Default Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Update Final Sale Items"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{820DCE1D-F1B0-41CB-9B93-B4D1E2137474}"
+      DTS:From="Package\Update Final Sale Items Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\SetProfShadeDesc Process Finished"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{1887B5B0-423A-4C22-8F05-5C3C676C90AB\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{1887B5B0-423A-4C22-8F05-5C3C676C90AB}"
+      DTS:From="Package\Set Profile Shade Desc Default"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{1887B5B0-423A-4C22-8F05-5C3C676C90AB}"
+      DTS:To="Package\Set Profile Shade Desc Default Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{1887B5B0-423A-4C22-8F05-5C3C676C90AB\} 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{3e8afd53-3f05-4731-9e8e-4813c34aac1b}"
+      DTS:From="Package\Update Final Sale Items"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{1887B5B0-423A-4C22-8F05-5C3C676C90AB} 1"
+      DTS:To="Package\Update Final Sale Items Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{29AE1EC5-2E8D-4E46-9FC2-DD68CEBB5F49\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{29AE1EC5-2E8D-4E46-9FC2-DD68CEBB5F49}"
+      DTS:From="Package\Get IMIS_ITEMDATA Table Rowcount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{29AE1EC5-2E8D-4E46-9FC2-DD68CEBB5F49}"
+      DTS:To="Package\Get IMIS_ITEMDATA Table Rowcount Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{9AC5EEB7-72BE-4366-A378-D4ADDFB5F25B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{9AC5EEB7-72BE-4366-A378-D4ADDFB5F25B}"
+      DTS:From="Package\Set Line Number Profile Shade Desc Column Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{9AC5EEB7-72BE-4366-A378-D4ADDFB5F25B}"
+      DTS:To="Package\Set Profile Shade Desc Default"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{9F44B77E-8B1A-4092-AF7E-E5A2C9726E50\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{9F44B77E-8B1A-4092-AF7E-E5A2C9726E50}"
+      DTS:From="Package\Get IMIS_ITEMDATA Table Rowcount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{9F44B77E-8B1A-4092-AF7E-E5A2C9726E50}"
+      DTS:To="Package\Get IMIS_ITEMDATA Table Rowcount Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{A1546CE0-67EB-463B-AE42-A4546F8193A9\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{A1546CE0-67EB-463B-AE42-A4546F8193A9}"
+      DTS:From="Package\Set Line Number Profile Shade Desc Column"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{A1546CE0-67EB-463B-AE42-A4546F8193A9}"
+      DTS:To="Package\Set Line Number Profile Shade Desc Column Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{B30C3121-5FE1-4116-BF52-45E0E38A80DC\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{B30C3121-5FE1-4116-BF52-45E0E38A80DC}"
+      DTS:From="Package\Set Line Number Profile Shade Desc Column"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{B30C3121-5FE1-4116-BF52-45E0E38A80DC}"
+      DTS:To="Package\Set Line Number Profile Shade Desc Column Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{CBBD2041-F83C-4C00-A4A7-154730EC0434\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{CBBD2041-F83C-4C00-A4A7-154730EC0434}"
+      DTS:From="Package\Set Profile Shade Desc Default"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{CBBD2041-F83C-4C00-A4A7-154730EC0434}"
+      DTS:To="Package\Set Profile Shade Desc Default Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{CBBD2041-F83C-4C00-A4A7-154730EC0434\} 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{6981942b-d6f6-4e6e-9f51-797824512091}"
+      DTS:From="Package\Update Final Sale Items"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{CBBD2041-F83C-4C00-A4A7-154730EC0434} 1"
+      DTS:To="Package\Update Final Sale Items Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{F81E7E37-8335-4894-AC11-B3D4206AABE2\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{F81E7E37-8335-4894-AC11-B3D4206AABE2}"
+      DTS:From="Package\Check IMIS_ITEMDATA Rowcount Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{F81E7E37-8335-4894-AC11-B3D4206AABE2}"
+      DTS:To="Package\Set Line Number Profile Shade Desc Column"
+      DTS:Value="2" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="240.8,41.6"
+          Id="Package\Check IMIS_ITEMDATA Rowcount"
+          TopLeft="251.672348484849,419.333333333333" />
+        <NodeLayout
+          Size="276,41.6"
+          Id="Package\Check IMIS_ITEMDATA Rowcount Failure"
+          TopLeft="56.2916666666667,525.833333333333" />
+        <NodeLayout
+          Size="280.8,41.6"
+          Id="Package\Check IMIS_ITEMDATA Rowcount Success"
+          TopLeft="413.541666666667,523.833333333333" />
+        <NodeLayout
+          Size="257.6,41.6"
+          Id="Package\Get IMIS_ITEMDATA Table Rowcount"
+          TopLeft="243.172348484849,221.833333333333" />
+        <NodeLayout
+          Size="292.8,41.6"
+          Id="Package\Get IMIS_ITEMDATA Table Rowcount Failure"
+          TopLeft="47.7916666666667,315.333333333333" />
+        <NodeLayout
+          Size="297.6,41.6"
+          Id="Package\Get IMIS_ITEMDATA Table Rowcount Success"
+          TopLeft="405.041666666667,315.333333333333" />
+        <NodeLayout
+          Size="288.8,41.6"
+          Id="Package\Set Line Number Profile Shade Desc Column"
+          TopLeft="227.672348484849,663.833333333333" />
+        <NodeLayout
+          Size="324,41.6"
+          Id="Package\Set Line Number Profile Shade Desc Column Failure"
+          TopLeft="32.2916666666667,770.833333333333" />
+        <NodeLayout
+          Size="328.8,41.6"
+          Id="Package\Set Line Number Profile Shade Desc Column Success"
+          TopLeft="389.541666666667,772.833333333333" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Set Profile Shade Desc Default"
+          TopLeft="260.172348484849,881.833333333333" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\Set Profile Shade Desc Default Failure"
+          TopLeft="64.7916666666667,971.833333333333" />
+        <NodeLayout
+          Size="264,41.6"
+          Id="Package\Set Profile Shade Desc Default Success"
+          TopLeft="422.041666666667,971.833333333333" />
+        <NodeLayout
+          Size="246.4,41.6"
+          Id="Package\SetProfShadeDesc Process Finished"
+          TopLeft="235.33901492445,1233.04902195298" />
+        <NodeLayout
+          Size="192,41.6"
+          Id="Package\Update Final Sale Items"
+          TopLeft="259.190206714376,1074.35294532336" />
+        <NodeLayout
+          Size="227.2,41.6"
+          Id="Package\Update Final Sale Items Failure"
+          TopLeft="60.6802735963529,1149.78711878855" />
+        <NodeLayout
+          Size="232,41.6"
+          Id="Package\Update Final Sale Items Success"
+          TopLeft="416.977892173622,1153.2829171569" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Write Start To Console Log"
+          TopLeft="268.172348484849,133.833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="372.172348484849,175.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="554.041666666667,357.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-181.869318181818,62"
+              Start="0,0"
+              End="-181.869318181818,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27"
+                    Point2="0,31"
+                    Point3="-4,31" />
+                  <mssgle:LineSegment
+                    End="-177.869318181818,31" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-177.869318181818,31"
+                    Point2="-181.869318181818,31"
+                    Point3="-181.869318181818,35" />
+                  <mssgle:LineSegment
+                    End="-181.869318181818,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-116.239112215909,36,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="411.005681818182,461.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="143.035984848485,62.5000000000001"
+              Start="0,0"
+              End="143.035984848485,55.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.247320692498" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.247320692498"
+                    Point2="0,25.247320692498"
+                    Point3="4,25.247320692498" />
+                  <mssgle:LineSegment
+                    End="139.035984848485,25.247320692498" />
+                  <mssgle:CubicBezierSegment
+                    Point1="139.035984848485,25.247320692498"
+                    Point2="143.035984848485,25.247320692498"
+                    Point3="143.035984848485,29.247320692498" />
+                  <mssgle:LineSegment
+                    End="143.035984848485,55.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="333.339015151515,461.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-139.047348484849,64.5000000000001"
+              Start="0,0"
+              End="-139.047348484849,57.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.0552349546579" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.0552349546579"
+                    Point2="0,26.0552349546579"
+                    Point3="-4,26.0552349546579" />
+                  <mssgle:LineSegment
+                    End="-135.047348484849,26.0552349546579" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-135.047348484849,26.0552349546579"
+                    Point2="-139.047348484849,26.0552349546579"
+                    Point3="-139.047348484849,30.0552349546579" />
+                  <mssgle:LineSegment
+                    End="-139.047348484849,57.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-84.7650218986744,31.0552349546579,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="554.041666666667,1013.43333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-198.851459952291,60.9196119900258"
+              Start="0,0"
+              End="-198.851459952291,53.4196119900258">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.4598059950129" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.4598059950129"
+                    Point2="0,30.4598059950129"
+                    Point3="-4,30.4598059950129" />
+                  <mssgle:LineSegment
+                    End="-194.851459952291,30.4598059950129" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-194.851459952291,30.4598059950129"
+                    Point2="-198.851459952291,30.4598059950129"
+                    Point3="-198.851459952291,34.4598059950129" />
+                  <mssgle:LineSegment
+                    End="-198.851459952291,53.4196119900258" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-124.730183101146,35.4598059950129,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="532.977892173622,1194.8829171569">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-174.438877249172,38.1661047960752"
+              Start="0,0"
+              End="-174.438877249172,30.6661047960752">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.0830523980376" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.0830523980376"
+                    Point2="0,19.0830523980376"
+                    Point3="-4,19.0830523980376" />
+                  <mssgle:LineSegment
+                    End="-170.438877249172,19.0830523980376" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-170.438877249172,19.0830523980376"
+                    Point2="-174.438877249172,19.0830523980376"
+                    Point3="-174.438877249172,23.0830523980376" />
+                  <mssgle:LineSegment
+                    End="-174.438877249172,30.6661047960752" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-112.523891749586,24.0830523980376,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{1887B5B0-423A-4C22-8F05-5C3C676C90AB\}]"
+          TopLeft="408.172348484849,923.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="145.869318181818,48"
+              Start="0,0"
+              End="145.869318181818,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.4042553191489" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.4042553191489"
+                    Point2="0,19.4042553191489"
+                    Point3="4,19.4042553191489" />
+                  <mssgle:LineSegment
+                    End="141.869318181818,19.4042553191489" />
+                  <mssgle:CubicBezierSegment
+                    Point1="141.869318181818,19.4042553191489"
+                    Point2="145.869318181818,19.4042553191489"
+                    Point3="145.869318181818,23.4042553191489" />
+                  <mssgle:LineSegment
+                    End="145.869318181818,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{1887B5B0-423A-4C22-8F05-5C3C676C90AB\} 1]"
+          TopLeft="385.856873381042,1115.95294532336">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="147.12101879258,37.3299718335427"
+              Start="0,0"
+              End="147.12101879258,29.8299718335427">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.1170960317652" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.1170960317652"
+                    Point2="0,15.1170960317652"
+                    Point3="4,15.1170960317652" />
+                  <mssgle:LineSegment
+                    End="143.12101879258,15.1170960317652" />
+                  <mssgle:CubicBezierSegment
+                    Point1="143.12101879258,15.1170960317652"
+                    Point2="147.12101879258,15.1170960317652"
+                    Point3="147.12101879258,19.1170960317652" />
+                  <mssgle:LineSegment
+                    End="147.12101879258,29.8299718335427" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{29AE1EC5-2E8D-4E46-9FC2-DD68CEBB5F49\}]"
+          TopLeft="413.839015151515,263.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="140.202651515152,51.4999999999999"
+              Start="0,0"
+              End="140.202651515152,43.9999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.7904468412943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.7904468412943"
+                    Point2="0,20.7904468412943"
+                    Point3="4,20.7904468412943" />
+                  <mssgle:LineSegment
+                    End="136.202651515152,20.7904468412943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="136.202651515152,20.7904468412943"
+                    Point2="140.202651515152,20.7904468412943"
+                    Point3="140.202651515152,24.7904468412943" />
+                  <mssgle:LineSegment
+                    End="140.202651515152,43.9999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{9AC5EEB7-72BE-4366-A378-D4ADDFB5F25B\}]"
+          TopLeft="554.041666666667,814.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-181.869318181818,67"
+              Start="0,0"
+              End="-181.869318181818,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.5"
+                    Point2="0,33.5"
+                    Point3="-4,33.5" />
+                  <mssgle:LineSegment
+                    End="-177.869318181818,33.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-177.869318181818,33.5"
+                    Point2="-181.869318181818,33.5"
+                    Point3="-181.869318181818,37.5" />
+                  <mssgle:LineSegment
+                    End="-181.869318181818,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-116.239112215909,38.5,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{9F44B77E-8B1A-4092-AF7E-E5A2C9726E50\}]"
+          TopLeft="330.505681818182,263.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-136.214015151515,51.4999999999999"
+              Start="0,0"
+              End="-136.214015151515,43.9999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.7904468412943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.7904468412943"
+                    Point2="0,20.7904468412943"
+                    Point3="-4,20.7904468412943" />
+                  <mssgle:LineSegment
+                    End="-132.214015151515,20.7904468412943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-132.214015151515,20.7904468412943"
+                    Point2="-136.214015151515,20.7904468412943"
+                    Point3="-136.214015151515,24.7904468412943" />
+                  <mssgle:LineSegment
+                    End="-136.214015151515,43.9999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-83.3483552320077,25.7904468412943,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{A1546CE0-67EB-463B-AE42-A4546F8193A9\}]"
+          TopLeft="325.339015151515,705.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-131.047348484849,65"
+              Start="0,0"
+              End="-131.047348484849,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2147281486579" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.2147281486579"
+                    Point2="0,26.2147281486579"
+                    Point3="-4,26.2147281486579" />
+                  <mssgle:LineSegment
+                    End="-127.047348484849,26.2147281486579" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-127.047348484849,26.2147281486579"
+                    Point2="-131.047348484849,26.2147281486579"
+                    Point3="-131.047348484849,30.2147281486579" />
+                  <mssgle:LineSegment
+                    End="-131.047348484849,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-80.7650218986744,31.2147281486579,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{B30C3121-5FE1-4116-BF52-45E0E38A80DC\}]"
+          TopLeft="419.005681818182,705.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135.035984848485,67"
+              Start="0,0"
+              End="135.035984848485,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.0213351686167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.0213351686167"
+                    Point2="0,27.0213351686167"
+                    Point3="4,27.0213351686167" />
+                  <mssgle:LineSegment
+                    End="131.035984848485,27.0213351686167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="131.035984848485,27.0213351686167"
+                    Point2="135.035984848485,27.0213351686167"
+                    Point3="135.035984848485,31.0213351686167" />
+                  <mssgle:LineSegment
+                    End="135.035984848485,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{CBBD2041-F83C-4C00-A4A7-154730EC0434\}]"
+          TopLeft="336.172348484849,923.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-141.880681818182,48"
+              Start="0,0"
+              End="-141.880681818182,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.4042553191489" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.4042553191489"
+                    Point2="0,19.4042553191489"
+                    Point3="-4,19.4042553191489" />
+                  <mssgle:LineSegment
+                    End="-137.880681818182,19.4042553191489" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-137.880681818182,19.4042553191489"
+                    Point2="-141.880681818182,19.4042553191489"
+                    Point3="-141.880681818182,23.4042553191489" />
+                  <mssgle:LineSegment
+                    End="-141.880681818182,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-86.1816885653411,24.4042553191489,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{CBBD2041-F83C-4C00-A4A7-154730EC0434\} 1]"
+          TopLeft="324.523540047709,1115.95294532336">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-150.243266451356,33.8341734651874"
+              Start="0,0"
+              End="-150.243266451356,26.3341734651874">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.70144214705936" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.70144214705936"
+                    Point2="0,13.7014421470594"
+                    Point3="-4,13.7014421470594" />
+                  <mssgle:LineSegment
+                    End="-146.243266451356,13.7014421470594" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-146.243266451356,13.7014421470594"
+                    Point2="-150.243266451356,13.7014421470594"
+                    Point3="-150.243266451356,17.7014421470594" />
+                  <mssgle:LineSegment
+                    End="-150.243266451356,26.3341734651874" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-90.362980881928,18.7014421470594,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{F81E7E37-8335-4894-AC11-B3D4206AABE2\}]"
+          TopLeft="554.041666666667,565.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-181.869318181818,98"
+              Start="0,0"
+              End="-181.869318181818,90.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45"
+                    Point2="0,49"
+                    Point3="-4,49" />
+                  <mssgle:LineSegment
+                    End="-177.869318181818,49" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-177.869318181818,49"
+                    Point2="-181.869318181818,49"
+                    Point3="-181.869318181818,53" />
+                  <mssgle:LineSegment
+                    End="-181.869318181818,90.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-116.239112215909,54,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Set Profile Shade Description"
+          ParentId="Package"
+          Size="294.4,47.2"
+          Id="675353da-8863-46e4-8043-f415f28c2a45"
+          TopLeft="225.172348484849,33.3333333333333">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="This package loads profile share description from IMIS_ITEMDATA"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="379.2,41.6"
+          Id="0f96d636-e765-447d-a769-b250c01a1fda"
+          TopLeft="182.672348484849,77.0909090909093" />
+        <AnnotationLayout
+          Text="SELECT COUNT(*) FROM IMIS_ITEMDATA"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="248.8,41.6"
+          Id="db2c7ff7-0226-4928-a486-7ae010af5a9a"
+          TopLeft="564,216" />
+        <AnnotationLayout
+          Text="UPDATE LINE_NUMBER&#xA;SET PROFILE_SHADE_DESC = TTS_PROFILE_SHADE_DESC &#xA;FROM LINE_NUMBER A, VW_PROFILE_SHADE_DESC B&#xA;WHERE A.FSC = B.TTS_SHORT_FSC"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="332.8,89.6"
+          Id="bfea3eb2-b089-4cab-8e4a-277f7bb6772b"
+          TopLeft="574,639" />
+        <AnnotationLayout
+          Text="-- ** Default Profile_Shade_Desc To Short Desc &#xA;-- ** Where Not Set By IMIS Desc&#xA;&#xA;UPDATE LINE_NUMBER&#xA;SET PROFILE_SHADE_DESC = DSC_ITEM&#xA;WHERE PROFILE_SHADE_DESC IS NULL"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="280.8,121.6"
+          Id="8c45f6fd-e719-4225-949c-2dbd939a91be"
+          TopLeft="578,834" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

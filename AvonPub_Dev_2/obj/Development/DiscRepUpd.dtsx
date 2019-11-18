@@ -1,0 +1,2347 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 12:55:52 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYETOBIASJ"
+  DTS:CreatorName="AVONNA\tobiasj"
+  DTS:Description="AvonPub - Load Discontinued Rep Data Into Disc Rep Table"
+  DTS:DTSID="{50B03DF9-9D96-41E5-A90E-0AFADB4635E2}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DiscRepUpd"
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{3AB703F8-6468-4BA0-9C64-8AB5933FF220}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-DiscRepUpd-{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADLQKU5gi/lAisyEobiv95lAAAAAASAAACgAAAAEAAAAOr8vFG+E9n7uQ1BvNfhuMwQAAAAlMiW5WMOH4LKRNRxwDVNexQAAADSpuofxZAvZ23/mEDvPDOjrt5bJg</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IG20_DISC.dat_Import]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{B90C2E28-D8C6-4DDD-8E68-8DE2F8D49ACF}"
+      DTS:ObjectName="IG20_DISC.dat_Import">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]  + @[$Project::SQLImport]+ @[User::IG20_FileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\IG20_DISC.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IG20_FTP.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{D32FB722-4E5E-4A24-AD59-761EB37DD62B}"
+      DTS:ObjectName="IG20_FTP.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLFTP] +  @[User::IG20_FileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\IG20_DISC.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLImport_Folder]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{AC39C50D-3F82-4C41-BE80-83AB6CB705E4}"
+      DTS:ObjectName="SQLImport_Folder">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLImport]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlimport\AvonPub\" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_DiscRepUpd_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{64834BAC-634B-440A-BF69-7F566F3F2C74}"
+      DTS:ObjectName="SSIS_DiscRepUpd_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLScripts] + "SSIS_DiscRepUpd_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_DiscRepUpd_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4A9060E1-3E83-4689-9E49-70D4150B30F3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IG20_FileName">
+      <DTS:VariableValue
+        DTS:DataType="8">IG20_DISC.dat</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">4,7,OnError,13,OnInformation,12,OnTaskFailed,9,OnWarning</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnInformation"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnWarning"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Bulk Insert IG20_DISC.dat File"
+      DTS:DTSID="{422A9043-3B71-4C21-843D-A91188FB0E79}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.BulkInsertTask.BulkInsertTask, Microsoft.SqlServer.BulkInsertTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:PropertyExpression
+        DTS:Name="FormatFile">@[$Project::AvonPubSQLDirs]+ @[$Project::SQLScripts]+"DiscRep.fmt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <BulkInsertTask:BulkInsertTaskData
+          BulkInsertTask:BatchSize="10000"
+          BulkInsertTask:CheckConstraints="False"
+          BulkInsertTask:CodePage="OEM"
+          BulkInsertTask:SourceConnectionName="{B90C2E28-D8C6-4DDD-8E68-8DE2F8D49ACF}"
+          BulkInsertTask:DestinationConnectionName="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          BulkInsertTask:DestinationTableName="[AvonPub].[dbo].[DISCONTINUED_REP_TABLE2]"
+          BulkInsertTask:UseFormatFile="True"
+          BulkInsertTask:FormatFile="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\DiscRep.fmt"
+          BulkInsertTask:FieldTerminator="\t"
+          BulkInsertTask:RowTerminator="\n" xmlns:BulkInsertTask="www.microsoft.com/sqlserver/dts/tasks/bulkinserttask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Check Discontinued Rep File IG20_DISC dat"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Check Discontinued Rep File IG20_DISC dat"
+      DTS:DTSID="{DB1D1B8B-53B6-45CF-A8EF-799BFBF0798F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check Discontinued Rep File IG20_DISC dat"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_d283562a368943e49347141bc7ab457f"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="VisualBasic"
+          ReadOnlyVariables="User::IG20_FileName,$Project::SQLFTP,$Project::AvonPubSQLDirs">
+          <ProjectItem
+            Name="My Project\AssemblyInfo.vb"
+            Encoding="UTF8"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("ST_53f95fa8d42141b7b710ed46b7577f41")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("Avon Products, Inc.")> 
+<Assembly: AssemblyProduct("ST_53f95fa8d42141b7b710ed46b7577f41")> 
+<Assembly: AssemblyCopyright("Copyright @ Avon Products, Inc. 2014")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("8553baeb-cd0a-4bf8-8f87-6288fecb8045")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.vb"
+            Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
+'The Script Task allows you to perform virtually any operation that can be accomplished in
+'a .Net application within the context of an Integration Services control flow. 
+
+'Expand the other regions which have "Help" prefixes for examples of specific ways to use
+'Integration Services features within this script task.
+#End Region
+
+
+#Region "Imports"
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+Imports System.IO
+#End Region
+
+'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+'or parent of this class.
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+#Region "Help:  Using Integration Services variables and parameters in a script"
+    'To use a variable in this script, first ensure that the variable has been added to 
+    'either the list contained in the ReadOnlyVariables property or the list contained in 
+    'the ReadWriteVariables property of this script task, according to whether or not your
+    'code needs to write to the variable.  To add the variable, save this script, close this instance of
+    'Visual Studio, and update the ReadOnlyVariables and 
+    'ReadWriteVariables properties in the Script Transformation Editor window.
+    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
+
+    'Example of reading from a variable:
+    ' startTime = Dts.Variables("System::StartTime").Value
+
+    'Example of writing to a variable:
+    ' Dts.Variables("User::myStringVariable").Value = "new value"
+
+    'Example of reading from a package parameter:
+    ' batchId = Dts.Variables("$Package::batchId").Value
+
+    'Example of reading from a project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").Value
+
+    'Example of reading from a sensitive project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
+#End Region
+
+#Region "Help:  Firing Integration Services events from a script"
+    'This script task can fire events for logging purposes.
+
+    'Example of firing an error event:
+    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
+
+    'Example of firing an information event:
+    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
+
+    'Example of firing a warning event:
+    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
+#End Region
+
+#Region "Help:  Using Integration Services connection managers in a script"
+    'Some types of connection managers can be used in this script task.  See the topic 
+    '"Working with Connection Managers Programatically" for details.
+
+    'Example of using an ADO.Net connection manager:
+    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
+    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
+
+    'Example of using a File connection manager
+    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
+    ' Dim filePath As String = CType(rawConnection, String)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
+#End Region
+
+    'This method is called when this script task executes in the control flow.
+    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+    'To open Help, press F1.
+
+    Public Sub Main()
+        '
+        ' VB Code to check the existence of File PD04a.dat file
+        ' and if files exists, greater than zero bytes
+        '
+        Dim strServerName As String = Dts.Variables("AvonPubSQLDirs").Value.ToString
+        Dim strServerPath As String = Dts.Variables("SQLFTP").Value.ToString
+        Dim strFileName As String = Dts.Variables("IG20_FileName").Value.ToString
+        Dim strFilePath As String = (strServerName + strServerPath + strFileName)
+
+        Try
+            'if the file is there, then go on
+            'MessageBox.Show(strFilePath)
+            If File.Exists(strFilePath) = True Then
+                'check for zero bytes
+                If FileLen(strFilePath) > 0 Then
+                    'ok to go
+                    Dts.TaskResult = ScriptResults.Success
+                Else
+                    Dts.TaskResult = ScriptResults.Failure
+                End If
+            Else
+                Dts.TaskResult = ScriptResults.Failure
+            End If
+
+        Catch ex As Exception
+            Dts.TaskResult = ScriptResults.Failure
+        End Try
+
+    End Sub
+
+#Region "ScriptResults declaration"
+    'This enum provides a convenient shorthand within the scope of this class for setting the
+    'result of the script.
+
+    'This code was generated automatically.
+    Enum ScriptResults
+        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+    End Enum
+
+#End Region
+
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Settings.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class]]></ProjectItem>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>ST_53f95fa8d42141b7b710ed46b7577f41</msb:CodeName>
+		<msb:DisplayName>ST_53f95fa8d42141b7b710ed46b7577f41</msb:DisplayName>
+		<msb:ProjectId>{B54D646B-624E-4792-85FE-DD0C2E238E28}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_d283562a368943e49347141bc7ab457f.vbproj"/>
+		<msb:File Include="My Project\AssemblyInfo.vb"/>
+		<msb:File Include="ScriptMain.vb"/>
+		<msb:File Include="My Project\Resources.resx"/>
+		<msb:File Include="My Project\Resources.Designer.vb"/>
+		<msb:File Include="My Project\Settings.settings"/>
+		<msb:File Include="My Project\Settings.Designer.vb"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="ST_d283562a368943e49347141bc7ab457f.vbproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{AEA9992D-8EC8-4637-9A73-1E7AD135BC74}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>My Project</AppDesignerFolder><RootNamespace>ST_53f95fa8d42141b7b710ed46b7577f41</RootNamespace><AssemblyName>ST_d283562a368943e49347141bc7ab457f</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>true</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineDebug>false</DefineDebug><DefineTrace>true</DefineTrace><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><Import Include="Microsoft.VisualBasic" /><Import Include="System" /><Import Include="System.Collections" /><Import Include="System.Data" /><Import Include="System.Diagnostics" /><Import Include="System.Windows.Forms" /></ItemGroup><ItemGroup><AppDesigner Include="My Project\" /><Compile Include="My Project\AssemblyInfo.vb"><SubType>Code</SubType></Compile><EmbeddedResource Include="My Project\Resources.resx"><Generator>VbMyResourcesResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.vb</LastGenOutput><CustomToolNamespace>My.Resources</CustomToolNamespace></EmbeddedResource><Compile Include="My Project\Resources.Designer.vb"><AutoGen>True</AutoGen><DesignTime>True</DesignTime><DependentUpon>Resources.resx</DependentUpon><SubType>Code</SubType></Compile><None Include="My Project\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.vb</LastGenOutput></None><Compile Include="My Project\Settings.Designer.vb"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon><SubType>Code</SubType></Compile><Compile Include="ScriptMain.vb"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a VB project.--><Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" DebugInfoExeName="#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\InstallDir#\devenv.exe" /><Host Name="ScriptTask" /><ProjectClient><HostIdentifier>SSIS_ST110</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+          <ProjectItem
+            Name="My Project\Resources.Designer.vb"
+            Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+Namespace My.Resources
+    
+    '''<summary>
+    '''   A strongly-typed resource class, for looking up localized strings, etc.
+    '''</summary>
+    'This class was auto-generated by the Strongly Typed Resource Builder
+    'class via a tool like ResGen or Visual Studio.NET.
+    'To add or remove a member, edit your .ResX file then rerun ResGen
+    'with the /str option, or rebuild your VS project.
+    Class MyResources
+        
+        Private Shared _resMgr As System.Resources.ResourceManager
+        
+        Private Shared _resCulture As System.Globalization.CultureInfo
+        
+        Friend Sub New()
+            MyBase.New
+        End Sub
+        
+        '''<summary>
+        '''   Returns the cached ResourceManager instance used by this class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared ReadOnly Property ResourceManager() As System.Resources.ResourceManager
+            Get
+                If (_resMgr Is Nothing) Then
+                    Dim temp As System.Resources.ResourceManager = New System.Resources.ResourceManager("My.Resources.MyResources", GetType(MyResources).Assembly)
+                    _resMgr = temp
+                End If
+                Return _resMgr
+            End Get
+        End Property
+        
+        '''<summary>
+        '''   Overrides the current thread's CurrentUICulture property for all
+        '''   resource lookups using this strongly typed resource class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared Property Culture() As System.Globalization.CultureInfo
+            Get
+                Return _resCulture
+            End Get
+            Set
+                _resCulture = value
+            End Set
+        End Property
+    End Class
+End Namespace]]></ProjectItem>
+          <BinaryItem
+            Name="ST_d283562a368943e49347141bc7ab457f.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAFh3nlsAAAAAAAAAAOAAAiELAQsAABwAAAAIAAAAAAAADjsA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAIAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAMA6AABLAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAFBsAAAAgAAAAHAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAeAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAJAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAADw
+OgAAAAAAAEgAAAACAAUASCQAAHgWAAABAAAAAAAAAJAjAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKAEAAAoqHgIoBAAACiqmcwYAAAqAAQAABHMHAAAKgAIA
+AARzCAAACoADAAAEcwkAAAqABAAABCoAABMwAQALAAAAAQAAEX4BAAAEbwoAAAoqABMwAQALAAAA
+AgAAEX4CAAAEbwsAAAoqABMwAQALAAAAAwAAEX4DAAAEbwwAAAoqABMwAQALAAAABAAAEX4EAAAE
+bw0AAAoqABMwAgANAAAABQAAEQIDKBEAAAooEgAACioAAAATMAEABwAAAAYAABECKBMAAAoqABMw
+AQALAAAABwAAEdAFAAACKBQAAAoqABMwAQAHAAAACAAAEQIoFQAACioAEzABABAAAAAJAAARAowB
+AAAbLQYoAQAAKyoCKhMwAgAQAAAACgAAEQMSAP4VAgAAGwaBAgAAGyoeAigXAAAKKhMwAgAoAAAA
+CwAAEQJ7GQAACm8aAAAKCweMAwAAGy0SKAIAACsLAnsZAAAKB28bAAAKBypKAigXAAAKAnMcAAAK
+fRkAAAoqAB4CKBcAAAoqEzACAC0AAAAMAAARfgYAAAQtIHIBAABw0AcAAAIoFAAACm8eAAAKcx8A
+AAoLB4AGAAAEfgYAAAQqAAAAEzABAAYAAAANAAARfgcAAAQqAAAeAoAHAAAEKkJzFwAACigRAAAK
+gAkAAAQqAAAAHgIoIAAACiobMAEAPwAAAA4AABF+CAAABC0yfgkAAAQoEQAACighAAAKfggAAAQt
+HHMWAAAGgAgAAATeEH4JAAAEKBEAAAooIgAACtx+CAAABCoAARAAAAIAHQAMKQAQAAAAAB4CKCQA
+AAoqGzADAMEAAAAPAAARAm8lAAAKbyYAAApyMwAAcG8nAAAKbygAAApvFQAACgwCbyUAAApvJgAA
+CnJRAABwbycAAApvKAAACm8VAAAKDQJvJQAACm8mAAAKcl8AAHBvJwAACm8oAAAKbxUAAAoKCAkG
+KCkAAAoLBygqAAAKLCYHKCsAAAoWajEOAm8lAAAKFm8sAAAK3jcCbyUAAAoXbywAAAreKQJvJQAA
+ChdvLAAACt4bJSgtAAAKEwQCbyUAAAoXbywAAAooLgAACt4AKgAAAAEQAAAAAGkAPKUAGxsAAAG0
+AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGli
+LCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVj
+NTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAA
+AFBBRFBBRFC0AAAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA5AcAACN+AABQ
+CAAAyAkAACNTdHJpbmdzAAAAABgSAAB8AAAAI1VTAJQSAAAQAAAAI0dVSUQAAACkEgAA1AMAACNC
+bG9iAAAAAAAAAAIAAAFXHaIJCQ8AAAD6JTMAFgAAAQAAAC8AAAAKAAAADAAAABkAAAAEAAAAOwAA
+AAIAAAA2AAAADwAAAAQAAAAIAAAACQAAAAkAAAABAAAABQAAAAEAAAADAAAAAwAAAAIAAAAAAJ4J
+AQAAAAAACgBLASEBCgB/AWEBBgCPAYgBCgDnASEBBgBlAogBCgDnAr0CBgAdAwwDBgBKAzUDDgCx
+A5wDEgAwBAcEBgBRBIgBDgCEBG4EDgCdBG4EDgDKBLIEBgD0BOEECgAzBQwFCgBLBRMADgCABWMF
+BgC1BZUFBgDTBYgBBgD3BYgBCgAQBhMABgBUBjUGBgB6BmgGBgChBpAGBgC0BuEEBgDRBogBEgDb
+BgcEFgA0BxQHFgBMBxQHBgBeB4gBBgB2B2wHCgCCBxMACgCkBwwFBgDSB4gBEgDoBwcEBgBCCJUF
+BgBiCJUFBgCaCIAIBgCzCGgGBgDQCDUGBgDeCGgGBgD5CGgGBgAUCWgGBgAtCWgGBgBGCWgGBgBj
+CWgGAAAAAAEAAAAAAAEAAQAAAAAAKQA3AAUAAQABAAAAAABeADcACQABAAIAAAEQAGkANwANAAEA
+AwAFAQAAcwAAAA0ABQAIAAUBAACBAAAADQAFAA8AAAAAAJwAqAANAAYAEQAAARAA2QDkACUACAAV
+AAEAAAAIAeQAKQAKABgAAgEAABMBAAAtAAoAGgAxAKoBIAAxANMBLQAxAPUBOgAxABoCRwAhAPYC
+kAARAC0DnQARAFYDoQARAMkDvwARANEDwwAGBlYE2QBWgF4E3ABWgGYE3ABQIAAAAAAGGFsBEwAB
+AFggAAAAAAYYWwETAAEAYCAAAAAAERiWARcAAQCMIAAAAAATCJ0BGwABAKQgAAAAABMIwwEoAAEA
+vCAAAAAAEwjsATUAAQDUIAAAAAATCAoCQgABAOwgAAAAAEYCUAJjAAEACCEAAAAARgJZAmgAAgAc
+IQAAAACDAGoCbAACADQhAAAAAEYCcgJxAAIASCEAAAAAEQB7AngAAgBkIQAAAAABAJkCgAADAIAh
+AAAAAAYYWwETAAQAiCEAAAAAAwitAosABAC8IQAAAAAGGFsBEwAEANAhAAAAAAMYWwETAAQA2CEA
+AAAAFghiA6UABAAUIgAAAAAWCHYDqgAEACgiAAAAABYIggOvAAQAMCIAAAAAERiWARcABQBEIgAA
+AAAGGFsBEwAFAEwiAAAAABYI3gPGAAUAqCIAAAAABhhbARMABQCwIgAAAAAGAEwEEwAFAAAAAQBX
+AgAAAQCQAgAAAQCQAgAAAQCOAwkAWwETAGEAWwHqAHEAWwH5ABEAWwETAHkAWwETACQAWwETACwA
+WwETADQAWwETADwAWwETACQArQKLACwArQKLADQArQKLADwArQKLAIEAWwETAIkAWwETAJEAWwFI
+AZkAxAWTARkAUAJjABkAWQJoACkA5QWgARkAcgJxAKkAAQawARkAWwETALEAWwHAAUQA9gKQAEwA
+3gOLAEwAKwY9AkwAWwETALkAWwFMAikAgwZXAjkAWwFcAkkAWwETAMkAqQZ4AskArwZ4AtEAWwET
+AFEAWwETAFEA7QaCAuEAPgeHAukAVQeMAvEA3gOSAvkAZQeWAgEBewedAgkBjQeiAuEAlQenAhEB
+sAesAhEBwAcXABkBWwFMAiEBWwETACkBWwGnAjEBWwETADkBWwFIAUEBWwFIAUkBWwFIAVEBWwFI
+AVkBWwFIAWEBWwFIAWkBWwFIAXEBWwFIAXkBWwFIAQgALADgAAgAMADlACkAgwBNAS4AywG7Ay4A
+wwGSAy4AmwHjAi4AuwFoAy4A0wFRAi4A2wGSAy4AiwG7Ai4AkwHEAi4AowErAy4AqwE4Ay4A6wBR
+Ai4AewFiAy4AswFRAkAAKwDlAEAAEwDwAEMAEwDwAEMAGwD/AEkAgwBrAWMAGwD/AGMAEwDwAGkA
+gwBeAYAAKwDlAIMAcwDlAIMAGwD/AIMAewDlAIkAgwB/AaAAKwDlAKMAwwDIAaMAEwDwAMAAKwDl
+AMMAEwDwAMMA6wBRAskAEwBvAuAAKwDlAOkAEwBvAgABKwDlAAABEwDwAAkBGwHlACABKwDlACAB
+EwDwACMBewFRAiMBgwHlAEABEwDwAEABKwDlAGABEwDwAGABKwDlAIABKwDlAKABKwDlAMABEwDw
+AMABKwDlAOABKwDlAAACEwDwAAACKwDlADQBOQE+AUMBmAGcAacBrAG7AbsBQwJjAmoCfQKyAgQA
+AQAGAAUABwAGAAgACAAAAH8BTwAAADgCVAAAAOcBWQAAAEQCXgAAAAADmAAAAB0DtQAAAJQDugAA
+AI4DywACAAQAAwACAAUABQACAAYABwACAAcACQACAA8ACwACABIADQACABMADwABABQADwACABcA
+EQB1AHUAiAAYAR8BJgEtASoCMQIEgAAAAQAAAAAAAAAAAAAAAAB6CQAABAAAAAAAAAAAAAAAAQAK
+AAAAAAAKAAAAAAAAAAAAAAAKABMAAAAAAAQAAAAAAAAAAAAAAAEAiAEAAAAACwAAAAAAAAAAAAAA
+0ADoAwAAAAALAAAAAAAAAAAAAADQAPUGAAAAAAAAAAABAAAACggAAAUABAAGAAQACgAJAAAAEAAM
+AI4CAAAQABkAjgIAAAAAGwCOAi0AtgEtADgCAAAAAAA8TW9kdWxlPgBtc2NvcmxpYgBNaWNyb3Nv
+ZnQuVmlzdWFsQmFzaWMATXlBcHBsaWNhdGlvbgBTVF81M2Y5NWZhOGQ0MjE0MWI3YjcxMGVkNDZi
+NzU3N2Y0MS5NeQBNeUNvbXB1dGVyAE15UHJvamVjdABNeVdlYlNlcnZpY2VzAFRocmVhZFNhZmVP
+YmplY3RQcm92aWRlcmAxAE15UmVzb3VyY2VzAFNUXzUzZjk1ZmE4ZDQyMTQxYjdiNzEwZWQ0NmI3
+NTc3ZjQxLk15LlJlc291cmNlcwBNeVNldHRpbmdzAFNUXzUzZjk1ZmE4ZDQyMTQxYjdiNzEwZWQ0
+NmI3NTc3ZjQxAFNjcmlwdE1haW4AU2NyaXB0UmVzdWx0cwBNaWNyb3NvZnQuVmlzdWFsQmFzaWMu
+QXBwbGljYXRpb25TZXJ2aWNlcwBBcHBsaWNhdGlvbkJhc2UALmN0b3IATWljcm9zb2Z0LlZpc3Vh
+bEJhc2ljLkRldmljZXMAQ29tcHV0ZXIAU3lzdGVtAE9iamVjdAAuY2N0b3IAZ2V0X0NvbXB1dGVy
+AG1fQ29tcHV0ZXJPYmplY3RQcm92aWRlcgBnZXRfQXBwbGljYXRpb24AbV9BcHBPYmplY3RQcm92
+aWRlcgBVc2VyAGdldF9Vc2VyAG1fVXNlck9iamVjdFByb3ZpZGVyAGdldF9XZWJTZXJ2aWNlcwBt
+X015V2ViU2VydmljZXNPYmplY3RQcm92aWRlcgBBcHBsaWNhdGlvbgBXZWJTZXJ2aWNlcwBFcXVh
+bHMAbwBHZXRIYXNoQ29kZQBUeXBlAEdldFR5cGUAVG9TdHJpbmcAQ3JlYXRlX19JbnN0YW5jZV9f
+AFQAaW5zdGFuY2UARGlzcG9zZV9fSW5zdGFuY2VfXwBnZXRfR2V0SW5zdGFuY2UATWljcm9zb2Z0
+LlZpc3VhbEJhc2ljLk15U2VydmljZXMuSW50ZXJuYWwAQ29udGV4dFZhbHVlYDEAbV9Db250ZXh0
+AEdldEluc3RhbmNlAFN5c3RlbS5SZXNvdXJjZXMAUmVzb3VyY2VNYW5hZ2VyAF9yZXNNZ3IAU3lz
+dGVtLkdsb2JhbGl6YXRpb24AQ3VsdHVyZUluZm8AX3Jlc0N1bHR1cmUAZ2V0X1Jlc291cmNlTWFu
+YWdlcgBnZXRfQ3VsdHVyZQBzZXRfQ3VsdHVyZQBWYWx1ZQBDdWx0dXJlAFN5c3RlbS5Db25maWd1
+cmF0aW9uAEFwcGxpY2F0aW9uU2V0dGluZ3NCYXNlAG1fVmFsdWUAbV9TeW5jT2JqZWN0AGdldF9W
+YWx1ZQBNaWNyb3NvZnQuU3FsU2VydmVyLlNjcmlwdFRhc2sATWljcm9zb2Z0LlNxbFNlcnZlci5E
+dHMuVGFza3MuU2NyaXB0VGFzawBWU1RBUlRTY3JpcHRPYmplY3RNb2RlbEJhc2UATWFpbgBFbnVt
+AHZhbHVlX18AU3VjY2VzcwBGYWlsdXJlAFN5c3RlbS5Db21wb25lbnRNb2RlbABFZGl0b3JCcm93
+c2FibGVBdHRyaWJ1dGUARWRpdG9yQnJvd3NhYmxlU3RhdGUAU3lzdGVtLkNvZGVEb20uQ29tcGls
+ZXIAR2VuZXJhdGVkQ29kZUF0dHJpYnV0ZQBTeXN0ZW0uRGlhZ25vc3RpY3MARGVidWdnZXJIaWRk
+ZW5BdHRyaWJ1dGUATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkNvbXBpbGVyU2VydmljZXMAU3RhbmRh
+cmRNb2R1bGVBdHRyaWJ1dGUASGlkZU1vZHVsZU5hbWVBdHRyaWJ1dGUAU3lzdGVtLkNvbXBvbmVu
+dE1vZGVsLkRlc2lnbgBIZWxwS2V5d29yZEF0dHJpYnV0ZQBTeXN0ZW0uUnVudGltZS5Db21waWxl
+clNlcnZpY2VzAFJ1bnRpbWVIZWxwZXJzAEdldE9iamVjdFZhbHVlAFJ1bnRpbWVUeXBlSGFuZGxl
+AEdldFR5cGVGcm9tSGFuZGxlAEFjdGl2YXRvcgBDcmVhdGVJbnN0YW5jZQBNeUdyb3VwQ29sbGVj
+dGlvbkF0dHJpYnV0ZQBzZXRfVmFsdWUAU3lzdGVtLlJ1bnRpbWUuSW50ZXJvcFNlcnZpY2VzAENv
+bVZpc2libGVBdHRyaWJ1dGUAU3lzdGVtLlJlZmxlY3Rpb24AQXNzZW1ibHkAZ2V0X0Fzc2VtYmx5
+AFN5c3RlbS5UaHJlYWRpbmcATW9uaXRvcgBFbnRlcgBFeGl0AERlYnVnZ2VyTm9uVXNlckNvZGVB
+dHRyaWJ1dGUARXhjZXB0aW9uAFNjcmlwdE9iamVjdE1vZGVsAGdldF9EdHMATWljcm9zb2Z0LlNx
+bFNlcnZlci5NYW5hZ2VkRFRTAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlJ1bnRpbWUAVmFyaWFi
+bGVzAGdldF9WYXJpYWJsZXMAVmFyaWFibGUAZ2V0X0l0ZW0AU3RyaW5nAENvbmNhdABTeXN0ZW0u
+SU8ARmlsZQBFeGlzdHMARmlsZVN5c3RlbQBGaWxlTGVuAHNldF9UYXNrUmVzdWx0AFByb2plY3RE
+YXRhAFNldFByb2plY3RFcnJvcgBDbGVhclByb2plY3RFcnJvcgBDTFNDb21wbGlhbnRBdHRyaWJ1
+dGUAU1NJU1NjcmlwdFRhc2tFbnRyeVBvaW50QXR0cmlidXRlAFNUXzUzZjk1ZmE4ZDQyMTQxYjdi
+NzEwZWQ0NmI3NTc3ZjQxLlJlc291cmNlcy5yZXNvdXJjZXMAQ29tcGlsYXRpb25SZWxheGF0aW9u
+c0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBTeXN0ZW0uUnVudGltZS5W
+ZXJzaW9uaW5nAFRhcmdldEZyYW1ld29ya0F0dHJpYnV0ZQBBc3NlbWJseUZpbGVWZXJzaW9uQXR0
+cmlidXRlAEd1aWRBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRyaWJ1dGUAQXNzZW1ibHlD
+b3B5cmlnaHRBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmlidXRlAEFzc2VtYmx5Q29tcGFu
+eUF0dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRlAEFzc2VtYmx5VGl0bGVBdHRy
+aWJ1dGUAU1RfZDI4MzU2MmEzNjg5NDNlNDkzNDcxNDFiYzdhYjQ1N2YAU1RfZDI4MzU2MmEzNjg5
+NDNlNDkzNDcxNDFiYzdhYjQ1N2YuZGxsAAAAADFNAHkALgBSAGUAcwBvAHUAcgBjAGUAcwAuAE0A
+eQBSAGUAcwBvAHUAcgBjAGUAcwAAHUEAdgBvAG4AUAB1AGIAUwBRAEwARABpAHIAcwAADVMAUQBM
+AEYAVABQAAAbSQBHADIAMABfAEYAaQBsAGUATgBhAG0AZQAAAAlgmiB2GJZOj3Ofg+NppDUACLd6
+XFYZNOCJCLA/X38R1Qo6AyAAAQMAAAEEAAASDAcGFRIYARIMBAAAEggHBhUSGAESCAQAABIRBwYV
+EhgBEhEEAAASFAcGFRIYARIUBAgAEgwECAASCAQIABIRBAgAEhQEIAECHAMgAAgEIAASFQMgAA4C
+HgAHEAEBHgAeAAcwAQEBEB4AAhMABCAAEwAHBhUSGQETAAQoABMAAwYSHQMGEiEEAAASHQQAABIh
+BQABARIhBAgAEh0ECAASIQMGEiACBhwEAAASIAQIABIgCImEXc2AgMyRAgYIAwYRKAQAAAAABAEA
+AAAFIAEBETUIAQABAAAAAAAFIAIBDg4YAQAKTXlUZW1wbGF0ZQgxMC4wLjAuMAAABhUSGAESDAYV
+EhgBEggGFRIYARIRBhUSGAESFAQHARIMBAcBEggEBwESEQQHARIUBCABAQ4QAQALTXkuQ29tcHV0
+ZXIAAAwBAAdNeS5Vc2VyAAATAQAOTXkuQXBwbGljYXRpb24AABMBAA5NeS5XZWJTZXJ2aWNlcwAA
+BAABHBwDBwECAwcBCAYAARIVEVEEBwESFQMHAQ4FEAEAHgAECgEeAAQHAR4AByAEAQ4ODg5hAQA0
+U3lzdGVtLldlYi5TZXJ2aWNlcy5Qcm90b2NvbHMuU29hcEh0dHBDbGllbnRQcm90b2NvbBJDcmVh
+dGVfX0luc3RhbmNlX18TRGlzcG9zZV9fSW5zdGFuY2VfXwAAAAYVEhgBEwAGFRIZARMABAoBEwAF
+IAEBEwAIBwMTABMAEwAEIAEBAgUBAAAAAAQgABJhBiACAQ4SYQYHAhIdEh0EBwESIQgBAAIAAAAA
+AAQAAQEcBAcBEiAEIAAScQQgABJ1BSABEnkcAyAAHAYAAw4ODg4EAAECDgQAAQoOBCABAQgFAAEB
+Em0IBwUODg4OEm0IAQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBRwEAGi5O
+RVRGcmFtZXdvcmssVmVyc2lvbj12NC4wAQBUDhRGcmFtZXdvcmtEaXNwbGF5TmFtZRAuTkVUIEZy
+YW1ld29yayA0DAEABzEuMC4wLjAAACkBACQ4NTUzYmFlYi1jZDBhLTRiZjgtOGY4Ny02Mjg4ZmVj
+YjgwNDUAAAUBAAEAACkBACRDb3B5cmlnaHQgQCBBdm9uIFByb2R1Y3RzLCBJbmMuIDIwMTQAACgB
+ACNTVF81M2Y5NWZhOGQ0MjE0MWI3YjcxMGVkNDZiNzU3N2Y0MQAAGAEAE0F2b24gUHJvZHVjdHMs
+IEluYy4AAOg6AAAAAAAAAAAAAP46AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwOgAAAAAAAAAA
+X0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+ABAAAAAYAACAAAAAAAAAAAAAAAAAAAABAAEAAAAwAACAAAAAAAAAAAAAAAAAAAABAAAAAABIAAAA
+WEAAAPADAAAAAAAAAAAAAPADNAAAAFYAUwBfAFYARQBSAFMASQBPAE4AXwBJAE4ARgBPAAAAAAC9
+BO/+AAABAAAAAQAAAAAAAAABAAAAAAA/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAARAAAAAEA
+VgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQAAABUAHIAYQBuAHMAbABhAHQAaQBvAG4AAAAA
+AAAAsARQAwAAAQBTAHQAcgBpAG4AZwBGAGkAbABlAEkAbgBmAG8AAAAsAwAAAQAwADAAMAAwADAA
+NABiADAAAABIABQAAQBDAG8AbQBwAGEAbgB5AE4AYQBtAGUAAAAAAEEAdgBvAG4AIABQAHIAbwBk
+AHUAYwB0AHMALAAgAEkAbgBjAC4AAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8A
+bgAAAAAAUwBUAF8ANQAzAGYAOQA1AGYAYQA4AGQANAAyADEANAAxAGIANwBiADcAMQAwAGUAZAA0
+ADYAYgA3ADUANwA3AGYANAAxAAAAMAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4A
+MAAuADAALgAwAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAFQAXwBkADIAOAAz
+ADUANgAyAGEAMwA2ADgAOQA0ADMAZQA0ADkAMwA0ADcAMQA0ADEAYgBjADcAYQBiADQANQA3AGYA
+LgBkAGwAbAAAAHAAJQABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBp
+AGcAaAB0ACAAQAAgAEEAdgBvAG4AIABQAHIAbwBkAHUAYwB0AHMALAAgAEkAbgBjAC4AIAAyADAA
+MQA0AAAAAAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBUAF8AZAAy
+ADgAMwA1ADYAMgBhADMANgA4ADkANAAzAGUANAA5ADMANAA3ADEANAAxAGIAYwA3AGEAYgA0ADUA
+NwBmAC4AZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAVABfADUAMwBm
+ADkANQBmAGEAOABkADQAMgAxADQAMQBiADcAYgA3ADEAMABlAGQANAA2AGIANwA1ADcANwBmADQA
+MQAAADQACAABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAA4
+AAgAAQBBAHMAcwBlAG0AYgBsAHkAIABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAwAAAAQOwAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Insert Discontinued_rep_table2 data to Discontinued Rep Data"
+      DTS:DTSID="{03C8B26E-0C45-43A1-A7E8-D308164228D5}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="Delete from DISCONTINUED_REP_TABLE&#xA;where DISCONTINUED_REP_TABLE.ID_REP in&#xA;(select DISCONTINUED_REP_TABLE2.ID_REP&#xA; from DISCONTINUED_REP_TABLE2)&#xA;Go&#xA;&#xA;Insert into DISCONTINUED_REP_TABLE &#xA;Select distinct ID_REP, LAST_NAME, FIRST_NAME, ADDRESS, CITY,&#xA;ADR_STATE, ADR_ZIP, substring(HOME_PHONE, 1,3) +&#xA;substring(HOME_PHONE, 5,3) + substring(HOME_PHONE, 9,4),&#xA;ID_DISTRICT, LANG_CODE, SS_NUMBER, LOS, DIVISION, &#xA;ID_BRANCH, substring(ANNIVERSARY, 1,4) + substring(ANNIVERSARY, 6,2) +&#xA;substring(ANNIVERSARY, 9,2), Removal_Reason_Code, &#xA;GETDATE(), SERVICE_DATE, CREDIT_SCORE_TAG,&#xA;Null, Null, Null, Null, Null, 'N'&#xA;from DISCONTINUED_REP_TABLE2&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Move IG20 From FTP To SQLImport"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Move IG20 From FTP To SQLImport"
+      DTS:DTSID="{CF3E3CA9-6B29-418C-AB7E-52BC4F0AF93C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Move IG20 From FTP To SQLImport"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="{D32FB722-4E5E-4A24-AD59-761EB37DD62B}"
+          TaskDestinationPath="{AC39C50D-3F82-4C41-BE80-83AB6CB705E4}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Purge Data from Discontinued Rep Table Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{DC093D27-6DE1-4B34-BFB5-1769D0A3F3B0}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge Data from Discontinued Rep Table Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'DTS-DiscRepUpd','The Purge Discontinued Rep Data DISCONTINUED_REP_TABLE Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:DTSID="{1E65642A-23C4-4EAC-83C2-6DD763A62F21}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="Delete from DISCONTINUED_REP_TABLE&#xA;WHERE (DATEPART(YEAR, GETDATE()) - 2000 ) - &#xA;(CONVERT(INT, SUBSTRING(SERVICE_DATE,1,2))) &gt; 3&#xA; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate DISCONTINUED_REP_TABLE2"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate DISCONTINUED_REP_TABLE2"
+      DTS:DTSID="{B72F5519-6027-426B-A417-7D675C093E1A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate DISCONTINUED_REP_TABLE2"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="Truncate Table DISCONTINUED_REP_TABLE2&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Task Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Truncate Task Failed"
+      DTS:DTSID="{4DD96AD9-17B5-406A-B210-6855B1A36696}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Task Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdATL','Truncate Task Failed')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait Task"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task - Really? Why?"
+      DTS:DTSID="{EAF38161-8A8E-4C5A-8DA7-C3B2CCC57B19}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Wait For 1 min to ensure file copy complete **&#xA;WAITFOR DELAY '00:01:00'&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait Task Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Copy IG20 dat from FTP to Import Failure"
+      DTS:DTSID="{98D5A7EC-E151-4E91-BB08-8577E99383D1}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait Task Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdATL','The WAITFOR Failed')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Wait Task Successful"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Copy IG20 dat from FTP to Import Success"
+      DTS:DTSID="{90088F99-774A-459B-ABFF-E98822842B63}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Wait Task Successful"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdATL','The WAITFOR Is Successful')&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Bulk Insert IG20 Failure To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{47E15398-D075-45FA-BCF8-3E41F37F5C2E}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Bulk Insert IG20 Failure To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','The Bulk Insert IG20_DISC.dat File Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Bulk Insert IG20 Success To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{1C4B8581-FFA2-43FD-A33C-0F24F6F0481F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Bulk Insert IG20 Success To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','The Bulk Insert IG20_DISC.dat File Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Check for IG20_dat Failure To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console 1"
+      DTS:DTSID="{EB43C8A3-7F2D-495E-8523-5BA52D9D9677}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Check for IG20_dat Failure To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','The Check IG20_DISC.dat File Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Check for IG20_dat Success To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console 1"
+      DTS:DTSID="{8AC315CA-FB5C-4C4A-8893-265143833615}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Check for IG20_dat Success To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','The Check IG20_DISC.dat File Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Copy IG20 to SQL Import Failure To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console 2"
+      DTS:DTSID="{B82D5410-D152-40F2-AE3E-7EEC2107C66A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Copy IG20 to SQL Import Failure To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'DTS-RepUpdATL','The Copy PL06a.dat File To SQLImport Task FAILED!')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Copy IG20 to SQL Import Success To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{F22E6B91-8B62-46ED-8E76-318E9B8AF8E2}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Copy IG20 to SQL Import Success To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','The Copy IG20_DISC.dat File To SQLImport Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Finish To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Finish To Console"
+      DTS:DTSID="{9894CE84-2E68-48E0-9569-4F58953FE666}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Finish To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','** PACKAGE COMPLETED **')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Insert data Failure To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console"
+      DTS:DTSID="{BA55B211-45EA-4812-8134-F730A6096886}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Insert data Failure To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="6">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DisRepUpd','The Delete Discontinued Rep Data From DISCONTINUED_REP_TABLE2 Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Insert Data Success To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{D87ADEFA-EB95-427B-A822-40D069D27202}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Insert Data Success To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DisRepUpd','The Delete Discontinued Rep Data From DISCONTINUED_REP_TABLE2 Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Purge Data from Discontinued Rep Table  Failure To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Failure To Console "
+      DTS:DTSID="{998EDE79-DECC-4417-92EA-67141D5D7E38}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Purge Data from Discontinued Rep Table  Failure To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="7">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdATL','The Purge Data from Discontinued_ REP_TABLE Task FAILEd')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Start To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Start To Console"
+      DTS:DTSID="{9A632073-ED49-43A7-BFE8-DC43C7EF542A}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Start To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-DiscRepUpd','** PACKAGE START **')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Truncate task Success To Console"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Success To Console"
+      DTS:DTSID="{596C8501-EEF3-45EA-BB7D-7819CE1E362D}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Truncate task Success To Console"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EAA08792-4AB8-4632-8C17-E41C90DFF9D1}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'DTS-DiscRepUpd','The Truncate of DISCONTINUED_REP_TABLE2 Task Was Successful!')&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C238ED87-AE63-4232-903E-7CF814753EC6}"
+      DTS:From="Package\Write Start To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Check Discontinued Rep File IG20_DISC dat"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{10CEC782-33D6-45C6-87E8-AD5A3692021F}"
+      DTS:From="Package\Check Discontinued Rep File IG20_DISC dat"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Write Check for IG20_dat Success To Console" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{3DA0DC50-FDFB-4EB0-855C-F777FE82518D}"
+      DTS:From="Package\Truncate DISCONTINUED_REP_TABLE2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Truncate Task Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1FC4294E-6510-4D60-B5E7-AB273BC24F20}"
+      DTS:From="Package\Check Discontinued Rep File IG20_DISC dat"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Write Check for IG20_dat Failure To Console"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{7C57DA9F-BD1E-450C-8039-AEAEEAD06452}"
+      DTS:From="Package\Write Check for IG20_dat Success To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Move IG20 From FTP To SQLImport"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{23EABAB9-C081-48A6-AC94-E565C5AE35EC}"
+      DTS:From="Package\Move IG20 From FTP To SQLImport"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Write Copy IG20 to SQL Import Success To Console" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{F024BDFA-03E3-4D9E-B0B0-52375C369976}"
+      DTS:From="Package\Move IG20 From FTP To SQLImport"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Write Copy IG20 to SQL Import Failure To Console"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{0F686198-3B23-4623-A8EF-A4F49EAE280D}"
+      DTS:From="Package\Write Copy IG20 to SQL Import Success To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Wait Task"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{CCAE121B-FB10-4541-8AC8-8A7ECE75C8E5}"
+      DTS:From="Package\Wait Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Wait Task Successful" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{5E6865ED-41BF-413F-8509-90AC80AA5EB7}"
+      DTS:From="Package\Wait Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Wait Task Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{26113C87-FBF6-40D8-B3DE-9BA5FC8B1F79}"
+      DTS:From="Package\Wait Task Successful"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Truncate DISCONTINUED_REP_TABLE2"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{54C0253A-F1ED-4F49-99BB-5FF6DB694E5D\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{54C0253A-F1ED-4F49-99BB-5FF6DB694E5D}"
+      DTS:From="Package\Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{54C0253A-F1ED-4F49-99BB-5FF6DB694E5D}"
+      DTS:To="Package\Write Bulk Insert IG20 Success To Console" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{5EFFFEF8-D4E1-4F4C-80E9-FC4130C6DC90\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{5EFFFEF8-D4E1-4F4C-80E9-FC4130C6DC90}"
+      DTS:From="Package\Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{5EFFFEF8-D4E1-4F4C-80E9-FC4130C6DC90}"
+      DTS:To="Package\Write Insert Data Success To Console" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{6B2CD696-003D-49F7-AC75-BE42CE77C6B2\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{6B2CD696-003D-49F7-AC75-BE42CE77C6B2}"
+      DTS:From="Package\Write Bulk Insert IG20 Success To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{6B2CD696-003D-49F7-AC75-BE42CE77C6B2}"
+      DTS:To="Package\Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{77E70B66-3435-4D77-A25A-D73122592149\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{77E70B66-3435-4D77-A25A-D73122592149}"
+      DTS:From="Package\Purge Data from Discontinued Rep Table Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{77E70B66-3435-4D77-A25A-D73122592149}"
+      DTS:To="Package\Write Finish To Console"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{7F1483CA-2D70-48D7-8E57-B2CCFCF0235B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{7F1483CA-2D70-48D7-8E57-B2CCFCF0235B}"
+      DTS:From="Package\Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{7F1483CA-2D70-48D7-8E57-B2CCFCF0235B}"
+      DTS:To="Package\Write Bulk Insert IG20 Failure To Console"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{AB7DBC76-5419-46BF-A980-52D05A162159\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{AB7DBC76-5419-46BF-A980-52D05A162159}"
+      DTS:From="Package\Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{AB7DBC76-5419-46BF-A980-52D05A162159}"
+      DTS:To="Package\Write Purge Data from Discontinued Rep Table  Failure To Console"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{B919F1C0-4FD6-461B-97CC-78396F9BBD7F\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{B919F1C0-4FD6-461B-97CC-78396F9BBD7F}"
+      DTS:From="Package\Write Insert Data Success To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{B919F1C0-4FD6-461B-97CC-78396F9BBD7F}"
+      DTS:To="Package\Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{C51354D2-8A96-420A-BB5C-959786687807\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{C51354D2-8A96-420A-BB5C-959786687807}"
+      DTS:From="Package\Truncate DISCONTINUED_REP_TABLE2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{C51354D2-8A96-420A-BB5C-959786687807}"
+      DTS:To="Package\Write Truncate task Success To Console" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{ECB453FA-3219-42EC-9852-F5D252070EC7\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{ECB453FA-3219-42EC-9852-F5D252070EC7}"
+      DTS:From="Package\Write Truncate task Success To Console"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{ECB453FA-3219-42EC-9852-F5D252070EC7}"
+      DTS:To="Package\Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{F58D31D3-FA12-4D1B-94DD-D4B53EFF6F73\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{F58D31D3-FA12-4D1B-94DD-D4B53EFF6F73}"
+      DTS:From="Package\Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{F58D31D3-FA12-4D1B-94DD-D4B53EFF6F73}"
+      DTS:To="Package\Write Insert data Failure To Console"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{FB387AF6-32E2-4FC0-B425-3082E86A6988\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{FB387AF6-32E2-4FC0-B425-3082E86A6988}"
+      DTS:From="Package\Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{FB387AF6-32E2-4FC0-B425-3082E86A6988}"
+      DTS:To="Package\Purge Data from Discontinued Rep Table Success" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="383.2,41.6"
+          Id="Package\Bulk Insert IG20_DISC dat File to DISCONTINUED_REP_TABLE2"
+          TopLeft="392.179367953266,989.089939868498" />
+        <NodeLayout
+          Size="288,41.6"
+          Id="Package\Check Discontinued Rep File IG20_DISC dat"
+          TopLeft="430.679367953266,187.781909979255" />
+        <NodeLayout
+          Size="390.4,41.6"
+          Id="Package\Insert Discontinued_Rep_Table2 data to Discontinued_Rep_Table"
+          TopLeft="390.179367953266,1193.0899398685" />
+        <NodeLayout
+          Size="249.6,41.6"
+          Id="Package\Move IG20 From FTP To SQLImport"
+          TopLeft="449.679367953266,390" />
+        <NodeLayout
+          Size="312.8,41.6"
+          Id="Package\Purge Data from Discontinued Rep Table Success"
+          TopLeft="679.853285110601,1611.0899398685" />
+        <NodeLayout
+          Size="404.8,41.6"
+          Id="Package\Purge Old Discontinued Rep Data From DISCONTINUED_REP_TABLE"
+          TopLeft="372.179367953266,1509.0899398685" />
+        <NodeLayout
+          Size="268,41.6"
+          Id="Package\Truncate DISCONTINUED_REP_TABLE2"
+          TopLeft="440.679367953266,785.089939868498" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Truncate Task Failed"
+          TopLeft="231.916045284384,883.758319344141" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Wait Task"
+          TopLeft="511.179367953266,593.87129184649" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Wait Task Failed"
+          TopLeft="242.416045284384,681.021861598919" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Wait Task Successful"
+          TopLeft="746.853285110601,681.856767629578" />
+        <NodeLayout
+          Size="276.8,41.6"
+          Id="Package\Write Bulk Insert IG20 Failure To Console"
+          TopLeft="182.916045284384,1087.59468461086" />
+        <NodeLayout
+          Size="281.6,41.6"
+          Id="Package\Write Bulk Insert IG20 Success To Console"
+          TopLeft="695.353285110601,1091.0899398685" />
+        <NodeLayout
+          Size="291.2,41.6"
+          Id="Package\Write Check for IG20_dat Failure To Console"
+          TopLeft="175.916045284384,301.089939868497" />
+        <NodeLayout
+          Size="296.8,41.6"
+          Id="Package\Write Check for IG20_dat Success To Console"
+          TopLeft="687.853285110601,301.089939868497" />
+        <NodeLayout
+          Size="319.2,41.6"
+          Id="Package\Write Copy IG20 to SQL Import Failure To Console"
+          TopLeft="166.916045284384,481.089939868498" />
+        <NodeLayout
+          Size="324.8,41.6"
+          Id="Package\Write Copy IG20 to SQL Import Success To Console"
+          TopLeft="673.853285110601,481.089939868498" />
+        <NodeLayout
+          Size="192,41.6"
+          Id="Package\Write Finish To Console"
+          TopLeft="478.679367953266,1713.0899398685" />
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Write Insert data Failure To Console"
+          TopLeft="195.916045284384,1295.0899398685" />
+        <NodeLayout
+          Size="257.6,41.6"
+          Id="Package\Write Insert Data Success To Console"
+          TopLeft="707.353285110601,1295.0899398685" />
+        <NodeLayout
+          Size="395.2,41.6"
+          Id="Package\Write Purge Data from Discontinued Rep Table  Failure To Console"
+          TopLeft="123.916045284384,1611.0899398685" />
+        <NodeLayout
+          Size="187.2,41.6"
+          Id="Package\Write Start To Console"
+          TopLeft="481.179367953266,108.599769628258" />
+        <NodeLayout
+          Size="268.8,41.6"
+          Id="Package\Write Truncate task Success To Console"
+          TopLeft="701.853285110601,887.089939868498" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="574.679367953266,150.599769628258">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,37.182140350997"
+              Start="0,0"
+              End="0,29.682140350997">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.682140350997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.304453125,9.03638267549849,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="621.346034619932,229.781909979255">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="215.007250490668,71.3080298892421"
+              Start="0,0"
+              End="215.007250490668,63.8080298892421">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7595921652744" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.7595921652744"
+                    Point2="0,28.7595921652744"
+                    Point3="4,28.7595921652744" />
+                  <mssgle:LineSegment
+                    End="211.007250490668,28.7595921652744" />
+                  <mssgle:CubicBezierSegment
+                    Point1="211.007250490668,28.7595921652744"
+                    Point2="215.007250490668,28.7595921652744"
+                    Point3="215.007250490668,32.7595921652744" />
+                  <mssgle:LineSegment
+                    End="215.007250490668,63.8080298892421" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="531.346034619932,827.089939868498">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-209.929989335549,56.6683794756434"
+              Start="0,0"
+              End="-209.929989335549,49.1683794756434">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.8691383047107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.8691383047107"
+                    Point2="0,22.8691383047107"
+                    Point3="-4,22.8691383047107" />
+                  <mssgle:LineSegment
+                    End="-205.929989335549,22.8691383047107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-205.929989335549,22.8691383047107"
+                    Point2="-209.929989335549,22.8691383047107"
+                    Point3="-209.929989335549,26.8691383047107" />
+                  <mssgle:LineSegment
+                    End="-209.929989335549,49.1683794756434" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-120.206342324024,27.8691383047107,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="528.012701286599,229.781909979255">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-206.596656002215,71.3080298892421"
+              Start="0,0"
+              End="-206.596656002215,63.8080298892421">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7595921652744" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.7595921652744"
+                    Point2="0,28.7595921652744"
+                    Point3="-4,28.7595921652744" />
+                  <mssgle:LineSegment
+                    End="-202.596656002215,28.7595921652744" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-202.596656002215,28.7595921652744"
+                    Point2="-206.596656002215,28.7595921652744"
+                    Point3="-206.596656002215,32.7595921652744" />
+                  <mssgle:LineSegment
+                    End="-206.596656002215,63.8080298892421" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-118.539675657358,33.7595921652744,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="836.353285110601,343.089939868497">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-261.673917157335,46.910060131503"
+              Start="0,0"
+              End="-261.673917157335,39.410060131503">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.4550300657515" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.4550300657515"
+                    Point2="0,23.4550300657515"
+                    Point3="-4,23.4550300657515" />
+                  <mssgle:LineSegment
+                    End="-257.673917157335,23.4550300657515" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-257.673917157335,23.4550300657515"
+                    Point2="-261.673917157335,23.4550300657515"
+                    Point3="-261.673917157335,27.4550300657515" />
+                  <mssgle:LineSegment
+                    End="-261.673917157335,39.410060131503" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-156.141411703668,28.4550300657515,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="615.012701286599,432">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="221.340583824002,49.0899398684981"
+              Start="0,0"
+              End="221.340583824002,41.5899398684981">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8232825542107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.8232825542107"
+                    Point2="0,19.8232825542107"
+                    Point3="4,19.8232825542107" />
+                  <mssgle:LineSegment
+                    End="217.340583824002,19.8232825542107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="217.340583824002,19.8232825542107"
+                    Point2="221.340583824002,19.8232825542107"
+                    Point3="221.340583824002,23.8232825542107" />
+                  <mssgle:LineSegment
+                    End="221.340583824002,41.5899398684981" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="534.346034619932,432">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-207.929989335549,49.0899398684981"
+              Start="0,0"
+              End="-207.929989335549,41.5899398684981">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8232825542107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.8232825542107"
+                    Point2="0,19.8232825542107"
+                    Point3="-4,19.8232825542107" />
+                  <mssgle:LineSegment
+                    End="-203.929989335549,19.8232825542107" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-203.929989335549,19.8232825542107"
+                    Point2="-207.929989335549,19.8232825542107"
+                    Point3="-207.929989335549,23.8232825542107" />
+                  <mssgle:LineSegment
+                    End="-207.929989335549,41.5899398684981" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-119.206342324024,24.8232825542107,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="836.353285110601,523.089939868498">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-261.673917157335,70.7813519779919"
+              Start="0,0"
+              End="-261.673917157335,63.2813519779919">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.390675988996" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.390675988996"
+                    Point2="0,35.390675988996"
+                    Point3="-4,35.390675988996" />
+                  <mssgle:LineSegment
+                    End="-257.673917157335,35.390675988996" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-257.673917157335,35.390675988996"
+                    Point2="-261.673917157335,35.390675988996"
+                    Point3="-261.673917157335,39.390675988996" />
+                  <mssgle:LineSegment
+                    End="-261.673917157335,63.2813519779919" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-156.141411703668,40.390675988996,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="594.512701286599,635.87129184649">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="241.840583824002,45.9854757830881"
+              Start="0,0"
+              End="241.840583824002,38.4854757830881">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.7374722475413" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.7374722475413"
+                    Point2="0,18.7374722475413"
+                    Point3="4,18.7374722475413" />
+                  <mssgle:LineSegment
+                    End="237.840583824002,18.7374722475413" />
+                  <mssgle:CubicBezierSegment
+                    Point1="237.840583824002,18.7374722475413"
+                    Point2="241.840583824002,18.7374722475413"
+                    Point3="241.840583824002,22.7374722475413" />
+                  <mssgle:LineSegment
+                    End="241.840583824002,38.4854757830881" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="554.846034619932,635.87129184649">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-233.429989335549,45.1505697524291"
+              Start="0,0"
+              End="-233.429989335549,37.6505697524291">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.3972772552666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.3972772552666"
+                    Point2="0,18.3972772552666"
+                    Point3="-4,18.3972772552666" />
+                  <mssgle:LineSegment
+                    End="-229.429989335549,18.3972772552666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-229.429989335549,18.3972772552666"
+                    Point2="-233.429989335549,18.3972772552666"
+                    Point3="-233.429989335549,22.3972772552666" />
+                  <mssgle:LineSegment
+                    End="-233.429989335549,37.6505697524291" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-131.956342324024,23.3972772552666,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="836.353285110601,723.856767629578">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-261.673917157335,61.23317223892"
+              Start="0,0"
+              End="-261.673917157335,53.73317223892">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.61658611946" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.61658611946"
+                    Point2="0,30.61658611946"
+                    Point3="-4,30.61658611946" />
+                  <mssgle:LineSegment
+                    End="-257.673917157335,30.61658611946" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-257.673917157335,30.61658611946"
+                    Point2="-261.673917157335,30.61658611946"
+                    Point3="-261.673917157335,34.61658611946" />
+                  <mssgle:LineSegment
+                    End="-261.673917157335,53.73317223892" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-156.141411703668,35.61658611946,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{54C0253A-F1ED-4F49-99BB-5FF6DB694E5D\}]"
+          TopLeft="646.179367953266,1031.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="190.173917157335,60.000000000002"
+              Start="0,0"
+              End="190.173917157335,52.500000000002">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1497659906405" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1497659906405"
+                    Point2="0,24.1497659906405"
+                    Point3="4,24.1497659906405" />
+                  <mssgle:LineSegment
+                    End="186.173917157335,24.1497659906405" />
+                  <mssgle:CubicBezierSegment
+                    Point1="186.173917157335,24.1497659906405"
+                    Point2="190.173917157335,24.1497659906405"
+                    Point3="190.173917157335,28.1497659906405" />
+                  <mssgle:LineSegment
+                    End="190.173917157335,52.500000000002" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{5EFFFEF8-D4E1-4F4C-80E9-FC4130C6DC90\}]"
+          TopLeft="648.846034619932,1235.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="187.507250490668,60"
+              Start="0,0"
+              End="187.507250490668,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.14708886619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.14708886619"
+                    Point2="0,24.14708886619"
+                    Point3="4,24.14708886619" />
+                  <mssgle:LineSegment
+                    End="183.507250490668,24.14708886619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="183.507250490668,24.14708886619"
+                    Point2="187.507250490668,24.14708886619"
+                    Point3="187.507250490668,28.14708886619" />
+                  <mssgle:LineSegment
+                    End="187.507250490668,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{6B2CD696-003D-49F7-AC75-BE42CE77C6B2\}]"
+          TopLeft="836.353285110601,1133.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-251.173917157335,60"
+              Start="0,0"
+              End="-251.173917157335,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-247.173917157335,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-247.173917157335,30"
+                    Point2="-251.173917157335,30"
+                    Point3="-251.173917157335,34" />
+                  <mssgle:LineSegment
+                    End="-251.173917157335,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-150.891411703668,35,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{77E70B66-3435-4D77-A25A-D73122592149\}]"
+          TopLeft="836.353285110601,1653.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-261.673917157335,60"
+              Start="0,0"
+              End="-261.673917157335,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-257.673917157335,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-257.673917157335,30"
+                    Point2="-261.673917157335,30"
+                    Point3="-261.673917157335,34" />
+                  <mssgle:LineSegment
+                    End="-261.673917157335,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-156.141411703668,35,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{7F1483CA-2D70-48D7-8E57-B2CCFCF0235B\}]"
+          TopLeft="521.179367953266,1031.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-199.763322668882,56.5047447423585"
+              Start="0,0"
+              End="-199.763322668882,49.0047447423585">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.7429393814797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.7429393814797"
+                    Point2="0,22.7429393814797"
+                    Point3="-4,22.7429393814797" />
+                  <mssgle:LineSegment
+                    End="-195.763322668882,22.7429393814797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-195.763322668882,22.7429393814797"
+                    Point2="-199.763322668882,22.7429393814797"
+                    Point3="-199.763322668882,26.7429393814797" />
+                  <mssgle:LineSegment
+                    End="-199.763322668882,49.0047447423585" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-115.123008990691,27.7429393814797,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{AB7DBC76-5419-46BF-A980-52D05A162159\}]"
+          TopLeft="508.512701286599,1551.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-187.096656002215,60"
+              Start="0,0"
+              End="-187.096656002215,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.141662567634" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.141662567634"
+                    Point2="0,24.141662567634"
+                    Point3="-4,24.141662567634" />
+                  <mssgle:LineSegment
+                    End="-183.096656002215,24.141662567634" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-183.096656002215,24.141662567634"
+                    Point2="-187.096656002215,24.141662567634"
+                    Point3="-187.096656002215,28.141662567634" />
+                  <mssgle:LineSegment
+                    End="-187.096656002215,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-108.789675657358,29.141662567634,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{B919F1C0-4FD6-461B-97CC-78396F9BBD7F\}]"
+          TopLeft="836.353285110601,1337.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-261.673917157335,172"
+              Start="0,0"
+              End="-261.673917157335,164.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,82"
+                    Point2="0,86"
+                    Point3="-4,86" />
+                  <mssgle:LineSegment
+                    End="-257.673917157335,86" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-257.673917157335,86"
+                    Point2="-261.673917157335,86"
+                    Point3="-261.673917157335,90" />
+                  <mssgle:LineSegment
+                    End="-261.673917157335,164.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-156.141411703668,91,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{C51354D2-8A96-420A-BB5C-959786687807\}]"
+          TopLeft="618.012701286599,827.089939868498">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="218.340583824002,60"
+              Start="0,0"
+              End="218.340583824002,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.213649851632" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.213649851632"
+                    Point2="0,24.213649851632"
+                    Point3="4,24.213649851632" />
+                  <mssgle:LineSegment
+                    End="214.340583824002,24.213649851632" />
+                  <mssgle:CubicBezierSegment
+                    Point1="214.340583824002,24.213649851632"
+                    Point2="218.340583824002,24.213649851632"
+                    Point3="218.340583824002,28.213649851632" />
+                  <mssgle:LineSegment
+                    End="218.340583824002,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{ECB453FA-3219-42EC-9852-F5D252070EC7\}]"
+          TopLeft="836.353285110601,929.089939868498">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-252.673917157335,60"
+              Start="0,0"
+              End="-252.673917157335,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-248.673917157335,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-248.673917157335,30"
+                    Point2="-252.673917157335,30"
+                    Point3="-252.673917157335,34" />
+                  <mssgle:LineSegment
+                    End="-252.673917157335,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-151.641411703668,35,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{F58D31D3-FA12-4D1B-94DD-D4B53EFF6F73\}]"
+          TopLeft="521.512701286599,1235.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-200.096656002215,60"
+              Start="0,0"
+              End="-200.096656002215,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.14708886619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.14708886619"
+                    Point2="0,24.14708886619"
+                    Point3="-4,24.14708886619" />
+                  <mssgle:LineSegment
+                    End="-196.096656002215,24.14708886619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-196.096656002215,24.14708886619"
+                    Point2="-200.096656002215,24.14708886619"
+                    Point3="-200.096656002215,28.14708886619" />
+                  <mssgle:LineSegment
+                    End="-200.096656002215,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-115.289675657358,29.14708886619,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{FB387AF6-32E2-4FC0-B425-3082E86A6988\}]"
+          TopLeft="640.846034619932,1551.0899398685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="195.507250490668,60"
+              Start="0,0"
+              End="195.507250490668,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.141662567634" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.141662567634"
+                    Point2="0,24.141662567634"
+                    Point3="4,24.141662567634" />
+                  <mssgle:LineSegment
+                    End="191.507250490668,24.141662567634" />
+                  <mssgle:CubicBezierSegment
+                    Point1="191.507250490668,24.141662567634"
+                    Point2="195.507250490668,24.141662567634"
+                    Point3="195.507250490668,28.141662567634" />
+                  <mssgle:LineSegment
+                    End="195.507250490668,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="DiscRepUpd"
+          ParentId="Package"
+          Size="158.4,54.4"
+          Id="85c92ef8-69fe-471f-8736-d3d83e234a46"
+          TopLeft="495.679367953266,1.523957386451">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="24"
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <AnnotationLayout
+          Text="-- ** Wait For 1 min to ensure file copy complete **&#xA;WAITFOR DELAY '00:01:00'&#xA;&#xA;Wait? Wait for what? Why? OK Let's rest. This is hard work you know."
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="395.2,89.6"
+          Id="ef5759e4-7068-40e8-9042-ff7cd8d6308a"
+          TopLeft="946.304581718141,569" />
+        <AnnotationLayout
+          Text="IG20 file to Discontinued_Rep table"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="216.8,41.6"
+          Id="6af6ab19-4994-4a81-b6b3-f4604665ca8b"
+          TopLeft="467.679367953266,46" />
+        <AnnotationLayout
+          Text="Delete from DISCONTINUED_REP_TABLE&#xA;where DISCONTINUED_REP_TABLE.ID_REP in&#xA;(select DISCONTINUED_REP_TABLE2.ID_REP&#xA; from DISCONTINUED_REP_TABLE2)&#xA;Go&#xA;&#xA;Insert into DISCONTINUED_REP_TABLE &#xA;Select distinct ID_REP, LAST_NAME, FIRST_NAME, ADDRESS, CITY,&#xA;ADR_STATE, ADR_ZIP, substring(HOME_PHONE, 1,3) +&#xA;substring(HOME_PHONE, 5,3) + substring(HOME_PHONE, 9,4),&#xA;ID_DISTRICT, LANG_CODE, SS_NUMBER, LOS, DIVISION, &#xA;ID_BRANCH, substring(ANNIVERSARY, 1,4) + substring(ANNIVERSARY, 6,2) +&#xA;substring(ANNIVERSARY, 9,2), Removal_Reason_Code, &#xA;GETDATE(), SERVICE_DATE, CREDIT_SCORE_TAG,&#xA;Null, Null, Null, Null, 'N'&#xA;from DISCONTINUED_REP_TABLE2&#xA;Go"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="436.8,296.8"
+          Id="ab0a4212-0fa9-491e-aadd-e4731254e8d1"
+          TopLeft="992,1156" />
+        <AnnotationLayout
+          Text="Delete from DISCONTINUED_REP_TABLE&#xA;WHERE (DATEPART(YEAR, GETDATE()) - 2000 ) - &#xA;(CONVERT(INT, SUBSTRING(SERVICE_DATE,1,2))) &gt; 3&#xA; "
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="308,89.6"
+          Id="27188a7a-545c-4ec2-bd32-0387b503976e"
+          TopLeft="990,1493" />
+        <AnnotationLayout
+          Text="-------------------------------------&gt;"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="216.8,41.6"
+          Id="fdfae350-a30a-41f0-8caa-00e5d05cb2f9"
+          TopLeft="788,1507" />
+        <AnnotationLayout
+          Text="-------------------------------------&gt;"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="216.8,41.6"
+          Id="9b505bc2-c02a-486e-8993-d9bb29534d1f"
+          TopLeft="780,1191" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
