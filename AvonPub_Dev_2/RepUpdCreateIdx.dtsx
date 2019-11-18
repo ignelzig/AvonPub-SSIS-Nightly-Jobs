@@ -1,0 +1,1353 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/14/2014 11:04:01 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="RYEMACKES2816"
+  DTS:CreatorName="AVONNA\MackeS"
+  DTS:Description="AvonPub - Create Rep Table Indexes &amp; Delete FTP Files After Load"
+  DTS:DTSID="{0922BF1C-C0F6-49CB-8C4E-050CF6A865B6}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="RepUpdCreateIdx"
+  DTS:VersionBuild="32"
+  DTS:VersionGUID="{F5D46903-A55D-4D7E-AADF-9A9F46240740}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AvonPub]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AA330351-D76C-4534-803C-0A946074492A}"
+      DTS:ObjectName="AvonPub">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::AvonPubDBServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=POKMSPCONSQL8;User ID=AvonPubUser;Initial Catalog=AvonPub;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-RepUpdCreateIdx-{AA330351-D76C-4534-803C-0A946074492A}AvonPub;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwKczzAblB0G0fObKbAlikgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAAZhFfN90nkOFD9CnFxQ78kAAAAAASAAACgAAAAEAAAAEgiNL1heklWw9Y5wWq3QP8QAAAAEI++KHKkVal8N27BSgKRjxQAAAABHeE4Yw7C5CPudeN1RaDVT9rWyA</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PL06a_Ftp.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{16997B8D-E141-4F5F-B63A-87A7F99BE68B}"
+      DTS:ObjectName="PL06a_Ftp.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLFTP] +   @[User::ReplPL06aFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\PL06a.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PL06m_Ftp.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{B8E90651-D28D-45C6-929D-339654A20A76}"
+      DTS:ObjectName="PL06m_Ftp.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLFTP] +  @[User::RepPL06mFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\PL06m.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PL06n_Ftp.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{73268F65-1454-4A7B-AB86-1AF5506EE51C}"
+      DTS:ObjectName="PL06n_Ftp.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLFTP] +  @[User::RepPL06nFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\PL06n.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[pl06p_Ftp.dat]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{B2A01C49-5706-4DF4-B220-B96C102B9D5C}"
+      DTS:ObjectName="pl06p_Ftp.dat">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLFTP] +  @[User::RepPL06pFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\sqldirs\sqlftp\AvonPub\PL06p.dat" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SSIS_REPUPDCREATEIDX_Log.xml]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{61BA7E8F-8274-4CA7-9880-C9425669DB81}"
+      DTS:ObjectName="SSIS_REPUPDCREATEIDX_Log.xml">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AvonPubSQLDirs] +  @[$Project::SQLScripts] + "SSIS_REPUPDCREATEIDX_Log.xml"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="\\POKMSPCONSQL8\SQLDirs\sqlscripts\AvonPub\SSIS_REPUPDCREATEIDX_Log.xml" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SSIS_REPUPDCREATEIDX_Log.xml"
+      DTS:CreationName="DTS.LogProviderTextFile.3"
+      DTS:Description="Writes log entries for events to a CSV file"
+      DTS:DTSID="{7F4D3D75-14D0-4F77-9F1B-A3A416C410FE}"
+      DTS:ObjectName="SSIS log provider for Text files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EA969521-66AB-477C-81BA-57BA5A27681B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReplPL06aFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">PL06a.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8AF2A797-0518-4864-AD4D-D4F27029A44B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RepPL06mFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">PL06m.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{41938BF3-E121-4555-A711-E6FACEACDFCC}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RepPL06nFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">PL06n.dat</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{35BE9783-ED3F-441D-A90E-B92836695BBD}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RepPL06pFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">PL06p.dat</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">4,7,OnError,19,OnExecStatusChanged,10,OnProgress,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{7F4D3D75-14D0-4F77-9F1B-A3A416C410FE}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Rep Table Indexes"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Rep Table Indexes"
+      DTS:DTSID="{48F3E477-806C-4C08-9D0B-ABDBE3F99EFA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Rep Table Indexes"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="if not exists (select * from dbo.sysindexes where name = 'PK_REP_TABLE' and id = object_id(N'[dbo].[REP_TABLE]') )&#xA;  ALTER TABLE REP_TABLE ADD CONSTRAINT PK_REP_TABLE PRIMARY KEY CLUSTERED (ID_BRANCH, ID_DISTRICT, ID_REP)&#xA;&#xA;if not exists (select * from dbo.sysindexes where name = 'IREP_DIST' and id = object_id(N'[dbo].[REP_TABLE]') )&#xA;   CREATE INDEX IREP_DIST ON REP_TABLE(id_rep, id_district)&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Rep Table Indexes Failed"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Rep Table Indexes Failed"
+      DTS:DTSID="{54516D61-E6AF-4550-B1EB-F8895BF9A8A2}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Rep Table Indexes Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SISS-RepUpdCreateIdx','The Create Rep Table Indexes Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Rep Table Indexes Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Create Rep Table Indexes Success"
+      DTS:DTSID="{E28BE02B-AAF8-456E-92E0-FFA462821C77}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Rep Table Indexes Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Create Rep Table Indexes Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06a dat From SQLFTP"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06a dat From SQLFTP"
+      DTS:DTSID="{868662CC-BF35-49F2-9275-DE758D73CB1E}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06a dat From SQLFTP"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteFile"
+          TaskSourcePath="{16997B8D-E141-4F5F-B63A-87A7F99BE68B}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06a dat from SQLFTP Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06a dat from SQLFTP Failure"
+      DTS:DTSID="{43E54E29-D3B9-475D-A2AD-08AAF1531161}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06a dat from SQLFTP Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06a.dat Files From SQLFTP Directory Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06a dat from SQLFTP Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06a dat from SQLFTP Success"
+      DTS:DTSID="{B7803544-2C8D-4282-B60A-ED88BAA29F7F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06a dat from SQLFTP Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06a.dat Files From SQLFTP Directory Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06m dat From SQLFTP"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06m dat From SQLFTP"
+      DTS:DTSID="{5558538F-4D49-44D3-ADE5-4E04C2E82657}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06m dat From SQLFTP"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteFile"
+          TaskSourcePath="{B8E90651-D28D-45C6-929D-339654A20A76}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06m dat from SQLFTP Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06m dat from SQLFTP Failure"
+      DTS:DTSID="{A0BB2098-A9BC-4AC7-A7A1-2DE742DAACB5}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06m dat from SQLFTP Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06m.dat Files From SQLFTP Directory Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06m dat from SQLFTP Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06m dat from SQLFTP Success"
+      DTS:DTSID="{17B3585E-0A61-442E-8BD2-5B8B776818B5}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06m dat from SQLFTP Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06m.dat Files From SQLFTP Directory Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06n dat From SQLFTP"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06n dat From SQLFTP"
+      DTS:DTSID="{7CC7986D-CC14-49CB-86A8-D0CFFE686DF1}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06n dat From SQLFTP"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteFile"
+          TaskSourcePath="{73268F65-1454-4A7B-AB86-1AF5506EE51C}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06n dat From SQLFTP Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06n dat From SQLFTP Failure"
+      DTS:DTSID="{B630ED2C-EBD3-4F2C-9307-CB4CEAD21C5F}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06n dat From SQLFTP Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06n.dat Files From SQLFTP Directory Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06n dat From SQLFTP Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06n dat From SQLFTP Success"
+      DTS:DTSID="{C877F8E3-F59A-46F9-9065-D04F8FB86CDC}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06n dat From SQLFTP Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06n.dat Files From SQLFTP Directory Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06p dat From SQLFTP"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06p dat From SQLFTP"
+      DTS:DTSID="{CC3A05D7-26A9-4949-B442-EAAC6E698D22}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06p dat From SQLFTP"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteFile"
+          TaskSourcePath="{B2A01C49-5706-4DF4-B220-B96C102B9D5C}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06p From SQLFTP Failure"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06p From SQLFTP Failure"
+      DTS:DTSID="{900219D0-515F-49FF-ACD8-E5F30F4BEAA3}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06p From SQLFTP Failure"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06p.dat Files From SQLFTP Directory Task FAILED')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete PL06p From SQLFTP Success"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Delete PL06p From SQLFTP Success"
+      DTS:DTSID="{A4EE1372-E10B-46D4-8104-9E732C4BBF03}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete PL06p From SQLFTP Success"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','The Delete PL06p.dat Files From SQLFTP Directory Task Was Successful')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\RepUpdCreateIdx Process Finished"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="RepUpdCreateIdx Process Finished"
+      DTS:DTSID="{9D01D3EC-87C2-4CC9-837E-AD9A5F525F7B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="RepUpdCreateIdx Process Finished"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','** PACKAGE COMPLETED **')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Write Start To Console Log"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Write Start To Console Log"
+      DTS:DTSID="{329BD075-B17E-488B-887C-E125B9294F8B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Write Start To Console Log"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA330351-D76C-4534-803C-0A946074492A}"
+          SQLTask:SqlStatementSource="-- ** Record an Audit Record **&#xA;INSERT INTO CONSOLE&#xA;VALUES(getdate(),'SSIS-RepUpdCreateIdx','** PACKAGE START **')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F493F3ED-5850-4553-BC05-290972C57E9F}"
+      DTS:From="Package\Create Rep Table Indexes Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Delete PL06a dat From SQLFTP"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{03F0A36E-3435-4CC6-B859-6402039E738D}"
+      DTS:From="Package\Delete PL06a dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Delete PL06a dat from SQLFTP Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{F2694AE8-4619-4824-A1E9-BADDDA9D595A}"
+      DTS:From="Package\Delete PL06p dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Delete PL06p From SQLFTP Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 11]"
+      DTS:CreationName=""
+      DTS:DTSID="{0A261C86-4420-4053-B34E-319A10D4D91B}"
+      DTS:From="Package\Delete PL06p dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 11"
+      DTS:To="Package\Delete PL06p From SQLFTP Failure" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{CC780D1E-3D01-4A5C-9871-84811D826A99}"
+      DTS:From="Package\Delete PL06a dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Delete PL06a dat from SQLFTP Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{502C494B-5729-49F5-AA4E-EF43681C7622}"
+      DTS:From="Package\Delete PL06a dat from SQLFTP Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Delete PL06m dat From SQLFTP"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{9A982CF4-E6DC-4769-84B8-03A321CD4A71}"
+      DTS:From="Package\Delete PL06m dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Delete PL06m dat from SQLFTP Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{A640ACCD-5B44-49B4-B4A7-D5CAB6F6AC35}"
+      DTS:From="Package\Delete PL06m dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Delete PL06m dat from SQLFTP Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{FF255A96-2967-4C5B-AC4D-8ACB7BDF068C}"
+      DTS:From="Package\Delete PL06m dat from SQLFTP Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Delete PL06n dat From SQLFTP"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{20E54B40-256C-4D53-B0D8-9BD45A21820B}"
+      DTS:From="Package\Delete PL06n dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Delete PL06n dat From SQLFTP Success" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{8241E88A-6F60-4C04-AB50-B0E703AB90A3}"
+      DTS:From="Package\Delete PL06n dat From SQLFTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Delete PL06n dat From SQLFTP Failure"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{76B5D1C6-9881-4407-A0C0-AD6247783E3E}"
+      DTS:From="Package\Delete PL06n dat From SQLFTP Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Delete PL06p dat From SQLFTP"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{3BB3C23E-02C7-4B2F-82A2-A3EA6529D90B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{3BB3C23E-02C7-4B2F-82A2-A3EA6529D90B}"
+      DTS:From="Package\Create Rep Table Indexes"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{3BB3C23E-02C7-4B2F-82A2-A3EA6529D90B}"
+      DTS:To="Package\Create Rep Table Indexes Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{A31F732C-58B5-48FE-8CB9-17F8964CE57B\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{A31F732C-58B5-48FE-8CB9-17F8964CE57B}"
+      DTS:From="Package\Delete PL06p From SQLFTP Success"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{A31F732C-58B5-48FE-8CB9-17F8964CE57B}"
+      DTS:To="Package\RepUpdCreateIdx Process Finished"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{AB324610-0093-4565-BC36-C597F0E5CB24\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{AB324610-0093-4565-BC36-C597F0E5CB24}"
+      DTS:From="Package\Write Start To Console Log"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{AB324610-0093-4565-BC36-C597F0E5CB24}"
+      DTS:To="Package\Create Rep Table Indexes" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{EAD28D24-B3F5-4E8E-88FD-E2678E1E30AB\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{EAD28D24-B3F5-4E8E-88FD-E2678E1E30AB}"
+      DTS:From="Package\Create Rep Table Indexes"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{EAD28D24-B3F5-4E8E-88FD-E2678E1E30AB}"
+      DTS:To="Package\Create Rep Table Indexes Success" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <NodeLayout
+          Size="203.2,41.6"
+          Id="Package\Create Rep Table Indexes"
+          TopLeft="310.202581369248,184.5" />
+        <NodeLayout
+          Size="233.6,41.6"
+          Id="Package\Create Rep Table Indexes Failed"
+          TopLeft="103.622222222222,304.222222222222" />
+        <NodeLayout
+          Size="243.2,41.6"
+          Id="Package\Create Rep Table Indexes Success"
+          TopLeft="504.4,304.222222222222" />
+        <NodeLayout
+          Size="228.8,41.6"
+          Id="Package\Delete PL06a dat From SQLFTP"
+          TopLeft="297.202581369248,425.555555555555" />
+        <NodeLayout
+          Size="260.8,41.6"
+          Id="Package\Delete PL06a dat from SQLFTP Failure"
+          TopLeft="90.1222222222223,535.472222222222" />
+        <NodeLayout
+          Size="267.2,41.6"
+          Id="Package\Delete PL06a dat from SQLFTP Success"
+          TopLeft="492.4,535.472222222222" />
+        <NodeLayout
+          Size="232,41.6"
+          Id="Package\Delete PL06m dat From SQLFTP"
+          TopLeft="295.702581369248,638.888888888889" />
+        <NodeLayout
+          Size="264.8,41.6"
+          Id="Package\Delete PL06m dat from SQLFTP Failure"
+          TopLeft="88.1222222222223,740.722222222222" />
+        <NodeLayout
+          Size="270.4,41.6"
+          Id="Package\Delete PL06m dat from SQLFTP Success"
+          TopLeft="490.9,740.722222222222" />
+        <NodeLayout
+          Size="228.8,41.6"
+          Id="Package\Delete PL06n dat From SQLFTP"
+          TopLeft="297.202581369248,840.555555555556" />
+        <NodeLayout
+          Size="264,41.6"
+          Id="Package\Delete PL06n dat From SQLFTP Failure"
+          TopLeft="88.6222222222223,961.888888888888" />
+        <NodeLayout
+          Size="268.8,41.6"
+          Id="Package\Delete PL06n dat From SQLFTP Success"
+          TopLeft="491.4,961.888888888888" />
+        <NodeLayout
+          Size="228.8,41.6"
+          Id="Package\Delete PL06p dat From SQLFTP"
+          TopLeft="297.202581369248,1054.33333333334" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Delete PL06p From SQLFTP Failure"
+          TopLeft="98.1222222222223,1147.27777777778" />
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Delete PL06p From SQLFTP Success"
+          TopLeft="500.4,1147.27777777778" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\RepUpdCreateIdx Process Finished"
+          TopLeft="289.202581369248,1248.5" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\Write Start To Console Log"
+          TopLeft="307.702581369248,118.944444444444" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="625.9,346.222222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-214.197418630752,79.333333333333"
+              Start="0,0"
+              End="-214.197418630752,71.833333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.6666666666665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.6666666666665"
+                    Point2="0,39.6666666666665"
+                    Point3="-4,39.6666666666665" />
+                  <mssgle:LineSegment
+                    End="-210.197418630752,39.6666666666665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-210.197418630752,39.6666666666665"
+                    Point2="-214.197418630752,39.6666666666665"
+                    Point3="-214.197418630752,43.6666666666665" />
+                  <mssgle:LineSegment
+                    End="-214.197418630752,71.833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-132.403162440376,44.6666666666665,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="374.869248035915,467.555555555555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-154.247025813692,67.916666666667"
+              Start="0,0"
+              End="-154.247025813692,60.416666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.4494073431629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.4494073431629"
+                    Point2="0,27.4494073431629"
+                    Point3="-4,27.4494073431629" />
+                  <mssgle:LineSegment
+                    End="-150.247025813692,27.4494073431629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-150.247025813692,27.4494073431629"
+                    Point2="-154.247025813692,27.4494073431629"
+                    Point3="-154.247025813692,31.4494073431629" />
+                  <mssgle:LineSegment
+                    End="-154.247025813692,60.416666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-92.3648605630962,32.4494073431629,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="448.535914702581,1096.33333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="177.364085297419,50.94444444444"
+              Start="0,0"
+              End="177.364085297419,43.44444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5898621952377" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5898621952377"
+                    Point2="0,20.5898621952377"
+                    Point3="4,20.5898621952377" />
+                  <mssgle:LineSegment
+                    End="173.364085297419,20.5898621952377" />
+                  <mssgle:CubicBezierSegment
+                    Point1="173.364085297419,20.5898621952377"
+                    Point2="177.364085297419,20.5898621952377"
+                    Point3="177.364085297419,24.5898621952377" />
+                  <mssgle:LineSegment
+                    End="177.364085297419,43.44444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 11]"
+          TopLeft="374.869248035915,1096.33333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-154.247025813692,50.94444444444"
+              Start="0,0"
+              End="-154.247025813692,43.44444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5898621952377" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5898621952377"
+                    Point2="0,20.5898621952377"
+                    Point3="-4,20.5898621952377" />
+                  <mssgle:LineSegment
+                    End="-150.247025813692,20.5898621952377" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-150.247025813692,20.5898621952377"
+                    Point2="-154.247025813692,20.5898621952377"
+                    Point3="-154.247025813692,24.5898621952377" />
+                  <mssgle:LineSegment
+                    End="-154.247025813692,43.44444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="448.535914702581,467.555555555555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="177.364085297419,67.916666666667"
+              Start="0,0"
+              End="177.364085297419,60.416666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.4494073431629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.4494073431629"
+                    Point2="0,27.4494073431629"
+                    Point3="4,27.4494073431629" />
+                  <mssgle:LineSegment
+                    End="173.364085297419,27.4494073431629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="173.364085297419,27.4494073431629"
+                    Point2="177.364085297419,27.4494073431629"
+                    Point3="177.364085297419,31.4494073431629" />
+                  <mssgle:LineSegment
+                    End="177.364085297419,60.416666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="625.9,577.472222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-214.197418630752,61.4166666666671"
+              Start="0,0"
+              End="-214.197418630752,53.9166666666671">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.7083333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.7083333333335"
+                    Point2="0,30.7083333333335"
+                    Point3="-4,30.7083333333335" />
+                  <mssgle:LineSegment
+                    End="-210.197418630752,30.7083333333335" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-210.197418630752,30.7083333333335"
+                    Point2="-214.197418630752,30.7083333333335"
+                    Point3="-214.197418630752,34.7083333333335" />
+                  <mssgle:LineSegment
+                    End="-214.197418630752,53.9166666666671" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-132.403162440376,35.7083333333335,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="449.035914702581,680.888888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="176.864085297419,59.8333333333329"
+              Start="0,0"
+              End="176.864085297419,52.3333333333329">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1792237442921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1792237442921"
+                    Point2="0,24.1792237442921"
+                    Point3="4,24.1792237442921" />
+                  <mssgle:LineSegment
+                    End="172.864085297419,24.1792237442921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="172.864085297419,24.1792237442921"
+                    Point2="176.864085297419,24.1792237442921"
+                    Point3="176.864085297419,28.1792237442921" />
+                  <mssgle:LineSegment
+                    End="176.864085297419,52.3333333333329" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="374.369248035915,680.888888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-153.747025813692,59.8333333333329"
+              Start="0,0"
+              End="-153.747025813692,52.3333333333329">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1792237442921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1792237442921"
+                    Point2="0,24.1792237442921"
+                    Point3="-4,24.1792237442921" />
+                  <mssgle:LineSegment
+                    End="-149.747025813692,24.1792237442921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-149.747025813692,24.1792237442921"
+                    Point2="-153.747025813692,24.1792237442921"
+                    Point3="-153.747025813692,28.1792237442921" />
+                  <mssgle:LineSegment
+                    End="-153.747025813692,52.3333333333329" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-92.1148605630962,29.1792237442921,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="625.9,782.722222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-214.197418630752,57.8333333333341"
+              Start="0,0"
+              End="-214.197418630752,50.3333333333341">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.916666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.916666666667"
+                    Point2="0,28.916666666667"
+                    Point3="-4,28.916666666667" />
+                  <mssgle:LineSegment
+                    End="-210.197418630752,28.916666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-210.197418630752,28.916666666667"
+                    Point2="-214.197418630752,28.916666666667"
+                    Point3="-214.197418630752,32.916666666667" />
+                  <mssgle:LineSegment
+                    End="-214.197418630752,50.3333333333341" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-132.403162440376,33.916666666667,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="448.535914702581,882.555555555556">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="177.364085297419,79.3333333333325"
+              Start="0,0"
+              End="177.364085297419,71.8333333333325">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.0636021971665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.0636021971665"
+                    Point2="0,32.0636021971665"
+                    Point3="4,32.0636021971665" />
+                  <mssgle:LineSegment
+                    End="173.364085297419,32.0636021971665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="173.364085297419,32.0636021971665"
+                    Point2="177.364085297419,32.0636021971665"
+                    Point3="177.364085297419,36.0636021971665" />
+                  <mssgle:LineSegment
+                    End="177.364085297419,71.8333333333325" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="374.869248035915,882.555555555556">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-154.247025813692,79.3333333333325"
+              Start="0,0"
+              End="-154.247025813692,71.8333333333325">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.0636021971665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.0636021971665"
+                    Point2="0,32.0636021971665"
+                    Point3="-4,32.0636021971665" />
+                  <mssgle:LineSegment
+                    End="-150.247025813692,32.0636021971665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-150.247025813692,32.0636021971665"
+                    Point2="-154.247025813692,32.0636021971665"
+                    Point3="-154.247025813692,36.0636021971665" />
+                  <mssgle:LineSegment
+                    End="-154.247025813692,71.8333333333325" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-92.3648605630962,37.0636021971665,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="625.9,1003.88888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-214.197418630752,50.4444444444516"
+              Start="0,0"
+              End="-214.197418630752,42.9444444444516">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.2222222222258" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.2222222222258"
+                    Point2="0,25.2222222222258"
+                    Point3="-4,25.2222222222258" />
+                  <mssgle:LineSegment
+                    End="-210.197418630752,25.2222222222258" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-210.197418630752,25.2222222222258"
+                    Point2="-214.197418630752,25.2222222222258"
+                    Point3="-214.197418630752,29.2222222222258" />
+                  <mssgle:LineSegment
+                    End="-214.197418630752,42.9444444444516" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-132.403162440376,30.2222222222258,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{3BB3C23E-02C7-4B2F-82A2-A3EA6529D90B\}]"
+          TopLeft="379.202581369248,226.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-158.580359147026,77.722222222222"
+              Start="0,0"
+              End="-158.580359147026,70.222222222222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.4535679374388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.4535679374388"
+                    Point2="0,31.4535679374388"
+                    Point3="-4,31.4535679374388" />
+                  <mssgle:LineSegment
+                    End="-154.580359147026,31.4535679374388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-154.580359147026,31.4535679374388"
+                    Point2="-158.580359147026,31.4535679374388"
+                    Point3="-158.580359147026,35.4535679374388" />
+                  <mssgle:LineSegment
+                    End="-158.580359147026,70.222222222222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-94.531527229763,36.4535679374388,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{AB324610-0093-4565-BC36-C597F0E5CB24\}]"
+          TopLeft="411.702581369248,160.944444444444">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,23.555555555556"
+              Start="0,0"
+              End="0,16.055555555556">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.055555555556" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{A31F732C-58B5-48FE-8CB9-17F8964CE57B\}]"
+          TopLeft="625.9,1189.27777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-214.197418630752,59.2222222222199"
+              Start="0,0"
+              End="-214.197418630752,51.7222222222199">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.6111111111099" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.6111111111099"
+                    Point2="0,29.6111111111099"
+                    Point3="-4,29.6111111111099" />
+                  <mssgle:LineSegment
+                    End="-210.197418630752,29.6111111111099" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-210.197418630752,29.6111111111099"
+                    Point2="-214.197418630752,29.6111111111099"
+                    Point3="-214.197418630752,33.6111111111099" />
+                  <mssgle:LineSegment
+                    End="-214.197418630752,51.7222222222199" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-132.403162440376,34.6111111111099,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{EAD28D24-B3F5-4E8E-88FD-E2678E1E30AB\}]"
+          TopLeft="444.202581369248,226.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="181.697418630752,77.722222222222"
+              Start="0,0"
+              End="181.697418630752,70.222222222222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.4535679374388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.4535679374388"
+                    Point2="0,31.4535679374388"
+                    Point3="4,31.4535679374388" />
+                  <mssgle:LineSegment
+                    End="177.697418630752,31.4535679374388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="177.697418630752,31.4535679374388"
+                    Point2="181.697418630752,31.4535679374388"
+                    Point3="181.697418630752,35.4535679374388" />
+                  <mssgle:LineSegment
+                    End="181.697418630752,70.222222222222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="This package creates the indexes on the rep table AND deletes the pl06 data files from SQLFTP directory"
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="580.8,41.6"
+          Id="1516c071-4b3a-4126-888a-f3aaca81ead2"
+          TopLeft="121.202581369248,52.2575757575761" />
+        <AnnotationLayout
+          Text="Representative Update Create Index"
+          ParentId="Package"
+          Size="361.6,47.2"
+          Id="b18f1d8f-bfde-4968-b8ed-9612cc4a621f"
+          TopLeft="230.702581369248,21.5000000000001">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="18"
+              Color="#FF000000"
+              Weight="Bold">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
